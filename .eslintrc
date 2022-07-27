@@ -19,6 +19,7 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "@typescript-eslint/no-var-requires": "warn"
+        "@typescript-eslint/no-var-requires": "warn",
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }

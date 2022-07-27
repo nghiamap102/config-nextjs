@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
 import { counterActions, selectCount } from '../redux/counter/counterSlice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 
@@ -7,13 +6,6 @@ const Home: NextPage = () => {
     const dispatch = useAppDispatch()
     const count = useAppSelector(selectCount)
     console.log(count)
-    const [customer, setCustomer] = useState({
-        name: '',
-        company: '',
-        email: '',
-        phone: '',
-        question: '',
-    })
 
     return (
         <>

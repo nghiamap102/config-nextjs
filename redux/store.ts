@@ -75,7 +75,11 @@ const store = configureStore({
     reducer,
     preloadedState: reHydrateStore(),
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(sagaMiddleware, routerMiddleware),
+        getDefaultMiddleware().concat(
+            sagaMiddleware,
+            routerMiddleware,
+            localStorageMiddleware,
+        ),
     devTools: true,
 })
 
