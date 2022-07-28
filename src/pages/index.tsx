@@ -1,15 +1,15 @@
+import classNames from 'classnames'
 import type { NextPage } from 'next'
-import { counterActions, selectCount } from '../redux/counter/counterSlice'
-import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { counterActions, selectCount } from '../../redux/counter/counterSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 
 const Home: NextPage = () => {
-    const dispatch = useAppDispatch()
-    const count = useAppSelector(selectCount)
-    console.log(count)
+  const dispatch = useAppDispatch()
+  const count = useAppSelector(selectCount)
 
-    return (
-        <>
-            {/* <Formik
+  return (
+    <>
+      {/* <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={({ setSubmitting }) => {
           setSubmitting(false);
@@ -36,16 +36,19 @@ const Home: NextPage = () => {
           </Form>
         )}
       </Formik> */}
-            {process.env.customKey}
+      {process.env.customKey}
+      <div className={classNames({ "abc": true }, { "bcd ": true })}>
+        abc
+      </div>
 
-            <button
-                className="text-3xl"
-                onClick={() => dispatch(counterActions.increment())}
-            >
-                test
-            </button>
-        </>
-    )
+      <button
+        className="text-3xl"
+        onClick={() => dispatch(counterActions.increment())}
+      >
+        test
+      </button>
+    </>
+  )
 }
 
 export default Home
