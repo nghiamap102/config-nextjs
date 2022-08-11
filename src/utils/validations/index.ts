@@ -26,7 +26,8 @@ const containAtLeastNumberRegex = /(?=.*\d)/
 
 const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
 
-const passwordSpecialFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?~#&]{6,}$/
+const passwordSpecialFormat =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?~#&]{6,}$/
 
 export const validFileExtensions = ['.jpg', '.jpeg', '.gif', '.png']
 
@@ -39,7 +40,8 @@ export const validateEmail = (email: string) => {
 }
 
 export const validatePassword = (password: string) => {
-    if (!passwordFormat.test(password) && !passwordSpecialFormat.test(password)) return false
+    if (!passwordFormat.test(password) && !passwordSpecialFormat.test(password))
+        return false
     return true
 }
 
@@ -87,7 +89,11 @@ export const validateMonth = (month: string) => {
     const currentMonth = new Date().getMonth() + 1
     const currentYear = new Date().getFullYear()
 
-    if (Number(year) < currentYear || (Number(year) === currentYear && Number(month) < currentMonth)) return false
+    if (
+        Number(year) < currentYear ||
+        (Number(year) === currentYear && Number(month) < currentMonth)
+    )
+        return false
     return true
 }
 
@@ -100,14 +106,22 @@ export const validateYear = (year: string) => {
         return false
     }
     if (!month) return true
-    if (Number(year) < currentYear || (Number(year) === currentYear && Number(month) < currentMonth)) return false
+    if (
+        Number(year) < currentYear ||
+        (Number(year) === currentYear && Number(month) < currentMonth)
+    )
+        return false
     return true
 }
 
 export const validateEmailOrPhone = (data: string) => {
     const lowerCase: string = String(data).toLowerCase()
     if (isNaN(+lowerCase)) {
-        if (format.test(lowerCase) || !emailFormat.test(lowerCase) || notUnicodeFormat.test(lowerCase)) {
+        if (
+            format.test(lowerCase) ||
+            !emailFormat.test(lowerCase) ||
+            notUnicodeFormat.test(lowerCase)
+        ) {
             return false
         }
     }
@@ -120,7 +134,10 @@ export const validateEmailOrPhone = (data: string) => {
     return true
 }
 
-export const validateRetype = (values: { confirmPassword: string; password: string }) => {
+export const validateRetype = (values: {
+    confirmPassword: string
+    password: string
+}) => {
     let error = true
     if (values.confirmPassword && values.confirmPassword !== values.password) {
         error = false
@@ -128,16 +145,19 @@ export const validateRetype = (values: { confirmPassword: string; password: stri
     return error
 }
 
-export const validateMinLength = (minLength: number) => (value: string) => String(value).length >= minLength
+export const validateMinLength = (minLength: number) => (value: string) =>
+    String(value).length >= minLength
 
-export const validateMaxLength = (maxLength: number) => (value: string) => String(value).length <= maxLength
+export const validateMaxLength = (maxLength: number) => (value: string) =>
+    String(value).length <= maxLength
 
 export const validateContainLeastCharacter = (value: string) => {
     const character = value.replace(/[0-9]/g, '')
     return onlyContainCharacterRegex.test(character)
 }
 
-export const validateContainLeastNumber = (value: string) => containAtLeastNumberRegex.test(value)
+export const validateContainLeastNumber = (value: string) =>
+    containAtLeastNumberRegex.test(value)
 
 export const validateNumberLarger0 = (value: string) => {
     if (value) {
@@ -180,7 +200,8 @@ export const validateContainAtLeastOneCapitalCharacter = (value: string) => {
 
 export const validateURLWebsite = (value: string) => {
     // eslint-disable-next-line
-    const regexp = /^(http|https|ftp):\/\/[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i
+    const regexp =
+        /^(http|https|ftp):\/\/[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i
     if (!value) return false
     if (regexp.test(value)) {
         return true
@@ -229,7 +250,8 @@ export const validateVideoType = (fileName: string) => {
 }
 
 export const validStringWithoutSpecialCharacter = (value: string) => {
-    const regexp = /`|~|!|@|#|\$|%|\^|&|\*|\(|\)|\+|=|\[|\{|\]|\}|\||\\|'|<|,|\.|>|\?|\/|"|;|:/g
+    const regexp =
+        /`|~|!|@|#|\$|%|\^|&|\*|\(|\)|\+|=|\[|\{|\]|\}|\||\\|'|<|,|\.|>|\?|\/|"|;|:/g
     if (!value) return false
     if (regexp.test(value)) {
         return false

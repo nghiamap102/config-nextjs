@@ -1,5 +1,5 @@
 const API = {
-    "abc" : ''
+    abc: '',
 }
 
 export default API

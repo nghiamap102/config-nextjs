@@ -8,12 +8,12 @@ import { counterActions } from '../../redux/counter/counterSlice'
 import { useAppDispatch } from '../../redux/hooks'
 
 const Home: NextPage = ({ country }: any) => {
-  const dispatch = useAppDispatch()
-  // const count = useAppSelector(selectCount)
-  console.log(country);
-  return (
-    <>
-      {/* <Formik
+    const dispatch = useAppDispatch()
+    // const count = useAppSelector(selectCount)
+    console.log(country)
+    return (
+        <>
+            {/* <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={({ setSubmitting }) => {
           setSubmitting(false);
@@ -40,40 +40,43 @@ const Home: NextPage = ({ country }: any) => {
           </Form>
         )}
       </Formik> */}
-      {process.env.customKey}
-      <div className={classNames({ "abc": true }, { "bcd ": true })}>
-      </div>
+            {process.env.customKey}
+            <div className={classNames({ abc: true }, { 'bcd ': true })}></div>
 
-      <button
-        className="text-3xl"
-        onClick={() => dispatch(counterActions.increment())}
-      >
-        test
-      </button>
-    </>
-  )
+            <button
+                className="text-3xl"
+                onClick={() => dispatch(counterActions.increment())}
+            >
+                test
+            </button>
+        </>
+    )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(() => async ({ locale }) => {
-
-  const translate = await serverSideTranslations(locale as string, ['common']);
-  const { data } = await client.query({
-    query: gql`
-      query Countries {
-        countries {
-          code
-          name
-          emoji
-        }
-      }
-    `,
-  });
-  return {
-    props: {
-      ...translate,
-      countries: data.countries.slice(0, 4),
-    }
-  }
-})
+export const getServerSideProps = wrapper.getServerSideProps(
+    () =>
+        async ({ locale }) => {
+            const translate = await serverSideTranslations(locale as string, [
+                'common',
+            ])
+            const { data } = await client.query({
+                query: gql`
+                    query Countries {
+                        countries {
+                            code
+                            name
+                            emoji
+                        }
+                    }
+                `,
+            })
+            return {
+                props: {
+                    ...translate,
+                    countries: data.countries.slice(0, 4),
+                },
+            }
+        },
+)
 
 export default Home

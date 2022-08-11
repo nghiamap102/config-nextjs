@@ -1,13 +1,12 @@
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client'
 import '@styles/globals.scss'
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
-import client from 'src/common/apolloClient';
-import Header from 'src/components/Header';
+import client from 'src/common/apolloClient'
+import Header from 'src/components/Header'
 import { wrapper } from '../../redux/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
-
     // const foo = null ?? 'default string';
     // console.log(foo);
 
