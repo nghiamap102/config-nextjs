@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev -p 3030",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
@@ -14,15 +14,19 @@
         "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build"
     },
     "dependencies": {
+        "@apollo/client": "^3.6.9",
         "@emotion/core": "^11.0.0",
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
         "@reduxjs/toolkit": "^1.8.3",
+        "@types/lodash": "^4.14.182",
         "@typescript-eslint/eslint-plugin": "5.12.1",
+        "antd": "^4.22.3",
         "axios": "^0.27.2",
         "classnames": "^2.3.1",
         "connected-next-router": "^4.1.1",
         "formik": "^2.2.9",
+        "graphql": "^16.5.0",
         "lint-staged": "^13.0.3",
         "lodash": "^4.17.21",
         "next": "12.2.2",

@@ -1,12 +1,16 @@
+import { gql } from '@apollo/client'
 import classNames from 'classnames'
 import type { NextPage } from 'next'
-import { counterActions, selectCount } from '../../redux/counter/counterSlice'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { wrapper } from 'redux/store'
+import client from 'src/common/apolloClient'
+import { counterActions } from '../../redux/counter/counterSlice'
+import { useAppDispatch } from '../../redux/hooks'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ country }: any) => {
   const dispatch = useAppDispatch()
-  const count = useAppSelector(selectCount)
-
+  // const count = useAppSelector(selectCount)
+  console.log(country);
   return (
     <>
       {/* <Formik
@@ -38,7 +42,6 @@ const Home: NextPage = () => {
       </Formik> */}
       {process.env.customKey}
       <div className={classNames({ "abc": true }, { "bcd ": true })}>
-        abc
       </div>
 
       <button
@@ -50,5 +53,27 @@ const Home: NextPage = () => {
     </>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(() => async ({ locale }) => {
+
+  const translate = await serverSideTranslations(locale as string, ['common']);
+  const { data } = await client.query({
+    query: gql`
+      query Countries {
+        countries {
+          code
+          name
+          emoji
+        }
+      }
+    `,
+  });
+  return {
+    props: {
+      ...translate,
+      countries: data.countries.slice(0, 4),
+    }
+  }
+})
 
 export default Home
