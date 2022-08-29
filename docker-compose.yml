@@ -1,0 +1,14 @@
+version: '1'
+
+services:
+  web:
+    ports:
+      - 3000:3000
+    build: 
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    volumes:
+      - ./packages/landingpage:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next

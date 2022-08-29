@@ -17,6 +17,9 @@ const nextConfig = {
         API_URL: process.env.API_URL,
         NO_IMAGE: process.env.NO_IMAGE,
     },
+    // experimental: {
+    //     outputStandalone: true,
+    //   }, 
     webpack(config, { dev, ...other }) {
         if (!dev) {
             // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
