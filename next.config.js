@@ -19,7 +19,7 @@ const nextConfig = {
     },
     // experimental: {
     //     outputStandalone: true,
-    //   }, 
+    //   },
     webpack(config, { dev, ...other }) {
         if (!dev) {
             // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller

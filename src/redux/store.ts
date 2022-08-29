@@ -84,7 +84,7 @@ const store = configureStore({
 })
 
 export const makeStore = () => {
-    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
+    ;(store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
     return store
 }
 
