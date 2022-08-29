@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { API_URL } from '../contants/common'
+import { API_URL } from 'contants/common'
 
 const axiosClient = axios.create({
     baseURL: API_URL,
@@ -42,4 +42,4 @@ axiosClient.interceptors.response.use(
     },
 )
 
-export default axiosClient
+export { axiosClient }

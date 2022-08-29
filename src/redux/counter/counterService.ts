@@ -1,5 +1,5 @@
-import { DataResponseModel } from 'src/models/commonModel'
-import axiosClient from '../../helpers/axiosClient'
+import { axiosClient } from '@common/index'
+import { DataResponseModel } from 'models/commonModel'
 import { CounterModel } from './counterModel'
 
 const counterService = {

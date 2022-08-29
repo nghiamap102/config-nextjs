@@ -24,6 +24,10 @@ const counterSlice = createSlice({
         increment: (state: CounterModel, action: PayloadAction) => {
             state.count += 1
         },
+        incrementSuccess: (state: CounterModel, action: PayloadAction<any>) => {
+            console.log('abc')
+            state.loading = false
+        },
         decrement: (state: CounterModel, action: PayloadAction) => {
             state.count -= 1
         },

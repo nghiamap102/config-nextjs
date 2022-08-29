@@ -1,4 +1,6 @@
-import Countries from '../components/Countries'
+import { wrapper } from 'redux/store'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import Countries from '@components/Countries'
 
 export default function ClientSide() {
     return (
@@ -7,3 +9,16 @@ export default function ClientSide() {
         </>
     )
 }
+export const getServerSideProps = wrapper.getServerSideProps(
+    () =>
+        async ({ locale }: any) => {
+            const translate = await serverSideTranslations(locale as string, [
+                'common',
+            ])
+            return {
+                props: {
+                    ...translate,
+                },
+            }
+        },
+)
