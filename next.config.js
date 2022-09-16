@@ -20,7 +20,12 @@ const nextConfig = {
     // experimental: {
     //     outputStandalone: true,
     //   },
-    webpack(config, { dev, ...other }) {
+    webpack: (
+        config,
+        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+    ) => {
+        // Important: return the modified config
+        console.log(webpack.version);
         if (!dev) {
             // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
             config.resolve.alias['@formatjs/icu-messageformat-parser'] =
