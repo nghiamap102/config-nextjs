@@ -63,21 +63,6 @@ export const validateMobile = (mobile: string) => {
     return true
 }
 
-// export const validateCardNumber = (cardNumber: string) => {
-//   const validationCardTypes = JSON.parse(localStorage.getItem('cardValidation'))
-//   const cardNumberFormat = cardNumber.replaceAll(' ', '')
-//   let flag = false
-//   if (validationCardTypes.length > 0) {
-//     validationCardTypes.forEach(item => {
-//       const regex = new RegExp(item.regex)
-//       if (cardNumberFormat.match(regex)) {
-//         flag = true
-//       }
-//     })
-//   }
-//   if (flag) return true
-//   return false
-// }
 
 export const validateMonth = (month: string) => {
     if (Number(month) < 1 || Number(month) > 12) {

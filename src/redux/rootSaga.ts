@@ -1,6 +1,6 @@
 import { all } from 'redux-saga/effects'
-import contactSaga from './counter/counterSaga'
+import caroSaga from './caro/caroSaga'
 
 export default function* rootSaga() {
-    yield all([contactSaga()])
+    yield all([caroSaga()])
 }

@@ -13,7 +13,7 @@ import {
 } from 'connected-next-router'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
-import { counterReducer } from './counter/counterSlice'
+import { caroReducer } from './caro/caroSlice'
 import rootSaga from './rootSaga'
 
 export interface State {
@@ -21,7 +21,7 @@ export interface State {
 }
 
 const rootReducer = combineReducers({
-    counter: counterReducer,
+    caro: caroReducer,
     router: routerReducer,
 })
 
@@ -84,7 +84,7 @@ const store = configureStore({
 })
 
 export const makeStore = () => {
-    ;(store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
+    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
     return store
 }
 

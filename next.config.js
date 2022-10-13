@@ -11,7 +11,7 @@ const nextConfig = {
         includePaths: [path.join(__dirname, 'styles')],
     },
     images: {
-        domains: ['dummyjson.com', 'via.placeholder.com', 'eton.vn'],
+        domains: ['dummyjson.com', 'via.placeholder.com', 'res.cloudinary.com'],
     },
     env: {
         API_URL: process.env.API_URL,
@@ -20,12 +20,12 @@ const nextConfig = {
     // experimental: {
     //     outputStandalone: true,
     //   },
+    // pageExtensions: ['tsx ,ts,md,mdx'],
     webpack: (
         config,
-        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
     ) => {
         // Important: return the modified config
-        console.log(webpack.version);
         if (!dev) {
             // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
             config.resolve.alias['@formatjs/icu-messageformat-parser'] =
@@ -33,6 +33,16 @@ const nextConfig = {
         }
         return config
     },
+    serverRuntimeConfig: {
+        // Will only be available on the server side
+        mySecret: 'secret',
+        secondSecret: process.env.SECOND_SECRET, // Pass through env variables
+    },
+    publicRuntimeConfig: {
+        // Will be available on both server and client
+        staticFolder: '/static',
+    },
+    poweredByHeader: false,
 }
 
 module.exports = nextConfig
