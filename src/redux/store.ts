@@ -4,25 +4,35 @@ import {
     combineReducers,
     configureStore,
     Store,
-    ThunkAction,
+    ThunkAction
 } from '@reduxjs/toolkit'
 import {
     createRouterMiddleware,
     routerReducer,
-    RouterState,
+    RouterState
 } from 'connected-next-router'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
-import { caroReducer } from './caro/caroSlice'
+import { CartInitState } from './cart/cartModel'
+import { cartReducer } from './cart/cartSlice'
+import { CommonInitState } from './common/CommonModel'
+import { commonReducer } from './common/CommonSlice'
+import { ProductInitState } from './product/productModel'
+import { productReducer } from './product/productSlice'
 import rootSaga from './rootSaga'
 
 export interface State {
     router: RouterState
+    common: CommonInitState
+    cart: CartInitState
+    product: ProductInitState
 }
 
 const rootReducer = combineReducers({
-    caro: caroReducer,
     router: routerReducer,
+    common: commonReducer,
+    cart: cartReducer,
+    product: productReducer,
 })
 
 const reducer = (state: any, action: AnyAction) => {

@@ -1,0 +1,90 @@
+:root {
+  --data-column: 2;
+  --gap: 15px;
+}
+
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.panel-box-shadow {
+  box-shadow: 0 3px 5px var(--boxshadow);
+}
+
+.text-white {
+  color: white;
+}
+
+.text-primary {
+  color: var(--orange);
+}
+
+.icon-animate {
+  transition: .3s all;
+}
+
+
+.icon-animate {
+  scale: 1.2;
+}
+
+/* --------navbar--------- */
+
+.navbar-item {
+  padding: 0.8rem 1.2rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.submenu:hover {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.submenu:hover .image {
+  filter: invert(1);
+}
+
+/* ---------animate--------------------- */
+
+.fade-up {
+  animation: fadeUp .5s both;
+}
+
+.fade-down {
+  animation: fadeDown .5s both;
+}
+
+@keyframes fadeDown {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(20%);
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+    display: none;
+  }
+
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

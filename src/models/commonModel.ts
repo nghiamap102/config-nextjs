@@ -9,3 +9,6 @@ export interface DataResponseModel<T> {
     error?: number
     data?: T
 }
+
+
+export type EventType = React.ChangeEvent<HTMLInputElement>

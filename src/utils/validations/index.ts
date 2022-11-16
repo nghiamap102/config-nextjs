@@ -243,3 +243,8 @@ export const validStringWithoutSpecialCharacter = (value: string) => {
     }
     return true
 }
+
+
+export const isNonEmptyArray = (array: any[] | undefined) => {
+    return Array.isArray(array) && array.length > 0;
+} 

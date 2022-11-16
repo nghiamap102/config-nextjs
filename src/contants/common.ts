@@ -1,4 +1,1 @@
-export interface Routes {
-    name: string;
-    link: string;
-}
+export const API_URL = process.env.API_URL;
