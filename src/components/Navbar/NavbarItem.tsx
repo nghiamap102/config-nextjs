@@ -1,11 +1,11 @@
 import { ImagePNG } from '@assets/index';
 import { Box, Text } from '@chakra-ui/react';
+import SubMenu from '@components/SubMenu';
 import { mainColor } from '@theme/theme';
 import { renderColor } from '@utils/helper';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useState } from 'react';
-import SubMenu from './SubMenu';
 
 
 type NavbarItemProps = {
@@ -66,8 +66,24 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
 
             <Box className={classNames(active ? 'fade-up' : 'hidden', type === 'dropdown' ? 'py-2' : 'py-1')}
                 position={'absolute'} left={renderEle()?.left} top='100%' width={renderEle()?.width}
+                sx={{ zIndex: 99 }}
             >
                 <Box paddingTop={type === 'dropdown' ? 4 : 0} bg={mainColor.white}>
+                    <SubMenu
+                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        text="Electronics"
+                        handleMouseEnter={() => setActive(true)}
+                    />
+                    <SubMenu
+                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        text="Electronics"
+                        handleMouseEnter={() => setActive(true)}
+                    />
+                    <SubMenu
+                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        text="Electronics"
+                        handleMouseEnter={() => setActive(true)}
+                    />
                     <SubMenu
                         icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"

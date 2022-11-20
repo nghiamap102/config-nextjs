@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from 'redux/store';
-import { CommonInitState } from "./CommonModel";
+import { CommonInitState } from "./commonModel";
 
 
 

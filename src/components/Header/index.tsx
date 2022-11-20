@@ -8,7 +8,7 @@ import { mainColor } from "@theme/common/color";
 import { EventType } from 'models/commonModel';
 import Image from "next/image";
 import { useDispatch } from 'react-redux';
-import { selectCommon, setSearchKey } from 'redux/common/CommonSlice';
+import { selectCommon, setSearchKey } from 'redux/common/commonSlice';
 import { useAppSelector } from 'redux/hooks';
 
 type HeaderProps = {

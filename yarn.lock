@@ -1818,6 +1818,13 @@
     "@types/cheerio" "*"
     "@types/react" "*"
 
+"@types/faker@^6.6.9":
+  version "6.6.9"
+  resolved "https://vd.gisx.vn/@types%2ffaker/-/faker-6.6.9.tgz#1064e7c46be58388fa326e2f918a4f02ab740a7a"
+  integrity sha512-Y9YYm5L//8ooiiknO++4Gr539zzdI0j3aXnOBjo1Vk+kTvffY10GuE2wn78AFPECwZ5MYGTjiDVw1naLLdDimw==
+  dependencies:
+    faker "*"
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://vd.gisx.vn/@types%2fgraceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -3492,6 +3499,16 @@ expect@^28.0.0:
     jest-matcher-utils "^28.1.3"
     jest-message-util "^28.1.3"
     jest-util "^28.1.3"
+
+faker@*:
+  version "6.6.6"
+  resolved "https://vd.gisx.vn/faker/-/faker-6.6.6.tgz#e9529da0109dca4c7c5dbfeaadbd9234af943033"
+  integrity sha512-9tCqYEDHI5RYFQigXFwF1hnCwcWCOJl/hmll0lr5D2Ljjb0o4wphb69wikeJDz5qCEzXCoPvG6ss5SDP6IfOdg==
+
+faker@5.1.0:
+  version "5.1.0"
+  resolved "https://vd.gisx.vn/faker/-/faker-5.1.0.tgz#e10fa1dec4502551aee0eb771617a7e7b94692e8"
+  integrity sha512-RrWKFSSA/aNLP0g3o2WW1Zez7/MnMr7xkiZmoCfAGZmdkDQZ6l2KtuXHN5XjdvpRjDl8+3vf+Rrtl06Z352+Mw==
 
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
@@ -5651,6 +5668,13 @@ react-icons@^4.6.0:
   resolved "https://vd.gisx.vn/react-icons/-/react-icons-4.6.0.tgz#f83eda179af5d02c047449a20b702c858653d397"
   integrity sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==
 
+react-infinite-scroll-component@^6.1.0:
+  version "6.1.0"
+  resolved "https://vd.gisx.vn/react-infinite-scroll-component/-/react-infinite-scroll-component-6.1.0.tgz#7e511e7aa0f728ac3e51f64a38a6079ac522407f"
+  integrity sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==
+  dependencies:
+    throttle-debounce "^2.1.0"
+
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://vd.gisx.vn/react-is/-/react-is-16.13.1.tgz"
@@ -6319,6 +6343,11 @@ throat@^6.0.1:
   version "6.0.1"
   resolved "https://vd.gisx.vn/throat/-/throat-6.0.1.tgz#d514fedad95740c12c2d7fc70ea863eb51ade375"
   integrity sha512-8hmiGIJMDlwjg7dlJ4yKGLK8EsYqKgPWbG3b4wjJddKNwc7N7Dpn08Df4szr/sZdMVeOstrdYSsqzX6BYbcB+w==
+
+throttle-debounce@^2.1.0:
+  version "2.3.0"
+  resolved "https://vd.gisx.vn/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
+  integrity sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
 
 through@^2.3.8:
   version "2.3.8"

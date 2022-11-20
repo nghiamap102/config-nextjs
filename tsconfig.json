@@ -8,6 +8,7 @@
             "@utils/*": ["utils/*"],
             "@theme/*": ["theme/*"],
             "@assets/*": ["assets/*"],
+            "@view/*": ["view/*"],
         },
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],

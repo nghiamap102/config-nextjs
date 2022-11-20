@@ -29,7 +29,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
                 {icon}
                 <Text marginLeft={5}>{text}</Text>
             </Box>
-            
+
             <Icon.IconMd.MdKeyboardArrowRight />
             {/* {childItem?.map((ele) => (
                 

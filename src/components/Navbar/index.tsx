@@ -1,8 +1,8 @@
 import Icon from "@assets/icon";
 import { Box, Divider, Grid, GridItem, Text } from "@chakra-ui/react";
-import NavbarItem from "@components/NavbarItem";
 import { mainColor } from "@theme/theme";
 import React from "react";
+import NavbarItem from "./NavbarItem";
 
 type NavbarProps = {
 

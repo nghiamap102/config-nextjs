@@ -1,15 +1,8 @@
-import { Box } from '@chakra-ui/react';
-import Header from '@components/Header';
-import MainContent from '@components/MainContent';
 import type { NextPage } from 'next';
+import HomePage from 'view/Home';
 
 const Home: NextPage = ({ content }) => {
-    return (
-        <Box>
-            <Header />
-            <MainContent/>
-        </Box>
-    )
+    return <HomePage/>
 }
 
 

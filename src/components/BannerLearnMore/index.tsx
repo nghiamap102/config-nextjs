@@ -1,13 +1,13 @@
 import { Box, Button, Link, SystemStyleObject, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 
-type BannerAdsHorizonProps = {
+type BannerLearnMoreProps = {
     icon?: any
     text: string
     link?: string
     style?: SystemStyleObject
 };
-const BannerAdsHorizon: React.FC<BannerAdsHorizonProps> = ({
+const BannerLearnMore: React.FC<BannerLearnMoreProps> = ({
     icon,
     text,
     link,
@@ -29,4 +29,4 @@ const BannerAdsHorizon: React.FC<BannerAdsHorizonProps> = ({
     );
 };
 
-export default BannerAdsHorizon;
+export default BannerLearnMore;
