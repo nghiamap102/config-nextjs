@@ -1,5 +1,5 @@
 import { ImagePNG } from "@assets/index";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import BannerImage from "@components/BannerImage";
 import BannerLearnMore from "@components/BannerLearnMore";
 import Header from "@components/Header";
@@ -24,11 +24,14 @@ const HomePage: React.FC<HomePageProps> = ({
                 icon={<Image src={ImagePNG.BannerAds} alt='abc' />}
             />
             <Categories />
-            <BannerImage imageSrc={ImagePNG.BannerSale} alt='banner sale'/>
+
+            <BannerImage imageSrc={ImagePNG.BannerSale} alt='banner sale' linkTo="abc" />
+
             <Box marginY={10}>
-                <Box>
-                    <Heading className="capitalize">shop by categories</Heading>
-                </Box>
+                <Flex w={'85%'} margin={'auto'} alignItems='flex-end'>
+                    <Heading className="capitalize" fontSize='2rem'>shop by categories</Heading>
+                    <Link href="abc" marginLeft={10} textDecoration='underline' textTransform={'capitalize'}>see all</Link>
+                </Flex>
             </Box>
         </Box>
     );

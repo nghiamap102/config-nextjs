@@ -24,8 +24,8 @@ const theme = extendTheme({
     },
     fonts: {
         heading: 'Heading Font Name',
-        body: 'Body Font Name',
-        DMSans: 'DM Sans',
+        body: 'DMSans',
+        DMSans: 'DMSans',
         Rubik: 'Rubik',
     },
     colors: {

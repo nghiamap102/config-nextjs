@@ -13,19 +13,25 @@ const Fonts = () => (
       }
       /* latin */
       @font-face {
-        font-family: 'Body Font Name';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url('fonts/DMSans-Regular.ttf');
-      }
-      /* latin */
-      @font-face {
         font-family: 'DMSans';
         font-style: normal;
         font-weight: 400;
         font-display: swap;
         src: url('fonts/DMSans-Bold.ttf');
+      }
+      @font-face {
+        font-family: 'DMSans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('fonts/DMSans-Medium.ttf');
+      }
+      @font-face {
+        font-family: 'DMSans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('fonts/DMSans-Regular.ttf');
       }
       /* latin */
       @font-face {
