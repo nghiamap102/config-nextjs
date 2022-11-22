@@ -11,6 +11,13 @@ const Fonts = () => (
         font-display: swap;
         src: url('fonts/Rubik-SemiBold.ttf');
       }
+      @font-face {
+        font-family: 'Body Font Name';
+        font-style: normal;
+        font-weight: 800;
+        font-display: swap;
+        src: url('fonts/DMSans-Medium.ttf');
+      }
       /* latin */
       @font-face {
         font-family: 'DMSans';

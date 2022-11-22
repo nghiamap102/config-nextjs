@@ -1,13 +1,27 @@
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { mainColor } from "@theme/theme";
+import Image from "next/image";
 import React from "react";
 
 type CategoriesCardProps = {
-    
+    link: string
+    name: string
+    src: string
 };
- const CategoriesCard:React.FC<> = (props: Props) => {
+const CategoriesCard: React.FC<CategoriesCardProps> = ({
+    link,
+    name,
+    src
+}) => {
     return (
-        <div>
-            
-        </div>
+        <Link href={link} >
+            <Flex padding={10} direction='column' alignItems={'center'}>
+                <Box bg={mainColor.white} borderRadius='full' h='12rem' w='12rem' marginBottom={5}>
+                    <Image src={src} alt={name} />
+                </Box>
+                <Text fontSize='xl' textTransform='capitalize'>{name}</Text>
+            </Flex>
+        </Link>
     );
 };
 export default CategoriesCard

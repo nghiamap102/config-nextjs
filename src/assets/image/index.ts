@@ -12,6 +12,7 @@ import Home2 from './home2.jpg'
 import Home3 from './home3.jpg'
 import Banner1 from './banner1.png'
 import BannerSale from './banner-sale.png'
+import Categories1 from './home-20-categories-1.png'
 
 
 
@@ -30,4 +31,5 @@ export {
     Home3,
     BannerSale,
     Banner1,
+    Categories1,
 }

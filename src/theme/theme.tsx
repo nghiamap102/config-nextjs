@@ -1,4 +1,4 @@
-import { extendTheme } from '@chakra-ui/react'
+import { color, extendTheme } from '@chakra-ui/react'
 import { mainColor } from './common/color'
 
 const theme = extendTheme({
@@ -8,7 +8,7 @@ const theme = extendTheme({
                 lineHeight: 'tall',
                 background: '#FFFFFF',
                 color: '#2D2C3C',
-                fontFamily: 'DMSans',
+                fontFamily: 'Body Font Name',
                 fontSize: {
                     base: '14px !important',
                     md: '16px'
@@ -19,12 +19,20 @@ const theme = extendTheme({
             },
             '*, *::before, *::after': {
                 borderColor: '#CFD2D6'
+            },
+            'a': {
+                fontSize: '12px',
+                textDecoration: 'none'
+            },
+            'a:hover': {
+                textDecoration: 'none !important',
+                color: mainColor.newTag
             }
         }
     },
     fonts: {
         heading: 'Heading Font Name',
-        body: 'DMSans',
+        body: 'Body Font Name',
         DMSans: 'DMSans',
         Rubik: 'Rubik',
     },

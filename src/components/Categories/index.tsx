@@ -19,7 +19,7 @@ const Categories: React.FC<CategoriesProps> = ({
 }) => {
 
     return (
-        <Box width='90%' margin='auto'>
+        <Box margin='auto'>
             <Grid
                 templateColumns='repeat(15, 1fr)'
                 paddingX={4}
