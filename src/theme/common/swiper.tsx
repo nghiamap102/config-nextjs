@@ -17,7 +17,7 @@ const Swiper = () => (
     }
     .swiper-button-next, 
     .swiper-button-prev {
-      background: ${mainColor.primary};
+      background: ${mainColor.orange};
       border-radius: 3px;
     }
     .swiper-button-next::after, 
@@ -33,7 +33,7 @@ const Swiper = () => (
         opacity: 1;
       }
     .swiper-pagination .swiper-pagination-bullet-active {
-        background: ${mainColor.primary};
+        background: ${mainColor.orange};
       }
 
     .swiper-horizontal>.swiper-scrollbar {

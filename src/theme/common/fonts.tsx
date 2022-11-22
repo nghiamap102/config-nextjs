@@ -9,7 +9,7 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 700;
         font-display: swap;
-        src: url('/src/assets/fonts/Rubik-SemiBold.ttf');
+        src: url('fonts/Rubik-SemiBold.ttf');
       }
       /* latin */
       @font-face {
@@ -17,7 +17,15 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url('/src/assets/fonts/DMSans-Regular.ttf');
+        src: url('fonts/DMSans-Regular.ttf');
+      }
+      /* latin */
+      @font-face {
+        font-family: 'DMSans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('fonts/DMSans-Bold.ttf');
       }
       /* latin */
       @font-face {
@@ -25,14 +33,14 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url('/src/assets/fonts/Rubik-Regular.ttf');
+        src: url('fonts/Rubik-Regular.ttf');
       }
       @font-face {
         font-family: 'Rubik';
         font-style: normal;
         font-weight: 500;
         font-display: swap;
-        src: url('/src/assets/fonts/Rubik-Medium.ttf');
+        src: url('fonts/Rubik-Medium.ttf');
       }
       /* latin */
       @font-face {
@@ -40,7 +48,7 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 600;
         font-display: swap;
-        src: url('/src/assets/fonts/Rubik-SemiBold.ttf');
+        src: url('fonts/Rubik-SemiBold.ttf');
       }
       /* latin */
       @font-face {
@@ -48,7 +56,7 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 700;
         font-display: swap;
-        src: url('/src/assets/fonts/Rubik-Bold.ttf');
+        src: url('fonts/Rubik-Bold.ttf');
       }
       `}
   />
