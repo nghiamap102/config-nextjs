@@ -19,7 +19,7 @@ const Categories: React.FC<CategoriesProps> = ({
 }) => {
 
     return (
-        <Box margin='auto'>
+        <Box margin='auto' className='2xl:w-5/6'>
             <Grid
                 templateColumns='repeat(15, 1fr)'
                 paddingX={4}
@@ -51,8 +51,6 @@ const Categories: React.FC<CategoriesProps> = ({
                     >
                         <GridItem colSpan={7}>
                             <Swiper
-
-                                // onMouseEnter={}
                                 className="cursor-pointer"
                                 spaceBetween={30}
                                 centeredSlides={true}
@@ -70,13 +68,13 @@ const Categories: React.FC<CategoriesProps> = ({
                                     enabled: true,
                                 }}
                                 modules={[Autoplay, Pagination, Navigation]}
-
                             >
                                 {Array(4).fill(null).map((ele, index) => (
-                                    <SwiperSlide key={index}><Image src={ImagePNG.Home1} alt='abc' width={800}/></SwiperSlide>
+                                    <SwiperSlide key={index}><Image src={ImagePNG.Home1} alt='abc' width={800} /></SwiperSlide>
                                 ))}
                             </Swiper>
                         </GridItem>
+                        
                         <GridItem colSpan={5}>
                             <Grid templateColumns='repeat(2,1fr)' gap={2}>
                                 {Array(4).fill(null).map((ele, index) => (

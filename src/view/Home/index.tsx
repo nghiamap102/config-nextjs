@@ -30,7 +30,7 @@ const HomePage: React.FC<HomePageProps> = ({
 
             <BannerImage imageSrc={ImagePNG.BannerSale} alt='banner sale' linkTo="abc" />
 
-            <Box marginY={10} paddingX={5}>
+            <Box paddingX={5} className='2xl:w-5/6 ' margin={'auto'}>
                 <Flex margin={'auto'} alignItems='flex-end'>
                     <Heading className="capitalize" fontSize='1.5rem'>shop by categories</Heading>
                     <Link href="abc" marginLeft={10} borderBottom="1px solid" textTransform={'capitalize'}>view all</Link>
