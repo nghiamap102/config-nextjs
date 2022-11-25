@@ -1,6 +1,7 @@
 import Icon from "@assets/icon";
 import { ImagePNG } from "@assets/index";
-import { Box, Button, Flex, Link, Tag, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, IconButton, Link, Tag, Text } from "@chakra-ui/react";
+import ButtonPrimary from "@components/ButtonPrimary";
 import { mainColor } from "@theme/theme";
 import { FormatCurrency, FormatValueCurrency } from "@utils/helper";
 import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
@@ -45,10 +46,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <Image src={srcImage[0] || ImagePNG.NoImage} alt={name} height={250} width={250} />
 
             <Link href={'abc'}>
-                <Text fontSize='lg'>{name?.slice(0, 45)}...</Text>
+                <Text fontSize='lg' marginBottom={2}>{name?.slice(0, 45)}...</Text>
             </Link>
 
-            {/* <Rating
+            <Rating
                 SVGclassName="inline-block"
                 onClick={handleRating1}
                 size={25}
@@ -58,10 +59,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 tooltipArray={tooltipArrayRating}
                 fillColorArray={fillColorArrayRating}
                 initialValue={rate}
-            /> */}
+            />
 
-            <Box>
-                <Text textDecoration='line-through'>{sale}</Text><Text>{t('price', {
+            <Box marginTop={3}>
+                <Text textDecoration='line-through'>{sale}</Text>
+                {sale && <Text>{t('From')}</Text>}
+                <Text>{t('price', {
                     value: FormatValueCurrency(router.locale, price),
                     formatParams: {
                         value: { currency: FormatCurrency(router.locale), locale: router.locale },
@@ -70,8 +73,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </Box>
 
             <Flex onMouseEnter={handleMouse} onMouseLeave={handleMouse}>
-                <Button className="capitalize" onClick={handleAddToCart}>add to cart</Button>
-                <Button className="" onClick={handleAddToWishList} />
+                <ButtonPrimary onClick={handleAddToCart}>add to cart</ButtonPrimary>
+                <IconButton onClick={handleAddToWishList} icon={<Icon.IconAi.AiOutlineHeart />} />
             </Flex>
         </Box>
     );
