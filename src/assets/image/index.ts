@@ -13,6 +13,9 @@ import Home3 from './home3.jpg'
 import Banner1 from './banner1.png'
 import BannerSale from './banner-sale.png'
 import Categories1 from './home-20-categories-1.png'
+import ProuductLoa1 from './product-loa-1.jpg'
+import ProuductLoa2 from './product-loa-2.jpg'
+import NoImage from './no-image.png'
 
 
 
@@ -32,4 +35,7 @@ export {
     BannerSale,
     Banner1,
     Categories1,
+    ProuductLoa1,
+    ProuductLoa2,
+    NoImage,
 }

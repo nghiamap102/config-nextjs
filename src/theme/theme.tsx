@@ -1,5 +1,6 @@
-import { color, extendTheme } from '@chakra-ui/react'
+import { extendTheme } from '@chakra-ui/react'
 import { mainColor } from './common/color'
+import { Container, Text } from './components'
 
 const theme = extendTheme({
     styles: {
@@ -26,7 +27,8 @@ const theme = extendTheme({
             },
             'a:hover': {
                 textDecoration: 'none !important',
-                color: mainColor.newTag
+                color: mainColor.newTag,
+                transition: '0.3s all'
             }
         }
     },
@@ -67,6 +69,8 @@ const theme = extendTheme({
         }
     },
     components: {
+        Container,
+        Text,
     }
 })
 

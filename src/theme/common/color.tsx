@@ -15,6 +15,9 @@ export const mainColor = {
   newTag: '#06BFE2',
   hotTag: '#FFBB49',
   saleTag: '#EF6454',
+  yellow : '#f7b733',
+  red: '#e10600',
+  red2:'#ffd8d7'
 }
 
 const Color = () => (
@@ -25,10 +28,13 @@ const Color = () => (
       --white: ${mainColor.white};
       --black: ${mainColor.black};
       --gray: ${mainColor.gray};
+      --yellow: ${mainColor.yellow};
       --boxshadow: ${mainColor.boxshadow};
       --new-tag: ${mainColor.newTag};
       --hot-tag: ${mainColor.hotTag};
       --sale-tag: ${mainColor.saleTag};
+      --red: ${mainColor.red};
+      --red2: ${mainColor.red2};
     }
       `}
   />

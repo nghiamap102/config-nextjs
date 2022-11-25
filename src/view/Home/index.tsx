@@ -3,12 +3,15 @@ import { Box, Container, Flex, Heading, Link } from "@chakra-ui/react";
 import BannerImage from "@components/BannerImage";
 import BannerLearnMore from "@components/BannerLearnMore";
 import CategoriesCard from "@components/Card/CategoriesCard";
+import { ProductCard } from "@components/Card/Product";
+import Carousel from "@components/Carousel";
 import Header from "@components/Header";
+import { HeaderViewAll } from "@components/Header/HeaderViewAll";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
-import React from "react";
-import { Autoplay, FreeMode, Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useState } from "react";
+import { Rating } from "react-simple-star-rating";
+import { SwiperSlide } from "swiper/react";
 import Categories from "../../components/Categories";
 
 type HomePageProps = {
@@ -17,6 +20,10 @@ type HomePageProps = {
 const HomePage: React.FC<HomePageProps> = ({
 
 }) => {
+    const [active, setActive] = useState(false)
+    const handleMouse = () => {
+        setActive(!active)
+    }
 
     return (
         <Box bg={mainColor.gray} paddingBottom={50}>
@@ -30,39 +37,37 @@ const HomePage: React.FC<HomePageProps> = ({
 
             <BannerImage imageSrc={ImagePNG.BannerSale} alt='banner sale' linkTo="abc" />
 
-            <Box paddingX={5} className='2xl:w-5/6 ' margin={'auto'}>
-                <Flex margin={'auto'} alignItems='flex-end'>
-                    <Heading className="capitalize" fontSize='1.5rem'>shop by categories</Heading>
-                    <Link href="abc" marginLeft={10} borderBottom="1px solid" textTransform={'capitalize'}>view all</Link>
-                </Flex>
-                <Swiper
-                    className="cursor-pointer"
-                    slidesPerView={6}
-                    freeMode
-                    autoplay={{
-                        delay: 250000,
-                        disableOnInteraction: false,
-                    }}
-                    // navigation={{
-                    //     enabled: true,
-                    // }}
-                    modules={[FreeMode, Pagination]}
-                >
+            <Container paddingX={5} marginY={10}>
+                <HeaderViewAll title="shop by categories" />
+
+                <Carousel slidesPerView={6} centeredSlides={false}>
                     {Array(12).fill({
                         link: 'abc',
                         name: 'Mobile phones',
                         src: ImagePNG.Categories1
                     }).map((ele, index) => (
                         <SwiperSlide key={index}><CategoriesCard src={ele.src} name={ele.name} link={ele.name} /></SwiperSlide>
-                        // <SwiperSlide key={index}><Image src={ele.src} alt={ele.name} /></SwiperSlide>
                     ))}
-                </Swiper>
-            </Box>
+                </Carousel>
+            </Container>
+
+            <Container paddingX={5} marginY={10}>
+                <HeaderViewAll title="new products" />
+
+                <Carousel slidesPerView={5} centeredSlides={false}>
+                    {Array(12).fill({
+                        link: 'abc',
+                        name: '(Product 16) Sample - Computers & Accessories For Sale',
+                        rate: Math.round(Math.random() * 5),
+                        src: ImagePNG.ProuductLoa1
+                    }).map((ele, index) => (
+                        <SwiperSlide key={index}><ProductCard srcImage={[ele.src]} name={ele.name} tag='hot' price='20' rate={ele.rate} /></SwiperSlide>
+                    ))}
+                </Carousel>
+            </Container>
         </Box>
     );
 };
-
-
 
 
 export default HomePage

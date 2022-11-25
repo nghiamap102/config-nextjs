@@ -3,7 +3,7 @@ import { AutoplayOptions, NavigationOptions, PaginationOptions } from "swiper/ty
 export interface ICarousel {
     children: any
     classNames?: string
-    autoplay: AutoplayOptions | boolean
+    autoplay?: AutoplayOptions | boolean
     slidesPerView?: number | 1
     spaceBetween?: number
     speed?: number

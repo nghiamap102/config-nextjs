@@ -1,20 +1,21 @@
 import type { NextPage } from 'next';
 import HomePage from 'view/Home';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { wrapper } from 'redux/store';
 
 const Home: NextPage = ({ content }) => {
-    return <HomePage/>
+    return <HomePage />
 }
 
-
-export async function getServerSideProps() {
-    const res = await fetch('http://localhost:3030/api/home')
-    const content = await res.json();
-
+export const getServerSideProps = wrapper.getServerSideProps(() => async ({ locale }) => {
+    const translate = await serverSideTranslations(locale as string, [
+        'common','product'
+    ])
     return {
         props: {
-            content
-        },
+            ...translate,
+        }
     }
-}
+})
 
 export default Home

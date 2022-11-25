@@ -1,4 +1,5 @@
 import { mainColor } from "@theme/theme";
+import { Currency } from "contants/common";
 
 const renderColor = (tag: 'new' | 'hot' | 'sale' | undefined) => {
     switch (tag) {
@@ -13,9 +14,26 @@ const renderColor = (tag: 'new' | 'hot' | 'sale' | undefined) => {
     }
 }
 
+const FormatCurrency = (locale: string | undefined) => {
+    switch (locale) {
+        case 'vi':
+            return Currency.vi
+        default:
+            return Currency.en
+    }
+}
 
-
+const FormatValueCurrency = (locale: string | undefined, value: number) => {
+    switch (locale) {
+        case 'vi':
+            return value * 23000
+        default:
+            return value
+    }
+}
 
 export {
+    FormatCurrency,
+    FormatValueCurrency,
     renderColor,
 }

@@ -10,5 +10,4 @@ export interface DataResponseModel<T> {
     data?: T
 }
 
-
 export type EventType = React.ChangeEvent<HTMLInputElement>

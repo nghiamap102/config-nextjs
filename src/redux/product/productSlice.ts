@@ -4,7 +4,7 @@ import { RootState } from 'redux/store';
 import { ProductData, ProductInitState } from './productModel';
 
 const initialState: ProductInitState = {
-    detail: undefined,
+    detail: null,
     list: [],
     listSearch: [],
     loading: false

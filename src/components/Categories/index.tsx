@@ -1,15 +1,14 @@
 import { ImagePNG } from "@assets/index";
-import { Box, Grid, GridItem, Link, Text } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, Link, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import React from "react";
-import { Autoplay, Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 
+import Carousel from "@components/Carousel";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import styles from './Categories.module.css';
 
 type CategoriesProps = {
 
@@ -19,7 +18,7 @@ const Categories: React.FC<CategoriesProps> = ({
 }) => {
 
     return (
-        <Box margin='auto' className='2xl:w-5/6'>
+        <Container margin='auto' className=''>
             <Grid
                 templateColumns='repeat(15, 1fr)'
                 paddingX={4}
@@ -44,37 +43,17 @@ const Categories: React.FC<CategoriesProps> = ({
                         ))}
                     </Grid>
                 </GridItem>
+
                 <GridItem colSpan={12}>
-                    <Grid
-                        templateColumns='repeat(12, 1fr)'
-                        gap={2}
-                    >
+                    <Grid templateColumns='repeat(12, 1fr)' gap={2}>
                         <GridItem colSpan={7}>
-                            <Swiper
-                                className="cursor-pointer"
-                                spaceBetween={30}
-                                centeredSlides={true}
-                                slidesPerView={"auto"}
-                                autoplay={{
-                                    delay: 250000,
-                                    disableOnInteraction: false,
-                                }}
-                                pagination={{
-                                    clickable: true,
-                                    bulletClass: `swiper-pagination-bullet ${styles.bullet}`,
-                                    bulletActiveClass: `swiper-pagination-bullet-active ${styles.active}`
-                                }}
-                                navigation={{
-                                    enabled: true,
-                                }}
-                                modules={[Autoplay, Pagination, Navigation]}
-                            >
+                            <Carousel pagination navigation>
                                 {Array(4).fill(null).map((ele, index) => (
                                     <SwiperSlide key={index}><Image src={ImagePNG.Home1} alt='abc' width={800} /></SwiperSlide>
                                 ))}
-                            </Swiper>
+                            </Carousel>
                         </GridItem>
-                        
+
                         <GridItem colSpan={5}>
                             <Grid templateColumns='repeat(2,1fr)' gap={2}>
                                 {Array(4).fill(null).map((ele, index) => (
@@ -87,7 +66,7 @@ const Categories: React.FC<CategoriesProps> = ({
                     </Grid>
                 </GridItem>
             </Grid>
-        </Box>
+        </Container>
     );
 };
 
