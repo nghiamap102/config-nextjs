@@ -9,8 +9,8 @@ export interface ProductData {
     name?: string
     rate?: number
     sale?: string
-    color?: string[]
+    listColor?: string[]
     tag?: string
-    srcImage? : string[]
+    imageSrc? : string[]
     price?: number
 }

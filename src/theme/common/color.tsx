@@ -10,14 +10,15 @@ export const mainColor = {
   orange: '#fd6506',
   white: '#ffff',
   gray: '#f5f5f5',
+  gray1:'#505050',
   black: '#000000',
   boxshadow: '#0000000d',
   newTag: '#06BFE2',
   hotTag: '#FFBB49',
   saleTag: '#EF6454',
-  yellow : '#f7b733',
+  yellow: '#f7b733',
   red: '#e10600',
-  red2:'#ffd8d7'
+  red2: '#ffd8d7'
 }
 
 const Color = () => (
@@ -28,6 +29,7 @@ const Color = () => (
       --white: ${mainColor.white};
       --black: ${mainColor.black};
       --gray: ${mainColor.gray};
+      --gray1: ${mainColor.gray1};
       --yellow: ${mainColor.yellow};
       --boxshadow: ${mainColor.boxshadow};
       --new-tag: ${mainColor.newTag};

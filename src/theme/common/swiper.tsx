@@ -29,7 +29,7 @@ const Swiper = () => (
         bottom: 12px;
       }
     .swiper-pagination .swiper-pagination-bullet {
-        background: ${mainColor.gray};
+        background: ${mainColor.white};
         opacity: 1;
       }
     .swiper-pagination .swiper-pagination-bullet-active {

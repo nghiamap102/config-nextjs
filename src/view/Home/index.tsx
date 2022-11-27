@@ -2,6 +2,7 @@ import { ImagePNG } from "@assets/index";
 import { Box, Container, Flex, Heading, Link } from "@chakra-ui/react";
 import BannerImage from "@components/BannerImage";
 import BannerLearnMore from "@components/BannerLearnMore";
+import BrandsLogo from "@components/BrandsLogo";
 import CategoriesCard from "@components/Card/CategoriesCard";
 import { ProductCard } from "@components/Card/Product";
 import Carousel from "@components/Carousel";
@@ -59,9 +60,40 @@ const HomePage: React.FC<HomePageProps> = ({
                         link: 'abc',
                         name: '(Product 16) Sample - Computers & Accessories For Sale',
                         rate: Math.round(Math.random() * 5),
+                        price: 20,
+                        sale: 10,
+                        color: ['black', 'gray', 'orange'],
                         src: ImagePNG.ProuductLoa1
-                    }).map((ele, index) => (
-                        <SwiperSlide key={index}><ProductCard srcImage={[ele.src]} name={ele.name} tag='hot' price='20' rate={ele.rate} /></SwiperSlide>
+                    }).map((product, index) => (
+                        <SwiperSlide key={index}>
+                            <ProductCard
+                                imageSrc={[product.src]}
+                                name={product.name}
+                                tag='hot'
+                                price={product.price}
+                                rate={product.rate}
+                                sale={product.sale}
+                                listColor={product.color}
+                            />
+                        </SwiperSlide>
+                    ))}
+                </Carousel>
+            </Container>
+
+            <Container marginY={10}>
+                <HeaderViewAll title="top brands" />
+
+                <Carousel slidesPerView={6} pagination>
+                    {Array(12).fill({
+                        link: 'abc',
+                        imageSrc: ImagePNG.ShopifyLogo
+                    }).map((brand, index) => (
+                        <SwiperSlide key={index}>
+                            <BrandsLogo
+                                linkTo="abc"
+                                imageSrc={brand.imageSrc}
+                            />
+                        </SwiperSlide>
                     ))}
                 </Carousel>
             </Container>

@@ -7,6 +7,7 @@ import { CartInitState } from "./cartModel";
 
 const initialState: CartInitState = {
 	productList: [],
+	wishList: [], 
 	loading: false
 }
 
@@ -18,12 +19,14 @@ const cartSlice = createSlice({
 		getProductList: (state: CartInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
 			state.productList = action.payload.data
 		},
+		addToCart: (state: CartInitState, action: PayloadAction<ProductData>) => {
+			state.productList = [ ...state.productList, action.payload]
+		},
 		extraReducers: (builder: any) => {
 			builder.addCase(HYDRATE, (state: CartInitState, action: PayloadAction<any>) => {
 				console.log('HYDRATE', action.payload)
 				state = { ...state, ...action.payload.cart };
 			})
-
 		},
 	},
 });

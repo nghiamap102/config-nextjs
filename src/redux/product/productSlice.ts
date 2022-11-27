@@ -34,5 +34,5 @@ export const {
     fetchProductList,
 } = productSlice.actions
 
-export const selectProuduct = (state: RootState) => state.common
+export const selectProduct = (state: RootState) => state.common
 export const selectListProduct = (state: RootState) => state.product.list

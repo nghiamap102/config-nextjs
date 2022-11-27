@@ -1,5 +1,5 @@
-import axiosClient from "../../helpers/axiosClient";
-import { DataResponseModel } from "../../models";
+import { axiosClient } from "@common/axiosClient";
+import { DataResponseModel } from "models/commonModel";
 
 const cartService = {
   checkOut(data: any): Promise<DataResponseModel<any>> {

@@ -16,6 +16,7 @@ import Categories1 from './home-20-categories-1.png'
 import ProuductLoa1 from './product-loa-1.jpg'
 import ProuductLoa2 from './product-loa-2.jpg'
 import NoImage from './no-image.png'
+import ShopifyLogo from './Shopify-Logo.png'
 
 
 
@@ -38,4 +39,5 @@ export {
     ProuductLoa1,
     ProuductLoa2,
     NoImage,
+    ShopifyLogo
 }
