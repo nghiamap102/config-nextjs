@@ -11,11 +11,7 @@ import { useDispatch } from 'react-redux';
 import { selectCommon, setSearchKey } from 'redux/common/commonSlice';
 import { useAppSelector } from 'redux/hooks';
 
-type HeaderProps = {
-};
-
-const Header: React.FC<HeaderProps> = ({
-}) => {
+const Header: React.FC = () => {
 
     const common = useAppSelector(selectCommon)
     const dispatch = useDispatch()

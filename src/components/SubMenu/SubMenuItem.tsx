@@ -1,11 +1,6 @@
 import React from "react";
 
-type SubMenuItemProps = {
-
-};
-const SubMenuItem: React.FC<SubMenuItemProps> = ({
-
-}) => {
+const SubMenuItem: React.FC = () => {
     return (
         <div>
 

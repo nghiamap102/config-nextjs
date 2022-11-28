@@ -4,16 +4,11 @@ import { mainColor } from "@theme/theme";
 import React from "react";
 import NavbarItem from "./NavbarItem";
 
-type NavbarProps = {
 
-};
-
-const Navbar: React.FC<NavbarProps> = ({
-
-}) => {
+const Navbar: React.FC = () => {
 
     const handleMouseEnter = () => {
-
+        console.log('ac');
     }
 
     return (
@@ -37,13 +32,13 @@ const Navbar: React.FC<NavbarProps> = ({
                     <Box className="py-3">
                         <Divider orientation="vertical" w={3} borderLeftWidth={2} />
                     </Box>
-                    <Box className="flex items-center"> 
+                    <Box className="flex items-center">
                         <NavbarItem type="submenu" text={<Text fontSize='md'>home page</Text>} />
                         <NavbarItem type="dropdown" text={<Text fontSize='md'>products</Text>} tag='hot' />
                         <NavbarItem type="submenu" text={<Text fontSize='md'>blog</Text>} />
                         <NavbarItem type="submenu" text={<Text fontSize='md'>voucher</Text>} />
                         <NavbarItem type="submenu" text={<Text fontSize='md'>shop</Text>} />
-                        <NavbarItem type="submenu" text={<Text fontSize='md'>rating</Text>}  tag='sale'/>
+                        <NavbarItem type="submenu" text={<Text fontSize='md'>rating</Text>} tag='sale' />
                     </Box>
                 </GridItem>
 

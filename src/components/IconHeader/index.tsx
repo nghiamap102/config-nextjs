@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 
 type IconHeaderProps = {

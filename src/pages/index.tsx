@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { wrapper } from 'redux/store';
 import HomePage from 'view/Home';
 
-const Home: NextPage = ({ content }) => {
+const Home: NextPage = () => {
     return <HomePage />
 }
 
@@ -11,6 +11,7 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async ({ loca
     const translate = await serverSideTranslations(locale as string, [
         'common','product'
     ])
+
     return {
         props: {
             ...translate,

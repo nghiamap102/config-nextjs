@@ -1,11 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-type CountDownProps = {
-
-};
-const CountDown: React.FC<CountQueuingStrategy> = ({
-
-}) => {
+const CountDown: React.FC = () => {
     return (
         <Box>
 

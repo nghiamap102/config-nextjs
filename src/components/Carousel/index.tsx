@@ -8,7 +8,7 @@ import 'swiper/css/scrollbar'
 import { Swiper } from 'swiper/react'
 import { ICarousel } from './Carousel'
 
-const Carousel: React.FC<ICarousel> = ({ className, children, ...rest }) => {
+const Carousel: React.FC<ICarousel> = ({ children, ...rest }) => {
 
   return (
     <Swiper

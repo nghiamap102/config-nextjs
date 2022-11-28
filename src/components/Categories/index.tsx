@@ -10,12 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-type CategoriesProps = {
-
-};
-const Categories: React.FC<CategoriesProps> = ({
-
-}) => {
+const Categories: React.FC = () => {
 
     return (
         <Container margin='auto' className=''>
