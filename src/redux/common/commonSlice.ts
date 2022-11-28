@@ -9,8 +9,6 @@ const initialState: CommonInitState = {
     searchKey: '',
 }
 
-
-
 const commonSlice = createSlice({
     name: 'common',
     initialState,

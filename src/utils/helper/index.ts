@@ -32,8 +32,19 @@ const FormatValueCurrency = (locale: string | undefined, value: number) => {
     }
 }
 
+
+const FormatTimeToHMS = (secNum: number) => {
+    const hours = Math.floor(secNum / 3600);
+    const minutes = Math.floor((secNum - (hours * 3600)) / 60);
+    const seconds = secNum - (hours * 3600) - (minutes * 60);
+
+    return { hours, minutes, seconds }
+}
+
+
 export {
     FormatCurrency,
     FormatValueCurrency,
+    FormatTimeToHMS,
     renderColor,
 }

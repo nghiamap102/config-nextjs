@@ -80,10 +80,39 @@ const HomePage: React.FC<HomePageProps> = ({
                 </Carousel>
             </Container>
 
+
+            <Container marginY={10}>
+
+                <Carousel slidesPerView={5} centeredSlides={false}>
+                    {Array(12).fill({
+                        link: 'abc',
+                        name: '(Product 16) Sample - Computers & Accessories For Sale',
+                        rate: Math.round(Math.random() * 5),
+                        price: 20,
+                        sale: 10,
+                        color: ['black', 'gray', 'orange'],
+                        src: ImagePNG.ProuductLoa1
+                    }).map((product, index) => (
+                        <SwiperSlide key={index}>
+                            <ProductCard
+                                imageSrc={[product.src]}
+                                name={product.name}
+                                tag='hot'
+                                price={product.price}
+                                rate={product.rate}
+                                sale={product.sale}
+                                listColor={product.color}
+                            />
+                        </SwiperSlide>
+                    ))}
+                </Carousel>
+            </Container>
+
+
             <Container marginY={10}>
                 <HeaderViewAll title="top brands" />
 
-                <Carousel slidesPerView={6} pagination>
+                <Carousel slidesPerView={6}>
                     {Array(12).fill({
                         link: 'abc',
                         imageSrc: ImagePNG.ShopifyLogo

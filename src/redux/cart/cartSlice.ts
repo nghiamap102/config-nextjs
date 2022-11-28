@@ -3,11 +3,11 @@ import { ListResponseModel } from "models/commonModel";
 import { HYDRATE } from "next-redux-wrapper";
 import { ProductData } from "redux/product/productModel";
 import { RootState } from "../store";
-import { CartInitState } from "./cartModel";
+import { CartData, CartInitState } from "./cartModel";
 
 const initialState: CartInitState = {
-	productList: [],
-	wishList: [], 
+	list: [],
+	wishList: [],
 	loading: false
 }
 
@@ -16,11 +16,26 @@ const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		getProductList: (state: CartInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
-			state.productList = action.payload.data
+		getProductList: (state: CartInitState, action: PayloadAction<ListResponseModel<CartData>>) => {
+			state.list = action.payload.data
 		},
 		addToCart: (state: CartInitState, action: PayloadAction<ProductData>) => {
-			state.productList = [ ...state.productList, action.payload]
+			state.list?.push({ product: action.payload, count: 1 })
+		},
+		removeItemFromCart: (state: CartInitState, action: PayloadAction<ProductData>) => {
+			const newArr = state.list?.filter(cart => {
+				if (cart.product.id !== action.payload.id) {
+					return cart
+				}
+			})
+			state.list = newArr
+		},
+		updateCart: (state: CartInitState, action: PayloadAction<CartData>) => {
+			state.list?.map(cart => {
+				if (cart.product.id === action.payload.product.id) {
+					return { ...cart, count: action.payload }
+				}
+			})
 		},
 		extraReducers: (builder: any) => {
 			builder.addCase(HYDRATE, (state: CartInitState, action: PayloadAction<any>) => {
@@ -41,4 +56,4 @@ export const {
 
 
 export const selectCart = (state: RootState) => state.cart;
-export const selectCartList = (state: RootState) => state.cart.productList
+export const selectCartList = (state: RootState) => state.cart.list

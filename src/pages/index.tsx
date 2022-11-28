@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import HomePage from 'view/Home';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { wrapper } from 'redux/store';
+import HomePage from 'view/Home';
 
 const Home: NextPage = ({ content }) => {
     return <HomePage />
