@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 
 type IconHeaderProps = {
@@ -12,7 +12,7 @@ type IconHeaderProps = {
     onClick?: () => void
 };
 
-export const IconHeader: React.FC<IconHeaderProps> = ({
+export const IconHeader: FC<IconHeaderProps> = ({
     text,
     icon,
     colorIcon,

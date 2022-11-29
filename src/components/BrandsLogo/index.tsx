@@ -1,12 +1,13 @@
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
+import { FC } from "react";
 
 type BrandsLogoProps = {
     linkTo?: string
     imageSrc: any
 };
-const BrandsLogo: React.FC<BrandsLogoProps> = ({
+const BrandsLogo: FC<BrandsLogoProps> = ({
     linkTo,
     imageSrc,
 }) => {

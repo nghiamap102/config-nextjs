@@ -11,3 +11,6 @@ export interface DataResponseModel<T> {
 }
 
 export type EventType = React.ChangeEvent<HTMLInputElement>
+
+
+export type sizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full'

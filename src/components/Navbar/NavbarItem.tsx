@@ -13,7 +13,7 @@ type NavbarItemProps = {
     tag?: 'new' | 'hot' | 'sale';
     type: 'submenu' | 'categories' | 'dropdown'
 };
-const NavbarItem: React.FC<NavbarItemProps> = ({
+const NavbarItem: FC<NavbarItemProps> = ({
     text,
     type,
     tag,

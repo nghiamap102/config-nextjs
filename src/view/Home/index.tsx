@@ -1,27 +1,22 @@
 import { ImagePNG } from "@assets/index";
-import { Box, Container, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import BannerImage from "@components/BannerImage";
 import BannerLearnMore from "@components/BannerLearnMore";
 import BrandsLogo from "@components/BrandsLogo";
+import { ProductCard } from "@components/Card";
 import CategoriesCard from "@components/Card/CategoriesCard";
-import { ProductCard } from "@components/Card/Product";
 import Carousel from "@components/Carousel";
 import Header from "@components/Header";
 import { HeaderViewAll } from "@components/Header/HeaderViewAll";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
-import React, { useState } from "react";
-import { Rating } from "react-simple-star-rating";
+import { FC, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import Categories from "../../components/Categories";
 
-type HomePageProps = {
-
-};
-const HomePage: React.FC<HomePageProps> = ({
-
-}) => {
+const HomePage: FC = () => {
     const [active, setActive] = useState(false)
+
     const handleMouse = () => {
         setActive(!active)
     }

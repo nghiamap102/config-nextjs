@@ -24,8 +24,9 @@ export const fillColorArrayRating = [
     "#f1d045"
 ];
 
-
 export const Currency = {
     en: 'usd',
     vi: 'vnd'
 }
+
+export const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full']

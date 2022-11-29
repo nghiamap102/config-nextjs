@@ -1,17 +1,18 @@
-import Icon from '@assets/icon';
+import { ReactIcon } from '@assets/icon';
 import logo from '@assets/image/logo.png';
 import { Box, Grid, GridItem, Link, Text } from "@chakra-ui/react";
-import IconHeader from "@components/IconHeader";
 import InputSearch from '@components/InputSearch';
 import Navbar from '@components/Navbar';
 import { mainColor } from "@theme/common/color";
 import { EventType } from 'models/commonModel';
 import Image from "next/image";
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { selectCommon, setSearchKey } from 'redux/common/commonSlice';
 import { useAppSelector } from 'redux/hooks';
+import GridIconHeader from './GridIcon';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
 
     const common = useAppSelector(selectCommon)
     const dispatch = useDispatch()
@@ -23,7 +24,6 @@ const Header: React.FC = () => {
     const handleSearch = () => {
         dispatch(setSearchKey(''))
     }
-
 
     return (
         <>
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
                     <GridItem className="flex items-center" colSpan={5}>
                         <InputSearch
                             icon={(
-                                <Icon.IconCi.CiSearch
+                                <ReactIcon.IconCi.CiSearch
                                     size='2rem'
                                     color={mainColor.orange}
                                 />
@@ -67,32 +67,11 @@ const Header: React.FC = () => {
                             onChange={handleChange}
                         />
                     </GridItem>
-                    <GridItem className="flex relative justify-end mr-2" colSpan={3}>
-                        <IconHeader
-                            icon={<Icon.IconAi.AiOutlineHeart size='2rem'/>}
-                            text='wish list'
-                            colorIcon={mainColor.white}
-                        />
-                        <IconHeader
-                            icon={<Icon.IconAi.AiFillGift size='2rem' />}
-                            text='voucher'
-                            colorIcon={mainColor.white}
-                        />
-                        <IconHeader
-                            icon={<Icon.IconAi.AiOutlineUser size='2rem'/>}
-                            text='sign in'
-                            colorIcon={mainColor.white}
-                        />
-                        <IconHeader
-                            icon={<Icon.IconAi.AiOutlineShoppingCart size='3rem' />}
-                            colorIcon={mainColor.white}
-                        >
-                            <Box className="absolute top-0 -right-1 rounded-full px-2" bg='white' color={mainColor.orange}>0</Box>
-                        </IconHeader>
-                    </GridItem>
+
+                    <GridIconHeader />
                 </Grid>
             </Box>
-            <Navbar/>
+            <Navbar />
         </>
     );
 };

@@ -11,7 +11,7 @@ type InputSearchProps = {
     onClickSearch?: () => void;
 };
 
-const InputSearch: React.FC<InputSearchProps> = ({
+const InputSearch: FC<InputSearchProps> = ({
     icon,
     value,
     onChange,

@@ -1,6 +1,6 @@
-import React from "react";
+import { FC } from "react";
 
-const SubMenuItem: React.FC = () => {
+const SubMenuItem: FC = () => {
     return (
         <div>
 

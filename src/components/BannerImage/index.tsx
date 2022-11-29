@@ -1,5 +1,6 @@
 import { Box, Link } from "@chakra-ui/react";
 import Image, { StaticImageData } from "next/image";
+import { FC } from 'react'
 
 type BannerImageProps = {
     imageSrc: string | StaticImageData
@@ -7,7 +8,7 @@ type BannerImageProps = {
     linkTo: string
     blank?: boolean
 };
-const BannerImage: React.FC<BannerImageProps> = ({
+const BannerImage: FC<BannerImageProps> = ({
     imageSrc,
     alt,
     linkTo,

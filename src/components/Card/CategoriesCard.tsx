@@ -1,14 +1,14 @@
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
-import React from "react";
+import { FC } from "react";
 
 type CategoriesCardProps = {
     link: string
     name: string
     src: string
 };
-const CategoriesCard: React.FC<CategoriesCardProps> = ({
+const CategoriesCard: FC<CategoriesCardProps> = ({
     link,
     name,
     src

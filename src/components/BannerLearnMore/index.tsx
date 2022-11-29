@@ -1,5 +1,6 @@
 import { Box, Button, Link, SystemStyleObject, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
+import { FC } from 'react'
 
 type BannerLearnMoreProps = {
     icon?: any
@@ -7,7 +8,7 @@ type BannerLearnMoreProps = {
     link?: string
     style?: SystemStyleObject
 };
-const BannerLearnMore: React.FC<BannerLearnMoreProps> = ({
+const BannerLearnMore: FC<BannerLearnMoreProps> = ({
     icon,
     text,
     link,

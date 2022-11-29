@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-const CountDown: React.FC = () => {
+const CountDown: FC = () => {
     return (
         <Box>
 

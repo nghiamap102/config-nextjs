@@ -6,7 +6,7 @@ export interface ProductInitState {
 }
 
 export interface ProductData {
-    id:string
+    id?:string
     name?: string
     rate?: number
     sale?: string

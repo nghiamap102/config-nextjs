@@ -2,7 +2,7 @@ import { ImagePNG } from "@assets/index";
 import { Box, Container, Grid, GridItem, Link, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
-import React from "react";
+import { FC } from "react";
 import { SwiperSlide } from 'swiper/react';
 
 import Carousel from "@components/Carousel";
@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const Categories: React.FC = () => {
+const Categories: FC = () => {
 
     return (
         <Container margin='auto' className=''>

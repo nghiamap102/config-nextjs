@@ -1,7 +1,7 @@
-import Icon from "@assets/icon";
+import { ReactIcon } from "@assets/icon";
 import { Box, Text } from "@chakra-ui/react";
 import { isNonEmptyArray } from "@utils/validations";
-import React from "react";
+import { FC } from "react";
 
 type SubMenuProps = {
     text?: string
@@ -11,7 +11,7 @@ type SubMenuProps = {
     onClick?: () => void
 };
 
-const SubMenu: React.FC<SubMenuProps> = ({
+const SubMenu: FC<SubMenuProps> = ({
     text,
     icon,
     handleMouseEnter,
@@ -30,7 +30,7 @@ const SubMenu: React.FC<SubMenuProps> = ({
                 <Text marginLeft={5}>{text}</Text>
             </Box>
 
-            <Icon.IconMd.MdKeyboardArrowRight />
+            <ReactIcon.IconMd.MdKeyboardArrowRight />
             {/* {childItem?.map((ele) => (
                 
             ))} */}

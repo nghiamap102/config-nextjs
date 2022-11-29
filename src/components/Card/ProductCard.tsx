@@ -1,17 +1,16 @@
-import Icon from "@assets/icon";
+import { ReactIcon } from "@assets/icon";
 import { ImagePNG } from "@assets/index";
-import { Box, Button, Flex, IconButton, Link, Tag, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
 import ButtonPrimary from "@components/ButtonPrimary";
 import IconButtonPrimary from "@components/IconButtonPrimary";
 import { mainColor } from "@theme/theme";
-import { FormatCurrency, FormatValueCurrency } from "@utils/helper";
-import { isNonEmptyString } from "@utils/validations";
+import { formatCurrency, formatValueCurrency } from "@utils/helper";
 import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { ProductData } from "redux/product/productModel";
 
@@ -19,7 +18,8 @@ type ProductCardProps = {
     handleAddToCart?: () => void
     handleAddToWishList?: () => void
 } & ProductData;
-export const ProductCard: React.FC<ProductCardProps> = ({
+
+const ProductCard: FC<ProductCardProps> = ({
     listColor,
     name,
     price,
@@ -48,9 +48,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
     const renderPrice = (price: any) => {
         return t('price', {
-            value: FormatValueCurrency(router.locale, price),
+            value: formatValueCurrency(router.locale, price),
             formatParams: {
-                value: { currency: FormatCurrency(router.locale), locale: router.locale },
+                value: { currency: formatCurrency(router.locale), locale: router.locale },
             },
         })
     }
@@ -89,10 +89,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </Flex>
 
             <Flex onMouseEnter={handleMouse} onMouseLeave={handleMouse} >
-                <ButtonPrimary onClick={handleAddToCart} w='100%' marginRight={4}  textTransform='capitalize'>add to cart</ButtonPrimary>
+                <ButtonPrimary onClick={handleAddToCart} w='100%' marginRight={4} textTransform='capitalize'>add to cart</ButtonPrimary>
 
-                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<Icon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
+                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<ReactIcon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
             </Flex>
         </Box>
     );
 };
+
+export default ProductCard

@@ -1,12 +1,11 @@
 import { Global } from '@emotion/react'
 
 const common = {
-  blue: '#012CDB',
+  blue: '##4267B2',
   black: '#222731'
 }
 
 export const mainColor = {
-  primary: common.blue,
   orange: '#fd6506',
   white: '#ffff',
   gray: '#f5f5f5',
@@ -18,7 +17,8 @@ export const mainColor = {
   saleTag: '#EF6454',
   yellow: '#f7b733',
   red: '#e10600',
-  red2: '#ffd8d7'
+  red2: '#ffd8d7',
+  blueDark: '#4267B2',
 }
 
 const Color = () => (
@@ -37,6 +37,7 @@ const Color = () => (
       --sale-tag: ${mainColor.saleTag};
       --red: ${mainColor.red};
       --red2: ${mainColor.red2};
+      --blueDark: ${mainColor.blueDark};
     }
       `}
   />

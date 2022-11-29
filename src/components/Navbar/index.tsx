@@ -1,11 +1,11 @@
-import Icon from "@assets/icon";
+import { ReactIcon } from "@assets/icon";
 import { Box, Divider, Grid, GridItem, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
-import React from "react";
+import { FC } from "react";
 import NavbarItem from "./NavbarItem";
 
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
 
     const handleMouseEnter = () => {
         console.log('ac');
@@ -20,9 +20,9 @@ const Navbar: React.FC = () => {
                         type="categories"
                         text={
                             <Box className="flex items-center" paddingRight={16}>
-                                <Icon.IconBs.BsGrid3X3GapFill color={mainColor.orange} size="1.5rem" />
+                                <ReactIcon.IconBs.BsGrid3X3GapFill color={mainColor.orange} size="1.5rem" />
                                 <Text fontSize='lg' className="capitalize" marginX={5}>categories</Text>
-                                <Icon.IconIo.IoIosArrowDown />
+                                <ReactIcon.IconIo.IoIosArrowDown />
                             </Box>
                         }
                     />
