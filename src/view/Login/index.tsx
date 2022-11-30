@@ -1,4 +1,4 @@
-import { Box, Button, Flex } from "@chakra-ui/react"
+import { Box, Flex } from "@chakra-ui/react"
 import ButtonPrimary from "@components/ButtonPrimary"
 import UiInputField from "@components/Field/UiInputField"
 import { mainColor } from "@theme/theme"

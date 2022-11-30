@@ -24,6 +24,7 @@ const HomePage: FC = () => {
     return (
         <Box bg={mainColor.gray} paddingBottom={50}>
             <Header />
+            
             <BannerLearnMore
                 style={{ paddingY: '1.5rem' }}
                 text="buy now, pay later starting at 0% APR"

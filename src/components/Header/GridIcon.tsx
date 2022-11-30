@@ -40,11 +40,6 @@ const GridIconHeader = () => {
                 </IconHeader>
             </GridItem>
 
-            {drawerType === 'login' &&
-                <DrawerCPN onClose={() => setDrawerType('')} title={drawerType}
-                    body={<FormLoginWrapper />}
-                />
-            }
             {drawerType === 'cart' && <DrawerCPN onClose={() => setDrawerType('')} title={drawerType} />}
         </>
     );

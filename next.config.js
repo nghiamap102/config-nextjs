@@ -15,6 +15,9 @@ const nextConfig = {
     },
     env: {
         API_URL: process.env.API_URL,
+        GG_API_KEY: process.env.GG_API_KEY,
+        CLIENT_ID: process.env.CLIENT_ID,
+        CLIENT_SECRET: process.env.CLIENT_SECRET,
         NO_IMAGE: process.env.NO_IMAGE,
     },
     // experimental: {

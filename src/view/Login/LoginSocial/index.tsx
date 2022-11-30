@@ -1,19 +1,35 @@
-import { ReactIcon, GoogleIcon } from "@assets/icon";
-import { Box, Button, Divider, Text } from "@chakra-ui/react";
+import { GoogleIcon, ReactIcon } from "@assets/icon";
+import { Box, Button, Text } from "@chakra-ui/react";
 import ButtonPrimary from "@components/ButtonPrimary";
 import { mainColor } from "@theme/theme";
+import { isNonEmptyString } from "@utils/validations";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { FC } from "react";
+import { useCookies } from "react-cookie";
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import GoogleLogin from "react-google-login";
 
 const LoginSocial: FC = () => {
 
+    const [cookies, setCookie] = useCookies(['access_token']);
+    const router = useRouter()
+    const hanldeSuccessGG = (res: any) => {
+        console.log(res);
+        setCookie('access_token', res.accessToken)
+        router.push('/')
+    }
+
+
+    // useEffect(() => {
+
+    // }, [])
+
+
     return (
         <>
             <GoogleLogin
-                clientId={process.env.CLIENT_ID || ''}
-                buttonText='Sign up with Google'
+                clientId={isNonEmptyString(process.env.CLIENT_ID)}
                 render={(renderProps) => (
                     <ButtonPrimary
                         onClick={renderProps.onClick}
@@ -30,9 +46,8 @@ const LoginSocial: FC = () => {
                         </Text>
                     </ButtonPrimary>
                 )}
-                // onSuccess={responseGoogle}
-                // onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
+                onSuccess={hanldeSuccessGG}
+                onFailure={() => console.log('abc')}
             />
 
             <Box marginY={5} position='relative'>
