@@ -8,7 +8,7 @@ const ValidateFieldsLogin = {
         },
         {
             validator: validateEmail,
-            code: 'Please provide a valid email address or mobile number'
+            code: 'Please provide a valid email address or username'
         },
     ],
     password: [

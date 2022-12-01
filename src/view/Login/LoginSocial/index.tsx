@@ -42,7 +42,7 @@ const LoginSocial: FC = () => {
                     </ButtonPrimary>
                 )}
                 onSuccess={hanldeSuccessGG}
-                onFailure={() => console.log('abc')}
+                onFailure={() => console.log('GG failure')}
             />
 
             <Box marginY={5} position='relative'>
