@@ -24,28 +24,28 @@ const nextConfig = {
     //     outputStandalone: true,
     //   },
     // pageExtensions: ['tsx ,ts,md,mdx'],
-    webpack: (
-        config,
-        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
-    ) => {
-        // Important: return the modified config
-        if (!dev) {
-            // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
-            config.resolve.alias['@formatjs/icu-messageformat-parser'] =
-                '@formatjs/icu-messageformat-parser/no-parser'
-        }
-        return config
-    },
-    serverRuntimeConfig: {
-        // Will only be available on the server side
-        mySecret: 'secret',
-        secondSecret: process.env.SECOND_SECRET, // Pass through env variables
-    },
-    publicRuntimeConfig: {
-        // Will be available on both server and client
-        staticFolder: '/static',
-    },
-    poweredByHeader: false,
+    // webpack: (
+    //     config,
+    //     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack },
+    // ) => {
+    //     // Important: return the modified config
+    //     if (!dev) {
+    //         // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
+    //         config.resolve.alias['@formatjs/icu-messageformat-parser'] =
+    //             '@formatjs/icu-messageformat-parser/no-parser'
+    //     }
+    //     return config
+    // },
+    // serverRuntimeConfig: {
+    //     // Will only be available on the server side
+    //     mySecret: 'secret',
+    //     secondSecret: process.env.SECOND_SECRET, // Pass through env variables
+    // },
+    // publicRuntimeConfig: {
+    //     // Will be available on both server and client
+    //     staticFolder: '/static',
+    // },
+    // poweredByHeader: false,
 }
 
 module.exports = nextConfig

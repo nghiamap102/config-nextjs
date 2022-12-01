@@ -20,12 +20,6 @@ const LoginSocial: FC = () => {
         router.push('/')
     }
 
-
-    // useEffect(() => {
-
-    // }, [])
-
-
     return (
         <>
             <GoogleLogin
@@ -35,8 +29,9 @@ const LoginSocial: FC = () => {
                         onClick={renderProps.onClick}
                         disabled={renderProps.disabled}
                         _hover={{ opacity: 0.5 }}
-                        borderColor={'GrayText'}
+                        borderColor='blackAlpha.200'
                         marginY={2}
+                        py='6'
                     >
                         <Box className='mr-2'>
                             <Image src={GoogleIcon} alt='icon-gg' width={20} />
@@ -67,6 +62,7 @@ const LoginSocial: FC = () => {
                         color={mainColor.white}
                         _hover={{ opacity: 0.8 }}
                         marginY={2}
+                        py='6'
                     >
                         <ReactIcon.IconFa.FaFacebookF color={mainColor.white} className='mr-2' />
                         Sign up with Facebook

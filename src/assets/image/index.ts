@@ -17,6 +17,7 @@ import ProuductLoa1 from './product-loa-1.jpg'
 import ProuductLoa2 from './product-loa-2.jpg'
 import NoImage from './no-image.png'
 import ShopifyLogo from './Shopify-Logo.png'
+import BGLogin from './bg-login.jpeg'
 
 
 
@@ -39,5 +40,6 @@ export {
     ProuductLoa1,
     ProuductLoa2,
     NoImage,
-    ShopifyLogo
+    ShopifyLogo,
+    BGLogin
 }

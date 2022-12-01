@@ -1,13 +1,16 @@
 import { ReactIcon } from '@assets/icon';
 import {
     Box,
+    CheckboxIcon,
     FormControl,
     FormErrorMessage,
     FormLabel,
     Input,
     InputGroup,
+    InputLeftElement,
     InputRightElement
 } from '@chakra-ui/react'
+import { mainColor } from '@theme/theme';
 import { FC, useState } from 'react'
 
 export interface UiInputFieldProps {
@@ -33,7 +36,10 @@ const UiInputField: FC<UiInputFieldProps> = ({
     isRequired = false
 }) => {
     const [show, setShow] = useState<boolean>(type === 'password' ? false : true)
-    const handleClick = () => setShow(!show)
+    const handleClick = () => {
+        setShow(!show)
+        console.log('abc');
+    }
     const { name } = field
     const { errors, touched } = form
     const showError = errors[name] && touched[name]
@@ -54,13 +60,23 @@ const UiInputField: FC<UiInputFieldProps> = ({
                         placeholder={placeholder}
                         autoComplete={autoComplete}
                         disabled={disabled}
-                        borderRadius='8'
+                        bg={mainColor.skin}
+                        borderRadius='20'
+                        paddingY={7}
                     />
                     {type === 'password' && (
-                        <InputRightElement zIndex={0}>
-                            <Box bg='none' onClick={handleClick}>
-                                {show &&  <ReactIcon.IconAi.AiOutlineEye/>}
-                                {!show &&  <ReactIcon.IconAi.AiOutlineEyeInvisible/>}
+                        <InputRightElement
+                            top='50%'
+                            transform='translateY(-50%)'
+                            color='gray.300'
+                            fontSize='1.2em'
+                        >
+                            <Box
+                                cursor={'pointer'}
+                                onClick={handleClick}
+                            >
+                                {show && <ReactIcon.IconAi.AiOutlineEye />}
+                                {!show && <ReactIcon.IconAi.AiOutlineEyeInvisible />}
                             </Box>
                         </InputRightElement>
                     )}

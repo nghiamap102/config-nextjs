@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Checkbox, Flex, Text } from "@chakra-ui/react"
 import ButtonPrimary from "@components/ButtonPrimary"
 import UiInputField from "@components/Field/UiInputField"
 import { mainColor } from "@theme/theme"
@@ -26,7 +26,7 @@ interface MyFormProps {
 
 const Login: FC<LoginProps & FormikProps<LoginValue>> = ({ isSubmitting, isError }) => {
 
-    const { t } = useTranslation()
+    const { t } = useTranslation(['common'])
 
     return (
         <Form>
@@ -49,7 +49,14 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = ({ isSubmitting, isError
                     isRequired
                 />
 
-                <ButtonPrimary type="submit" w='100%' isDisabled={isSubmitting} bg={mainColor.orange} border='none' color={mainColor.white} _hover={{ opacity: 0.8 }}>
+                <Flex justifyContent='end' alignItems='center' mb={5}>
+                    <Text textTransform='capitalize'>
+                        {t('rememeber_me')}
+                    </Text>
+                    <Checkbox m='0 1rem' />
+                </Flex>
+
+                <ButtonPrimary py='6' type="submit" w='100%' isDisabled={isSubmitting} bg={mainColor.orange} border='none' color={mainColor.white} _hover={{ opacity: 0.8 }}>
                     {t('Login')}
                 </ButtonPrimary>
             </Box>

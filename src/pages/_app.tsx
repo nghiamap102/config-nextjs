@@ -2,6 +2,7 @@ import { Box, ChakraProvider } from '@chakra-ui/react'
 import '@styles/globals.scss'
 import Global from '@theme/global'
 import theme from '@theme/theme'
+import { ConnectedRouter } from 'connected-next-router'
 import { gapi } from 'gapi-script'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
@@ -19,18 +20,20 @@ function MyApp({ Component, pageProps }: AppProps) {
                 scope: ''
             });
         };
-        gapi.load('client:auth2', initClient);
+        // gapi.load('client:auth2', initClient);
     });
 
     return (
         <>
             <CookiesProvider>
-                <ChakraProvider theme={theme}>
-                    <Global />
-                    <Box bg='#fff' color='#000'>
-                        <Component {...pageProps} />
-                    </Box>
-                </ChakraProvider>
+                {/* <ConnectedRouter> */}
+                    <ChakraProvider theme={theme}>
+                        <Global />
+                        <Box bg='#fff' color='#000'>
+                            <Component {...pageProps} />
+                        </Box>
+                    </ChakraProvider>
+                {/* </ConnectedRouter> */}
             </CookiesProvider>
         </>
     )

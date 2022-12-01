@@ -6,19 +6,20 @@ const common = {
 }
 
 export const mainColor = {
+  black: '#000000',
+  blueDark: '#4267B2',
+  boxshadow: '#0000000d',
   orange: '#fd6506',
-  white: '#ffff',
   gray: '#f5f5f5',
   gray1:'#505050',
-  black: '#000000',
-  boxshadow: '#0000000d',
-  newTag: '#06BFE2',
   hotTag: '#FFBB49',
-  saleTag: '#EF6454',
-  yellow: '#f7b733',
+  newTag: '#06BFE2',
   red: '#e10600',
   red2: '#ffd8d7',
-  blueDark: '#4267B2',
+  skin: '#fbf1f1',
+  saleTag: '#EF6454',
+  white: '#ffff',
+  yellow: '#f7b733',
 }
 
 const Color = () => (
@@ -38,6 +39,7 @@ const Color = () => (
       --red: ${mainColor.red};
       --red2: ${mainColor.red2};
       --blueDark: ${mainColor.blueDark};
+      --skin: ${mainColor.skin};
     }
       `}
   />
