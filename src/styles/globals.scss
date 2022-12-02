@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+// ----var-----------
+.absolute-50{
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
 .no-underline {
     text-decoration: none !important;
 }
@@ -34,5 +38,30 @@ body {
     }
     to {
         transform: translateY(100%);
+    }
+}
+
+.fade-out{
+    animation: fadeOut 0.3s forwards;
+}
+
+.fade-in{
+    animation: fadeIn 0.7s forwards;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

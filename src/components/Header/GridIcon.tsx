@@ -29,7 +29,6 @@ const GridIconHeader = () => {
                 <IconHeader
                     icon={<ReactIcon.IconAi.AiOutlineUser size='2rem' />}
                     text='sign in'
-                    
                     onClick={() => router.push('login', undefined, { shallow: false })}
                     colorIcon={mainColor.white}
                 />

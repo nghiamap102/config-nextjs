@@ -13,10 +13,10 @@ import './_app.css'
 function MyApp({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
-        a()
+        decodeScript()
     });
 
-    const a = () => {
+    const decodeScript = () => {
         const initClient = async () => {
             gapi.client.init({
                 clientId: process.env.CLIENT_ID,

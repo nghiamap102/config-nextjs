@@ -1,4 +1,4 @@
-import { ImagePNG } from '@assets/index';
+import { ImageAssets } from '@assets/index';
 import { Box, Text } from '@chakra-ui/react';
 import SubMenu from '@components/SubMenu';
 import { mainColor } from '@theme/theme';
@@ -54,7 +54,7 @@ const NavbarItem: FC<NavbarItemProps> = ({
     return (
         <Box position={type === 'dropdown' ? 'unset' : 'relative'} onMouseLeave={hanldeMouseLeave}>
             <Box position={'relative'}>
-                <Box className="navbar-item" onMouseEnter={hanldeMouseEnter} color={`${tag === 'sale' && mainColor.saleTag}`}>
+                <Box padding={'0.8rem 1.2rem'} textTransform={'capitalize'} cursor={'pointer'} onMouseEnter={hanldeMouseEnter} color={`${tag === 'sale' && mainColor.saleTag}`}>
                     {text}
                 </Box>
 
@@ -70,27 +70,27 @@ const NavbarItem: FC<NavbarItemProps> = ({
             >
                 <Box paddingTop={type === 'dropdown' ? 4 : 0} bg={mainColor.white}>
                     <SubMenu
-                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        icon={<Image src={ImageAssets.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"
                         handleMouseEnter={() => setActive(true)}
                     />
                     <SubMenu
-                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        icon={<Image src={ImageAssets.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"
                         handleMouseEnter={() => setActive(true)}
                     />
                     <SubMenu
-                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        icon={<Image src={ImageAssets.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"
                         handleMouseEnter={() => setActive(true)}
                     />
                     <SubMenu
-                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        icon={<Image src={ImageAssets.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"
                         handleMouseEnter={() => setActive(true)}
                     />
                     <SubMenu
-                        icon={<Image src={ImagePNG.Electronics} alt='Electronis' className='image' />}
+                        icon={<Image src={ImageAssets.Electronics} alt='Electronis' className='image' />}
                         text="Electronics"
                         handleMouseEnter={() => setActive(true)}
                     />

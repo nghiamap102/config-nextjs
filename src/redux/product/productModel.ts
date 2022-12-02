@@ -1,17 +1,21 @@
 export interface ProductInitState {
-    list? : ProductData[]
-    listSearch? : ProductData[]
+    list?: ProductData[]
+    listSearch?: ProductData[]
     detail?: ProductData | null
     loading?: boolean
 }
 
 export interface ProductData {
-    id?:string
+    id?: string
     name?: string
     rate?: number
     sale?: string
-    listColor?: string[]
+    sample?: ProductSample[]
     tag?: string
-    imageSrc? : string[]
     price?: number
+    saleCount?: number
+}
+export interface ProductSample {
+    color: string
+    imageSrc: string
 }

@@ -1,7 +1,7 @@
-import * as ImagePNG from './image/index'
+import * as ImageAssets from './image/index'
 
 
 
 export {
-    ImagePNG
+    ImageAssets
 }

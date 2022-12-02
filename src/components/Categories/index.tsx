@@ -1,4 +1,4 @@
-import { ImagePNG } from "@assets/index";
+import { ImageAssets } from "@assets/index";
 import { Box, Container, Grid, GridItem, Link, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
@@ -31,7 +31,7 @@ const Categories: FC = () => {
                         {Array(12).fill(null).map((ele, index) => (
                             <GridItem key={index} bg={mainColor.white}>
                                 <Link className="flex justify-between items-center flex-col py-3" >
-                                    <Image src={ImagePNG.Sports} alt='abc' height={24} width={24} />
+                                    <Image src={ImageAssets.Sports} alt='abc' height={24} width={24} />
                                     <Text lineHeight='2rem' className="capitalize mt-2">sports</Text>
                                 </Link>
                             </GridItem>
@@ -44,7 +44,7 @@ const Categories: FC = () => {
                         <GridItem colSpan={7}>
                             <Carousel pagination navigation>
                                 {Array(4).fill(null).map((ele, index) => (
-                                    <SwiperSlide key={index}><Image src={ImagePNG.Home1} alt='abc' width={800} /></SwiperSlide>
+                                    <SwiperSlide key={index}><Image src={ImageAssets.Home1} alt='abc' width={800} /></SwiperSlide>
                                 ))}
                             </Carousel>
                         </GridItem>
@@ -53,7 +53,7 @@ const Categories: FC = () => {
                             <Grid templateColumns='repeat(2,1fr)' gap={2}>
                                 {Array(4).fill(null).map((ele, index) => (
                                     <GridItem colSpan={1} key={index}>
-                                        <Image src={ImagePNG.Banner1} alt='banner' />
+                                        <Image src={ImageAssets.Banner1} alt='banner' />
                                     </GridItem>
                                 ))}
                             </Grid>

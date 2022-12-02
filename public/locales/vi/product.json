@@ -1,3 +1,6 @@
 {
-    "price": "{{value,currency}}"
+    "price": "{{value,currency}}",
+    "quick_view" : "xem nhanh",
+    "add_to_cart": "thêm vào giỏ",
+    "no_purchase_yet": "chưa có lượt mua"
 }

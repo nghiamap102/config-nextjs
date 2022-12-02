@@ -27,6 +27,14 @@ const productSlice = createSlice({
         fetchProductListSuccess: (state: ProductInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
             state.list = action.payload.data
         },
+        // getProductDetail: (state: ProductInitState, action: PayloadAction<string>) => {
+        //     const newArr = state.list?.filter(product => {
+        //         if (product.id === action.payload) {
+        //             return product
+        //         }
+        //     })
+        //     newArr ? state.detail = newArr[0] : state.detail = null
+        // },
         fetchProductListSearch: (state: ProductInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
             state.list = action.payload.data
         },
@@ -50,8 +58,8 @@ const productSlice = createSlice({
 export const productReducer = productSlice.reducer;
 
 export const {
-    fetchProductListSuccess,
-    
+    fetchProductListSuccess,    
+    getProductById,
 } = productSlice.actions
 
 export const selectProduct = (state: RootState) => state.common

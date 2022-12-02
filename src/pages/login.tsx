@@ -6,7 +6,6 @@ import type { NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { wrapper } from 'redux/store';
-import Example from '@components/test';
 
 const Login: NextPage = () => {
     const router = useRouter()

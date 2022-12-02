@@ -24,10 +24,9 @@ interface MyFormProps {
     router?: NextRouter
 }
 
-const Login: FC<LoginProps & FormikProps<LoginValue>> = ({ isSubmitting, isError }) => {
+const Login: FC<LoginProps & FormikProps<LoginValue>> = (props) => {
 
     const { t } = useTranslation(['common'])
-
     return (
         <Form>
             <Box marginBottom={5}>
@@ -56,7 +55,7 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = ({ isSubmitting, isError
                     <Checkbox m='0 1rem' />
                 </Flex>
 
-                <ButtonPrimary py='6' type="submit" w='100%' isDisabled={isSubmitting} bg={mainColor.orange} border='none' color={mainColor.white} _hover={{ opacity: 0.8 }}>
+                <ButtonPrimary py='6' type="submit" w='100%' isLoading={props.isSubmitting} bg={mainColor.orange} border='none' color={mainColor.white} _hover={{ opacity: 0.8 }}>
                     {t('Login')}
                 </ButtonPrimary>
             </Box>
@@ -73,7 +72,9 @@ export const FormLoginWrapper = withFormik<MyFormProps, LoginValue>({
     validate: checkValueError(ValidateFieldsLogin),
     handleSubmit: async (values, { setSubmitting, props }) => {
         const { router } = props
-        setSubmitting(false);
+        setTimeout(() => {
+            setSubmitting(true);
+        }, 100);
         router && router.push('/')
     }
 })(Login)

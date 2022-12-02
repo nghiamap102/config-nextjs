@@ -52,6 +52,9 @@ export const cartActions = cartSlice.actions;
 
 export const {
 	getProductList,
+	addToCart,
+	removeItemFromCart,
+	updateCart,
 } = cartSlice.actions;
 
 
