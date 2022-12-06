@@ -16,6 +16,8 @@ export interface ProductData {
     saleCount?: number
 }
 export interface ProductSample {
-    color: string
-    imageSrc: string
+    color?: string
+    imageSrc?: string
+    size?: string
+    
 }

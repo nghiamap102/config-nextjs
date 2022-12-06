@@ -1,4 +1,4 @@
-import { ReactIcon } from "@assets/icon";
+import { IconAssets } from "@assets/index";
 import { Box, GridItem } from "@chakra-ui/react";
 import DrawerCPN from "@components/Drawer";
 import IconHeader from "@components/IconHeader";
@@ -17,23 +17,23 @@ const GridIconHeader = () => {
         <>
             <GridItem className="flex relative justify-end mr-2" colSpan={3}>
                 <IconHeader
-                    icon={<ReactIcon.IconAi.AiOutlineHeart size='2rem' />}
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart size='2rem' />}
                     text='wish list'
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={<ReactIcon.IconAi.AiFillGift size='2rem' />}
+                    icon={<IconAssets.ReactIcon.IconAi.AiFillGift size='2rem' />}
                     text='voucher'
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={<ReactIcon.IconAi.AiOutlineUser size='2rem' />}
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineUser size='2rem' />}
                     text='sign in'
                     onClick={() => router.push('login', undefined, { shallow: false })}
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={<ReactIcon.IconAi.AiOutlineShoppingCart size='3rem' />}
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineShoppingCart size='3rem' />}
                     colorIcon={mainColor.white}
                     onClick={() => setDrawerType('cart')}
                 >

@@ -13,9 +13,17 @@ import { HeaderViewAll } from "@components/Header/HeaderViewAll";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import { FC } from "react";
+import { cartActions, selectCart } from "redux/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { selectProduct } from "redux/product/productSlice";
 import { SwiperSlide } from "swiper/react";
 
 const HomePage: FC = () => {
+
+    const dispatch = useAppDispatch()
+    const productSelector = useAppSelector(selectProduct)
+    const cartSelector = useAppSelector(selectCart)
+
     return (
         <>
             <Header />
@@ -79,6 +87,7 @@ const HomePage: FC = () => {
                                         price={product.price}
                                         rate={product.rate}
                                         sale={product.sale}
+                                        handleAddToCart={() => dispatch(cartActions.addToCart(product))}
                                     />
                                 </SwiperSlide>
                             ))}

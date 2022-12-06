@@ -2,10 +2,9 @@ import { Box, Flex, FlexProps, Tooltip } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import { FC } from "react";
 
-type ButtonCircleProps = { label: string, color: string, active?: boolean } & FlexProps
+type ButtonCircleProps = { label?: string, color?: string, active?: boolean } & FlexProps
 
 const ButtonCircle: FC<ButtonCircleProps> = ({ children, label, color, active = false, ...props }) => {
-
 
     return (
         <Tooltip label={label} hasArrow placement="top" textTransform={'capitalize'}>

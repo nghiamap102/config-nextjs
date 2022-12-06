@@ -1,5 +1,4 @@
-import { ReactIcon } from '@assets/icon';
-import logo from '@assets/image/logo.png';
+import { IconAssets, ImageAssets } from '@assets/index';
 import { Box, Grid, GridItem, Link, Text } from "@chakra-ui/react";
 import InputSearch from '@components/InputSearch';
 import Navbar from '@components/Navbar';
@@ -38,7 +37,7 @@ const Header: FC = () => {
                             className="italic heading"
                         >
                             <Image
-                                src={logo}
+                                src={ImageAssets.Logo}
                                 alt='logo'
                             />
                         </Link>
@@ -58,7 +57,7 @@ const Header: FC = () => {
                     <GridItem className="flex items-center" colSpan={5}>
                         <InputSearch
                             icon={(
-                                <ReactIcon.IconCi.CiSearch
+                                <IconAssets.ReactIcon.IconCi.CiSearch
                                     size='2rem'
                                     color={mainColor.orange}
                                 />

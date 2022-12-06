@@ -1,13 +1,11 @@
-import { ReactIcon } from '@assets/icon';
+import { IconAssets } from '@assets/index';
 import {
     Box,
-    CheckboxIcon,
     FormControl,
     FormErrorMessage,
     FormLabel,
     Input,
     InputGroup,
-    InputLeftElement,
     InputRightElement
 } from '@chakra-ui/react'
 import { mainColor } from '@theme/theme';
@@ -75,8 +73,8 @@ const UiInputField: FC<UiInputFieldProps> = ({
                                 cursor={'pointer'}
                                 onClick={handleClick}
                             >
-                                {show && <ReactIcon.IconAi.AiOutlineEye />}
-                                {!show && <ReactIcon.IconAi.AiOutlineEyeInvisible />}
+                                {show && <IconAssets.ReactIcon.IconAi.AiOutlineEye />}
+                                {!show && <IconAssets.ReactIcon.IconAi.AiOutlineEyeInvisible />}
                             </Box>
                         </InputRightElement>
                     )}

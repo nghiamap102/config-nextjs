@@ -1,4 +1,4 @@
-import { ReactIcon } from "@assets/icon";
+import { IconAssets } from "@assets/index";
 import { Box, Divider, Grid, GridItem, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import { FC } from "react";
@@ -20,9 +20,9 @@ const Navbar: FC = () => {
                         type="categories"
                         text={
                             <Box className="flex items-center" paddingRight={16}>
-                                <ReactIcon.IconBs.BsGrid3X3GapFill color={mainColor.orange} size="1.5rem" />
+                                <IconAssets.ReactIcon.IconBs.BsGrid3X3GapFill color={mainColor.orange} size="1.5rem" />
                                 <Text fontSize='lg' className="capitalize" marginX={5}>categories</Text>
-                                <ReactIcon.IconIo.IoIosArrowDown />
+                                <IconAssets.ReactIcon.IconIo.IoIosArrowDown />
                             </Box>
                         }
                     />

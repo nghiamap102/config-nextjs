@@ -1,4 +1,4 @@
-import { ReactIcon } from "@assets/icon";
+import { IconAssets } from "@assets/index";
 import { Box, Text } from "@chakra-ui/react";
 import { isNonEmptyArray } from "@utils/validations";
 import { FC } from "react";
@@ -30,7 +30,7 @@ const SubMenu: FC<SubMenuProps> = ({
                 <Text marginLeft={5}>{text}</Text>
             </Box>
 
-            <ReactIcon.IconMd.MdKeyboardArrowRight />
+            <IconAssets.ReactIcon.IconMd.MdKeyboardArrowRight />
             {/* {childItem?.map((ele) => (
                 
             ))} */}

@@ -20,8 +20,7 @@ const commonSlice = createSlice({
 })
 
 export const commonReducer = commonSlice.reducer
-
-export const commonAction = commonSlice.actions 
+export const commonAction = commonSlice.actions
 
 export const {
     setSearchKey,

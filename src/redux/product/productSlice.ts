@@ -55,7 +55,8 @@ const productSlice = createSlice({
     }
 })
 
-export const productReducer = productSlice.reducer;
+export const productReducer = productSlice.reducer
+export const productAction = productSlice.actions
 
 export const {
     fetchProductListSuccess,    

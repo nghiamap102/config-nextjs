@@ -1,11 +1,11 @@
-import { ReactIcon } from "@assets/icon";
-import { ImageAssets } from "@assets/index";
+import { IconAssets, ImageAssets } from "@assets/index";
 import { Box, Flex, Tag, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
 import ButtonPrimary from "@components/ButtonPrimary";
 import IconButtonPrimary from "@components/IconButtonPrimary";
 import { mainColor } from "@theme/theme";
 import { formatCurrency, formatValueCurrency } from "@utils/helper";
+import { isNonEmptyString } from "@utils/validations";
 import classNames from "classnames";
 import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import { useTranslation } from "next-i18next";
@@ -69,10 +69,10 @@ const ProductCard: FC<ProductCardProps> = ({
                 onMouseEnter={handleMouseImg}
                 onMouseLeave={handleMouseImg}
             >
-                {sample?.map((product, index) =>
+                {sample?.map((product) =>
                     <Box
                         key={product.color}
-                        className={classNames(currentColor === product.color  ? 'fade-in' : 'hidden')}
+                        className={classNames(currentColor === product.color ? 'fade-in' : 'hidden')}
                     >
                         <Image src={product.imageSrc || ImageAssets.NoImage} alt={name} height={250} width={250} />
                     </Box>
@@ -81,7 +81,6 @@ const ProductCard: FC<ProductCardProps> = ({
                 {/* <Box className={classNames(activeImg ? 'fade-in' : 'hidden')}   >
                     <Image src={sample && sample[sample?.length - 1].imageSrc || ImageAssets.NoImage} alt={name} height={250} width={250} />
                 </Box> */}
-
 
                 <Link href={`/product/${id}`}>
                     <Box className={classNames(activeQuickView ? 'opacity-1' : 'opacity-0', 'duration-300 absolute-50 rounded-2xl')} bg={mainColor.white} py={1} px={2}>
@@ -115,7 +114,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 {sample?.map((product, index) => (
                     <ButtonCircle
                         key={product.color}
-                        onClick={() => handleChooseColor(product.color)}
+                        onClick={() => handleChooseColor(isNonEmptyString(product.color))}
                         label={product.color}
                         color={product.color}
                         marginX={1} marginY={4} active={currentColor === product.color && true} />
@@ -125,7 +124,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <Flex>
                 <ButtonPrimary onClick={handleAddToCart} w='100%' marginRight={4} textTransform='capitalize'>add to cart</ButtonPrimary>
 
-                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<ReactIcon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
+                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
             </Flex>
         </Box >
     );

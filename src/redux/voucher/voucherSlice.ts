@@ -18,7 +18,7 @@ export const fetchVoucher = createAsyncThunk(
     }
 )
 
-const voucherSlice = createSlice({
+export const voucherSlice = createSlice({
     name: 'voucher',
     initialState,
     reducers: {

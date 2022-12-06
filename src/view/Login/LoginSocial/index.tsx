@@ -1,4 +1,4 @@
-import { GoogleIcon, ReactIcon } from "@assets/icon";
+import { IconAssets } from "@assets/index";
 import { Box, Button, Text } from "@chakra-ui/react";
 import ButtonPrimary from "@components/ButtonPrimary";
 import { mainColor } from "@theme/theme";
@@ -34,7 +34,7 @@ const LoginSocial: FC = () => {
                         py='6'
                     >
                         <Box className='mr-2'>
-                            <Image src={GoogleIcon} alt='icon-gg' width={20} />
+                            <Image src={IconAssets.GoogleIcon} alt='icon-gg' width={20} />
                         </Box>
                         <Text>
                             Sign up with Google
@@ -64,7 +64,7 @@ const LoginSocial: FC = () => {
                         marginY={2}
                         py='6'
                     >
-                        <ReactIcon.IconFa.FaFacebookF color={mainColor.white} className='mr-2' />
+                        <IconAssets.ReactIcon.IconFa.FaFacebookF color={mainColor.white} className='mr-2' />
                         Sign up with Facebook
                     </Button>
                 )}
