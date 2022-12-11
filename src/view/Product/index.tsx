@@ -1,6 +1,7 @@
 import { ImageAssets } from "@assets/index";
 import { Box, Button, Container, Grid, GridItem, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
+import { isNonEmptyString } from "@utils/validations";
 import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
@@ -26,7 +27,6 @@ const ProductPage: FC = (product: ProductData) => {
         setCurrentColor(color)
     }
 
-    console.log(router);
     return (
         <Container>
             <Grid templateColumns={'repeat(2,1fr)'}>
@@ -54,13 +54,13 @@ const ProductPage: FC = (product: ProductData) => {
                         {product.sample?.map((product, index) => (
                             <ButtonCircle
                                 key={product.color}
-                                onClick={() => handleChooseColor(product.color)}
+                                onClick={() => handleChooseColor(isNonEmptyString(product.color))}
                                 label={product.color}
                                 color={product.color}
                                 marginX={1} marginY={4} active={currentColor === product.color && true} />
                         ))}
-                        
-                        <Button onClick={() => dispatch(addToCart({  }))}>
+
+                        <Button onClick={() => dispatch(addToCart({}))}>
                             {t('add_to_cart')}
                         </Button>
                     </Box>

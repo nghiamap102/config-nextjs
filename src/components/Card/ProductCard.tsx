@@ -1,43 +1,49 @@
 import { IconAssets, ImageAssets } from "@assets/index";
-import { Box, Flex, Tag, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
 import ButtonPrimary from "@components/ButtonPrimary";
 import IconButtonPrimary from "@components/IconButtonPrimary";
 import { mainColor } from "@theme/theme";
 import { formatCurrency, formatValueCurrency } from "@utils/helper";
 import { isNonEmptyString } from "@utils/validations";
+import ProductQuickView from "@view/ProductQuickview";
 import classNames from "classnames";
 import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { ProductData } from "redux/product/productModel";
 
 type ProductCardProps = {
+    product: ProductData
     handleAddToCart?: () => void
     handleAddToWishList?: () => void
-} & ProductData;
+    isOpenQuickView?: boolean
+};
 
 const ProductCard: FC<ProductCardProps> = ({
-    id,
-    name,
-    price,
-    rate,
-    sale,
-    tag,
-    sample,
+    product,
+    isOpenQuickView,
     handleAddToCart,
     handleAddToWishList,
 }) => {
+    const { 
+        id,
+        name,
+        price,
+        rate,
+        sale,
+        tag,
+        sample
+    } = product
     const { t } = useTranslation(['product']);
     const router = useRouter();
 
     const [currentColor, setCurrentColor] = useState(sample[0]?.color || '')
     const [activeQuickView, setActiveQuickView] = useState(false);
-    const [activeImg, setActiveImg] = useState(false);
+    const [activeModal, setActiveModal] = useState(isOpenQuickView || false);
 
     const handleChooseColor = (color: string) => {
         setCurrentColor(color)
@@ -45,10 +51,6 @@ const ProductCard: FC<ProductCardProps> = ({
 
     const handleMouseQuickView = () => {
         setActiveQuickView(!activeQuickView)
-    }
-
-    const handleMouseImg = () => {
-        setActiveImg(!activeImg)
     }
 
     const renderPrice = (price: any) => {
@@ -60,14 +62,17 @@ const ProductCard: FC<ProductCardProps> = ({
         })
     }
 
+    const handleActiveModal = () => {
+        setActiveModal(true);
+    }
+
     return (
         <Box bg={mainColor.white} padding={7} onMouseEnter={handleMouseQuickView} onMouseLeave={handleMouseQuickView}>
+
             <Tag bg={mainColor.red2} color={mainColor.red} className='capitalize p-2 absolute top-7 left-7 duration-400'>{tag}</Tag>
 
             <Flex
                 position={'relative'}
-                onMouseEnter={handleMouseImg}
-                onMouseLeave={handleMouseImg}
             >
                 {sample?.map((product) =>
                     <Box
@@ -78,15 +83,13 @@ const ProductCard: FC<ProductCardProps> = ({
                     </Box>
                 )}
 
-                {/* <Box className={classNames(activeImg ? 'fade-in' : 'hidden')}   >
-                    <Image src={sample && sample[sample?.length - 1].imageSrc || ImageAssets.NoImage} alt={name} height={250} width={250} />
-                </Box> */}
-
-                <Link href={`/product/${id}`}>
-                    <Box className={classNames(activeQuickView ? 'opacity-1' : 'opacity-0', 'duration-300 absolute-50 rounded-2xl')} bg={mainColor.white} py={1} px={2}>
-                        <Text textTransform={'capitalize'}>{t('quick_view')} </Text>
-                    </Box>
-                </Link>
+                <Box
+                    className={classNames(activeQuickView ? 'opacity-1' : 'opacity-0', 'duration-300 absolute-50 rounded-2xl cursor-pointer')}
+                    bg={mainColor.white} py={1} px={2}
+                    onClick={handleActiveModal}
+                >
+                    <Text textTransform={'capitalize'}>{t('quick_view')} </Text>
+                </Box>
             </Flex>
 
             <Link href={`/product/${id}`}>
@@ -111,7 +114,7 @@ const ProductCard: FC<ProductCardProps> = ({
             </Flex>
 
             <Flex>
-                {sample?.map((product, index) => (
+                {sample?.map((product) => (
                     <ButtonCircle
                         key={product.color}
                         onClick={() => handleChooseColor(isNonEmptyString(product.color))}
@@ -126,7 +129,9 @@ const ProductCard: FC<ProductCardProps> = ({
 
                 <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
             </Flex>
-        </Box >
+
+            <ProductQuickView product={product} isOpen={activeModal} handleClose={() => setActiveModal(false)} />
+        </Box>
     );
 };
 

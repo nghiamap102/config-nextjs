@@ -63,6 +63,7 @@ const HomePage: FC = () => {
                                 rate: Math.round(Math.random() * 5),
                                 price: 20,
                                 sale: 10,
+                                tag: 'hot',
                                 sample: [
                                     {
                                         color: 'black',
@@ -80,13 +81,7 @@ const HomePage: FC = () => {
                             }).map((product, index) => (
                                 <SwiperSlide key={index}>
                                     <ProductCard
-                                        id={product.id}
-                                        sample={product.sample}
-                                        name={product.name}
-                                        tag='hot'
-                                        price={product.price}
-                                        rate={product.rate}
-                                        sale={product.sale}
+                                        product={product}
                                         handleAddToCart={() => dispatch(cartActions.addToCart(product))}
                                     />
                                 </SwiperSlide>
