@@ -42,6 +42,7 @@ export const voucherSlice = createSlice({
 })
 
 export const voucherReducer = voucherSlice.reducer;
+export const voucherActions = voucherSlice.actions;
 
 export const {
     fetchVoucherListSearch,

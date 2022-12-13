@@ -3,6 +3,7 @@ import { Box, Flex, Link, Tag, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
 import ButtonPrimary from "@components/ButtonPrimary";
 import IconButtonPrimary from "@components/IconButtonPrimary";
+import { ICartItem } from "@redux/cart/cartModel";
 import { mainColor } from "@theme/theme";
 import { formatCurrency, formatValueCurrency } from "@utils/helper";
 import { isNonEmptyString } from "@utils/validations";
@@ -18,32 +19,25 @@ import { ProductData } from "redux/product/productModel";
 
 type ProductCardProps = {
     product: ProductData
-    handleAddToCart?: () => void
-    handleAddToWishList?: () => void
     isOpenQuickView?: boolean
 };
 
 const ProductCard: FC<ProductCardProps> = ({
     product,
     isOpenQuickView,
-    handleAddToCart,
-    handleAddToWishList,
 }) => {
-    const { 
-        id,
-        name,
-        price,
-        rate,
-        sale,
-        tag,
-        sample
-    } = product
+    const { id, name, price, rate, sale, tag, sample } = product
     const { t } = useTranslation(['product']);
     const router = useRouter();
 
     const [currentColor, setCurrentColor] = useState(sample[0]?.color || '')
     const [activeQuickView, setActiveQuickView] = useState(false);
-    const [activeModal, setActiveModal] = useState(isOpenQuickView || false);
+    const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
+    const [cartItem, setCartItem] = useState<ICartItem>({
+        productId: '',
+        quantity: 0,
+        type: {}
+    })
 
     const handleChooseColor = (color: string) => {
         setCurrentColor(color)
@@ -125,9 +119,9 @@ const ProductCard: FC<ProductCardProps> = ({
             </Flex>
 
             <Flex>
-                <ButtonPrimary onClick={handleAddToCart} w='100%' marginRight={4} textTransform='capitalize'>add to cart</ButtonPrimary>
+                <ButtonPrimary w='100%' marginRight={4} textTransform='capitalize'>add to cart</ButtonPrimary>
 
-                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart />} onClick={handleAddToWishList} />
+                <IconButtonPrimary aria-label='wishlist' bg={mainColor.saleTag} color={mainColor.gray} icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart />} />
             </Flex>
 
             <ProductQuickView product={product} isOpen={activeModal} handleClose={() => setActiveModal(false)} />

@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/grid'
@@ -15,10 +15,10 @@ const Carousel: FC<ICarousel> = ({ children, ...rest }) => {
       {...rest}
       className="cursor-pointer"
       spaceBetween={20}
-      autoplay={{
-        delay: 250000,
-        disableOnInteraction: false,
-      }}
+      // autoplay={{
+      //   delay: 5000,
+      //   disableOnInteraction: false,
+      // }}
       modules={[Autoplay, Pagination, Navigation]}
     >
       {children}

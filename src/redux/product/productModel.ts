@@ -19,5 +19,6 @@ export interface ProductSample {
     color?: string
     imageSrc?: string
     size?: string
-    
+    type?: string
+    anotherType?: string
 }

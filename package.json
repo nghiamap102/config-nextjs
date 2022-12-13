@@ -12,7 +12,8 @@
         "format": "prettier --write .",
         "check-lint": "eslint . --ext ts --ext tsx --ext js",
         "test": "jest --watch",
-        "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build"
+        "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build",
+        "rm":"rm -rf node_modules/"
     },
     "dependencies": {
         "@chakra-ui/react": "2.3.7",

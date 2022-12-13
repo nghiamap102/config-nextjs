@@ -1,3 +1,4 @@
+import { ProductSample } from './../product/productModel';
 import { ProductData } from "redux/product/productModel"
 
 export interface CartInitState {
@@ -5,9 +6,12 @@ export interface CartInitState {
     wishList?: ProductData[]
     loading?: boolean
 }
-
-
-export interface CartData {
-    product: ProductData
-    count: number
+export type CartData = {
+    created_at: number
+    modified_at: number
+} & ICartItem
+export interface ICartItem {
+    productId: string
+    quantity: number
+    type: ProductSample
 }

@@ -13,16 +13,9 @@ import { HeaderViewAll } from "@components/Header/HeaderViewAll";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import { FC } from "react";
-import { cartActions, selectCart } from "redux/cart/cartSlice";
-import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { selectProduct } from "redux/product/productSlice";
 import { SwiperSlide } from "swiper/react";
 
 const HomePage: FC = () => {
-
-    const dispatch = useAppDispatch()
-    const productSelector = useAppSelector(selectProduct)
-    const cartSelector = useAppSelector(selectCart)
 
     return (
         <>
@@ -57,7 +50,7 @@ const HomePage: FC = () => {
 
                         <Carousel slidesPerView={5} centeredSlides={false}>
                             {Array(12).fill({
-                                id: 'abc',
+                                id: `abc`,
                                 link: 'abc',
                                 name: '(Product 16) Sample - Computers & Accessories For Sale',
                                 rate: Math.round(Math.random() * 5),
@@ -66,69 +59,28 @@ const HomePage: FC = () => {
                                 tag: 'hot',
                                 sample: [
                                     {
+                                        size: 'l',
                                         color: 'black',
                                         imageSrc: ImageAssets.ProuductLoa1
                                     },
                                     {
+                                        size: 'xl',
                                         color: 'gray',
                                         imageSrc: ImageAssets.Categories1
                                     },
                                     {
+                                        size: 'm',
                                         color: 'orange',
                                         imageSrc: ImageAssets.ProuductLoa1
                                     }
                                 ],
                             }).map((product, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard
-                                        product={product}
-                                        handleAddToCart={() => dispatch(cartActions.addToCart(product))}
-                                    />
+                                    <ProductCard product={product}/>
                                 </SwiperSlide>
                             ))}
                         </Carousel>
                     </Box>
-
-
-                    {/* <Box marginY={10}>
-                        <Carousel slidesPerView={5} centeredSlides={false}>
-                            {Array(12).fill({
-                                id: 'abc',
-                                link: 'abc',
-                                name: '(Product 16) Sample - Computers & Accessories For Sale',
-                                rate: Math.round(Math.random() * 5),
-                                price: 20,
-                                sale: 10,
-                                sample: [
-                                    {
-                                        color: 'black',
-                                        imageSrc: ImageAssets.ProuductLoa1
-                                    },
-                                    {
-                                        color: 'gray',
-                                        imageSrc: ImageAssets.ProuductLoa1
-                                    },
-                                    {
-                                        color: 'orange',
-                                        imageSrc: ImageAssets.ProuductLoa1
-                                    }
-                                ],
-                            }).map((product, index) => (
-                                <SwiperSlide key={index}>
-                                    <ProductCard
-                                        id={product.id}
-                                        sample={product.sample}
-                                        name={product.name}
-                                        tag='hot'
-                                        price={product.price}
-                                        rate={product.rate}
-                                        sale={product.sale}
-                                    />
-                                </SwiperSlide>
-                            ))}
-                        </Carousel>
-                    </Box> */}
-
 
                     <Box marginY={10}>
                         <HeaderViewAll title="top brands" />

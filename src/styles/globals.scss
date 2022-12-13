@@ -9,7 +9,7 @@ body {
 }
 
 // ----var-----------
-.absolute-50{
+.absolute-50 {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 .no-underline {
@@ -41,13 +41,49 @@ body {
     }
 }
 
-.fade-out{
+.fade-up {
+    animation: fadeUp 0.5s both;
+}
+
+.fade-down {
+    animation: fadeDown 0.5s both;
+}
+
+@keyframes fadeDown {
+    from {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(20%);
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+        display: none;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+.fade-out {
     animation: fadeOut 0.3s forwards;
 }
 
-.fade-in{
+.fade-in {
     animation: fadeIn 0.7s forwards;
 }
+
 @keyframes fadeOut {
     from {
         opacity: 1;

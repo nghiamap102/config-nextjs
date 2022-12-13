@@ -1,4 +1,5 @@
-import { Box, Checkbox, Flex, Text } from "@chakra-ui/react"
+import { ReactIcon } from "@assets/icon"
+import { Box, Checkbox, Flex, Link, Text } from "@chakra-ui/react"
 import ButtonPrimary from "@components/ButtonPrimary"
 import UiInputField from "@components/Field/UiInputField"
 import { mainColor } from "@theme/theme"
@@ -63,6 +64,16 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = (props) => {
             <Flex direction='column'>
                 <LoginSocial />
             </Flex>
+
+            <Link href="/">
+                <Flex className="items-center justify-center">
+                    <ReactIcon.IconIo.IoIosArrowRoundBack size='1.5rem' className="mr-2"/>
+                    <Text fontSize='md' textTransform='capitalize'>
+                        {t('back_to_home')}
+                    </Text>
+                </Flex>
+            </Link>
+
         </Form>
     )
 }
