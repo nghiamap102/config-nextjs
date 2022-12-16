@@ -18,7 +18,6 @@ export const CardHeader: FC<CardHeaderProps> = ({ cartItem, product, onClickShor
     const [cartItemInit, setCartItemInit] = useState(cartItem);
     const handleMouseQuickViewActive = () => setActiveQuickView(true)
     const handleMouseQuickViewInActive = () => setActiveQuickView(false)
-    console.log(product);
     return (
         <Flex
             position={'relative'}

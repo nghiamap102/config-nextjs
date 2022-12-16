@@ -32,14 +32,13 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
     const [cartItemInit, setCartItemInit] = useState<ICartItem>(cartItem)
 
     const handleChooseColor = (color: string) => {
-        setCartItemInit({ ...cartItem, type: { color: color } })
+        setCartItemInit({ ...cartItemInit, type: { ...cartItemInit.type, color: color } })
     }
 
     const handleChooseSize = (size: string) => {
-        setCartItemInit({ ...cartItem, type: { size: size } })
+        setCartItemInit({ ...cartItemInit, type: { ...cartItemInit.type, size: size } })
     }
 
-    console.log(cartItemInit);
     return (
         <>
             <Box className={classNames(isOpen ? 'slide-up' : 'slide-down', 'absolute bottom-0 left-0 w-full p-7')} bg={mainColor.white} >

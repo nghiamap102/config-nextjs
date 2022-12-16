@@ -10,13 +10,16 @@ import Categories from "@components/Categories";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { HeaderViewAll } from "@components/Header/HeaderViewAll";
+import { selectCart } from "@redux/cart/cartSlice";
+import { useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import { FC } from "react";
 import { SwiperSlide } from "swiper/react";
 
 const HomePage: FC = () => {
-
+    const cartSelector = useAppSelector(selectCart)
+    console.log(cartSelector.list);
     return (
         <>
             <Header />

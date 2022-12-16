@@ -37,12 +37,12 @@ const cartSlice = createSlice({
 				state.list = newArr
 
 			} else {
-				state.list?.push({ productId: isNonEmptyString(action.payload.id), quantity: 1, type: action.payload.type, created_at: new Date().getTime(), modified_at: new Date().getTime() })
+				state.list?.push({ productId: isNonEmptyString(action.payload.productId), quantity: 1, type: action.payload.type, created_at: new Date().getTime(), modified_at: new Date().getTime() })
 			}
 
-			setTimeout(() => {
-				state.loading = false
-			}, 1000);
+			// setTimeout(() => {
+			// 	state.loading = false
+			// }, 1000);
 		},
 		removeItemFromCart: (state: CartInitState, action: PayloadAction<IProductItem>) => {
 			const newArr = state.list?.filter(cart => {

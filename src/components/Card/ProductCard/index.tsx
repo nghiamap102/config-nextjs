@@ -42,7 +42,6 @@ const ProductCard: FC<ProductCardProps> = ({
         quantity: 0,
         type: { color: product?.sample[0].color }
     })
-
     const handleChooseColor = (color: string) => setCartItem({ ...cartItem, type: { ...cartItem.type, color: color } })
 
     const renderPrice = (price: any) => {
