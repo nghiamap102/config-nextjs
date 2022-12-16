@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ListResponseModel } from 'models/commonModel';
 import { RootState } from 'redux/store';
-import { ProductData, ProductInitState } from './productModel';
+import { IProductItem, ProductInitState } from './productModel';
 import ProductService from "./productService";
 
 const initialState: ProductInitState = {
@@ -24,7 +24,7 @@ const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        fetchProductListSuccess: (state: ProductInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
+        fetchProductListSuccess: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload.data
         },
         // getProductDetail: (state: ProductInitState, action: PayloadAction<string>) => {
@@ -35,15 +35,15 @@ const productSlice = createSlice({
         //     })
         //     newArr ? state.detail = newArr[0] : state.detail = null
         // },
-        fetchProductListSearch: (state: ProductInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
+        fetchProductListSearch: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload.data
         },
-        getProductById: (state: ProductInitState, action: PayloadAction<ProductData>) => {
+        getProductById: (state: ProductInitState, action: PayloadAction<IProductItem>) => {
             state.detail = action.payload
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchProductList.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<ProductData>>) => {
+        builder.addCase(fetchProductList.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload?.data
         })
         builder.addCase(fetchProductList.pending, (state: ProductInitState) => {

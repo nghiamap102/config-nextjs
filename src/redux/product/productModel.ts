@@ -1,11 +1,11 @@
 export interface ProductInitState {
-    list?: ProductData[]
-    listSearch?: ProductData[]
-    detail?: ProductData | null
+    list?: IProductItem[]
+    listSearch?: IProductItem[]
+    detail?: IProductItem | null
     loading?: boolean
 }
 
-export interface ProductData {
+export interface IProductItem {
     id?: string
     name?: string
     rate?: number

@@ -4,10 +4,10 @@ import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import Image from "next/image";
 import { FC } from "react";
 import { Rating } from "react-simple-star-rating";
-import { ProductData } from "redux/product/productModel";
+import { IProductItem } from "redux/product/productModel";
 
 type ProductQuickViewProps = {
-    product: ProductData
+    product: IProductItem
     handleClose: () => void
     isOpen: boolean
 };

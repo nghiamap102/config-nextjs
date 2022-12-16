@@ -10,10 +10,10 @@ import { FC, useEffect, useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import { addToCart } from "redux/cart/cartSlice";
 import { useAppDispatch } from "redux/hooks";
-import { ProductData } from "redux/product/productModel";
+import { IProductItem } from "redux/product/productModel";
 import { getProductById } from "redux/product/productSlice";
 
-const ProductPage: FC = (product: ProductData) => {
+const ProductPage: FC = (product: IProductItem) => {
     const { t } = useTranslation(['product'])
     const dispatch = useAppDispatch()
     const [currentColor, setCurrentColor] = useState(product.sample && product.sample[0]?.color || '')

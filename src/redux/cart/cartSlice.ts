@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { isNonEmptyArray, isNonEmptyString } from "@utils/validations";
 import { ListResponseModel } from "models/commonModel";
 import { HYDRATE } from "next-redux-wrapper";
-import { ProductData } from "redux/product/productModel";
+import { IProductItem } from "redux/product/productModel";
 import { RootState } from "../store";
 import { CartData, CartInitState, ICartItem } from "./cartModel";
 
@@ -44,7 +44,7 @@ const cartSlice = createSlice({
 				state.loading = false
 			}, 1000);
 		},
-		removeItemFromCart: (state: CartInitState, action: PayloadAction<ProductData>) => {
+		removeItemFromCart: (state: CartInitState, action: PayloadAction<IProductItem>) => {
 			const newArr = state.list?.filter(cart => {
 				if (cart.productId !== action.payload.id) {
 					return cart
@@ -59,10 +59,10 @@ const cartSlice = createSlice({
 				}
 			})
 		},
-		addToWishList: (state: CartInitState, action: PayloadAction<ProductData>) => {
+		addToWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
 			state.wishList?.push(action.payload)
 		},
-		removeItemFromWishList: (state: CartInitState, action: PayloadAction<ProductData>) => {
+		removeItemFromWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
 			const newArr = state.wishList?.filter(cart => {
 				if (cart.id !== action.payload.id) {
 					return cart

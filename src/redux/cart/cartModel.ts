@@ -1,9 +1,9 @@
 import { ProductSample } from './../product/productModel';
-import { ProductData } from "redux/product/productModel"
+import { IProductItem } from "redux/product/productModel"
 
 export interface CartInitState {
     list?: CartData[]
-    wishList?: ProductData[]
+    wishList?: IProductItem[]
     loading?: boolean
 }
 export type CartData = {
