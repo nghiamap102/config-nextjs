@@ -1,35 +1,27 @@
-const express = require('express');
-const app = express();
-const PORT = 4000;
+var express = require('express')
+const http = require("http");
+var app = express();
+const server = http.createServer(app);
 
-//New imports
-const http = require('http').Server(app);
-const cors = require('cors');
-
-
-
-const socketIO = require('socket.io')(http, {
+const socketIo = require("socket.io")(server, {
     cors: {
-        origin: "http://localhost:3030"
+        origin: "*",
     }
 });
 
-//Add this before the app.get() block
-socketIO.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`);
-    socket.on('disconnect', () => {
-        console.log('🔥: A user disconnected');
+
+socketIo.on("connection", (socket) => { 
+    console.log("New client connected" + socket.id);
+
+    socket.on('SEND_MESSAGE', function (data) { 
+        socketIo.emit('SEND_MESSAGE', { data });
+    })
+
+    socket.on("disconnect", () => {
+        console.log("Client disconnected"); 
     });
 });
 
-app.use(cors());
-
-app.get('/api', (req, res) => {
-    res.json({
-        message: 'Hello world',
-    });
-});
-
-http.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+server.listen(3031, () => {
+    console.log("chat connected");
 });
