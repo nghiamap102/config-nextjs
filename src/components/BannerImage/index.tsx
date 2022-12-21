@@ -1,5 +1,6 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import { FC } from 'react'
 
 type BannerImageProps = {

@@ -18,5 +18,14 @@ export const Currency = {
     en: 'usd',
     vi: 'vnd'
 }
-
 export const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full']
+export const toastConst = {
+    cart: 'cart',
+}
+
+export const TYPING = 'TYPING'
+export const SEND_MESSAGE = 'SEND_MESSAGE'
+export const MODE_MESSAGE = 'MODE_MESSAGE'
+export const DELETE_MESSAGE = 'DELETE_MESSAGE'
+export const DELETE_CONVERS = 'DELETE_CONVERS'
+export const STORE_CONVERS = 'STORE_CONVERS'

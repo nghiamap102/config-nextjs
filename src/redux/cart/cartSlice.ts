@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { isNonEmptyArray, isNonEmptyString } from "@utils/validations";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { isNonEmptyArray } from "@utils/validations";
 import { ListResponseModel } from "models/commonModel";
 import { HYDRATE } from "next-redux-wrapper";
 import { IProductItem } from "redux/product/productModel";
@@ -20,33 +20,37 @@ const cartSlice = createSlice({
 			state.list = action.payload.data
 		},
 		addToCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-			state.loading = true
-			if (!state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
+			if (!state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
+				state.list?.push({
+					product: action.payload.product,
+					quantity: 1,
+					type: action.payload.type,
+					created_at: new Date().getTime(),
+					modified_at: new Date().getTime(),
+					imageModel: action.payload.imageModel,
+				})
 
-				state.list?.push({ productId: isNonEmptyString(action.payload.productId), quantity: 1, type: action.payload.type, created_at: new Date().getTime(), modified_at: new Date().getTime() })
-
-			} else if (state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
-
+			} else if (state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
 				const newArr = state.list?.map(cart => {
-					if (cart.productId === action.payload.productId) {
-						return { ...cart, count: cart.quantity + 1, modified_at: new Date().getTime() }
+					if (cart.product.id === action.payload.product.id) {
+						return { ...cart, quantity: cart.quantity + 1, modified_at: new Date().getTime() }
 					}
 					return cart
 				})
-
 				state.list = newArr
-
 			} else {
-				state.list?.push({ productId: isNonEmptyString(action.payload.productId), quantity: 1, type: action.payload.type, created_at: new Date().getTime(), modified_at: new Date().getTime() })
+				state.list?.push({
+					product: action.payload.product,
+					quantity: 1, type: action.payload.type,
+					created_at: new Date().getTime(),
+					modified_at: new Date().getTime(),
+					imageModel: action.payload.imageModel
+				})
 			}
-
-			// setTimeout(() => {
-			// 	state.loading = false
-			// }, 1000);
 		},
-		removeItemFromCart: (state: CartInitState, action: PayloadAction<IProductItem>) => {
+		removeItemFromCart: (state: CartInitState, action: PayloadAction<CartData>) => {
 			const newArr = state.list?.filter(cart => {
-				if (cart.productId !== action.payload.id) {
+				if (cart.product.id !== action.payload.product.id) {
 					return cart
 				}
 			})
@@ -54,7 +58,7 @@ const cartSlice = createSlice({
 		},
 		updateCart: (state: CartInitState, action: PayloadAction<CartData>) => {
 			state.list?.map(cart => {
-				if (cart.productId === action.payload.productId) {
+				if (cart.product.id === action.payload.product.id) {
 					return { ...cart, count: action.payload }
 				}
 			})

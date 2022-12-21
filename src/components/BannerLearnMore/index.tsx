@@ -1,17 +1,18 @@
-import { Box, Button, Link, SystemStyleObject, Text } from "@chakra-ui/react";
+import { Box, Button, SystemStyleObject, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
+import Link from "next/link";
 import { FC } from 'react'
 
 type BannerLearnMoreProps = {
     icon?: any
     text: string
-    link?: string
+    linkTo: string
     style?: SystemStyleObject
 };
 const BannerLearnMore: FC<BannerLearnMoreProps> = ({
     icon,
     text,
-    link,
+    linkTo,
     style
 }) => {
     return (
@@ -21,11 +22,11 @@ const BannerLearnMore: FC<BannerLearnMoreProps> = ({
         >
             {icon}
             <Text fontSize='md' textTransform={'uppercase'} marginX={5} >{text}</Text>
-            <Button textDecoration={'none'} textTransform={'uppercase'} bg={mainColor.orange} color={mainColor.white} _hover={{ bg: mainColor.hotTag }} variant='ghost'>
-                <Link href={link} textDecoration={'none'}>
+            <Link href={linkTo}>
+                <Button textDecoration={'none'} textTransform={'uppercase'} bg={mainColor.orange} color={mainColor.white} _hover={{ bg: mainColor.hotTag }} variant='ghost'>
                     learn more
-                </Link>
-            </Button>
+                </Button>
+            </Link>
         </Box>
     );
 };

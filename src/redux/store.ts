@@ -15,6 +15,8 @@ import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
 import { CartInitState } from './cart/cartModel'
 import { cartReducer } from './cart/cartSlice'
+import { ChatInitialState } from './chat/chatModel'
+import { chatReducer } from './chat/chatSlice'
 import { CommonInitState } from './common/commonModel'
 import { commonReducer } from './common/commonSlice'
 import { ProductInitState } from './product/productModel'
@@ -26,6 +28,7 @@ export interface State {
     common: CommonInitState
     cart: CartInitState
     product: ProductInitState
+    chat: ChatInitialState
 }
 
 const rootReducer = combineReducers({
@@ -33,6 +36,7 @@ const rootReducer = combineReducers({
     common: commonReducer,
     cart: cartReducer,
     product: productReducer,
+    chat: chatReducer,
 })
 
 const reducer = (state: any, action: AnyAction) => {

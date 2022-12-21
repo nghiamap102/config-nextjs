@@ -12,14 +12,16 @@ import Header from "@components/Header";
 import { HeaderViewAll } from "@components/Header/HeaderViewAll";
 import { selectCart } from "@redux/cart/cartSlice";
 import { useAppSelector } from "@redux/hooks";
+import { IProductItem } from "@redux/product/productModel";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import { FC } from "react";
 import { SwiperSlide } from "swiper/react";
 
-const HomePage: FC = () => {
+
+
+const HomePage: FC<{ products: IProductItem[] }> = ({ products }) => {
     const cartSelector = useAppSelector(selectCart)
-    console.log(cartSelector.list);
     return (
         <>
             <Header />
@@ -29,17 +31,18 @@ const HomePage: FC = () => {
                         style={{ paddingY: '1.5rem' }}
                         text="buy now, pay later starting at 0% APR"
                         icon={<Image src={ImageAssets.BannerAds} alt='abc' />}
+                        linkTo='abc'
                     />
                     <Categories />
 
                     <BannerImage imageSrc={ImageAssets.BannerSale} alt='banner sale' linkTo="abc" />
 
                     <Box paddingX={5} marginY={10}>
-                        <HeaderViewAll title="shop by categories" />
+                        <HeaderViewAll title="shop by categories" LinkTo="abc" />
 
                         <Carousel slidesPerView={6} centeredSlides={false}>
                             {Array(12).fill({
-                                link: 'abc',
+                                link: 'abc' + Math.random() * 100,
                                 name: 'Mobile phones',
                                 src: ImageAssets.Categories1
                             }).map((ele, index) => (
@@ -49,52 +52,27 @@ const HomePage: FC = () => {
                     </Box>
 
                     <Box marginY={10}>
-                        <HeaderViewAll title="new products" />
+                        <HeaderViewAll title="new products" LinkTo="abc" />
 
                         <Carousel slidesPerView={5} centeredSlides={false}>
-                            {Array(12).fill({
-                                id: `abc`,
-                                link: 'abc',
-                                name: '(Product 16) Sample - Computers & Accessories For Sale',
-                                rate: Math.round(Math.random() * 5),
-                                price: 20,
-                                sale: 10,
-                                tag: 'hot',
-                                sample: [
-                                    {
-                                        size: 'l',
-                                        color: 'black',
-                                        imageSrc: ImageAssets.ProuductLoa1
-                                    },
-                                    {
-                                        size: 'xl',
-                                        color: 'gray',
-                                        imageSrc: ImageAssets.Categories1
-                                    },
-                                    {
-                                        size: 'm',
-                                        color: 'orange',
-                                        imageSrc: ImageAssets.ProuductLoa1
-                                    }
-                                ],
-                            }).map((product, index) => (
+                            {products.map((product, index) => (
                                 <SwiperSlide key={index}>
-                                    <ProductCard product={product}/>
+                                    <ProductCard product={product} />
                                 </SwiperSlide>
                             ))}
                         </Carousel>
                     </Box>
 
                     <Box marginY={10}>
-                        <HeaderViewAll title="top brands" />
+                        <HeaderViewAll title="top brands" LinkTo="abc" />
 
                         <Carousel slidesPerView={6}>
                             {Array(12).fill({
-                                link: 'abc',
+                                link: 'abc' + Math.random() * 100,
                                 imageSrc: ImageAssets.ShopifyLogo
                             }).map((brand, index) => (
                                 <SwiperSlide key={index}>
-                                    <BrandsLogo linkTo="abc">
+                                    <BrandsLogo linkTo={brand.link}>
                                         <Image src={brand.imageSrc} alt="logo" height={80} width={150} />
                                     </BrandsLogo>
                                 </SwiperSlide>

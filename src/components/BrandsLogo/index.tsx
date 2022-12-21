@@ -1,9 +1,10 @@
-import { Flex, FlexProps, Link } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
+import Link from "next/link";
 import { FC } from "react";
 
 type BrandsLogoProps = {
-    linkTo?: string
+    linkTo: string
     children?:any
 } & FlexProps
 const BrandsLogo: FC<BrandsLogoProps> = ({

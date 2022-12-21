@@ -1,14 +1,11 @@
 import { ImageAssets } from "@assets/index";
-import { Box, Container, Grid, GridItem, Link, Text } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, Text } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import { FC } from "react";
 import { SwiperSlide } from 'swiper/react';
-
+import Link from "next/link";
 import Carousel from "@components/Carousel";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 const Categories: FC = () => {
 
@@ -30,9 +27,11 @@ const Categories: FC = () => {
                     <Grid templateColumns='repeat(2 , 1fr)' bg={mainColor.gray} gap={0.4}>
                         {Array(12).fill(null).map((ele, index) => (
                             <GridItem key={index} bg={mainColor.white}>
-                                <Link className="flex justify-between items-center flex-col py-3" >
-                                    <Image src={ImageAssets.Sports} alt='abc' height={24} width={24} />
-                                    <Text lineHeight='2rem' className="capitalize mt-2">sports</Text>
+                                <Link href={`/abc`}>
+                                    <Box className="flex justify-between items-center flex-col py-3" >
+                                        <Image src={ImageAssets.Sports} alt='abc' height={24} width={24} />
+                                        <Text lineHeight='2rem' className="capitalize mt-2">sports</Text>
+                                    </Box>
                                 </Link>
                             </GridItem>
                         ))}

@@ -14,7 +14,7 @@ const Footer: FC = () => {
                 </Box>
                 <Flex>
                     {Array(4).fill(null).map((ele, index) =>
-                        <BrandsLogo key={index} className='mx-2 px-2 py-1 rounded-none' border={`1px solid ${mainColor.gray}`} >
+                        <BrandsLogo key={index} className='mx-2 px-2 py-1 rounded-none' border={`1px solid ${mainColor.gray}`} linkTo="abc">
                             <Image src={ImageAssets.ShopifyLogo} alt="logo" height={50} width={80} />
                         </BrandsLogo>
                     )}

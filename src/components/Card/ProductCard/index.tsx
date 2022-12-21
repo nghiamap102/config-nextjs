@@ -1,5 +1,5 @@
 import { IconAssets } from "@assets/index";
-import { Box, Flex, Link, Tag, Text } from "@chakra-ui/react";
+import { Box, Flex, Tag, Text } from "@chakra-ui/react";
 import ButtonCircle from "@components/ButtonCircle";
 import ButtonPrimary from "@components/ButtonPrimary";
 import MiniAddCart from "@components/Cart/MiniAddCart";
@@ -12,13 +12,12 @@ import { mainColor } from "@theme/theme";
 import { formatCurrency, formatValueCurrency } from "@utils/helper";
 import { isNonEmptyString } from "@utils/validations";
 import ProductQuickView from "@view/ProductQuickview";
-import { fillColorArrayRating, tooltipArrayRating } from "contants/common";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
-import { Rating } from "react-simple-star-rating";
+import { FC, useMemo, useState } from "react";
 import { IProductItem } from "redux/product/productModel";
 import { CardHeader } from "./CardHeader";
+import Link from "next/link";
 
 type ProductCardProps = {
     product: IProductItem
@@ -29,7 +28,7 @@ const ProductCard: FC<ProductCardProps> = ({
     product,
     isOpenQuickView,
 }) => {
-    const { id, name, price, rate, sale, tag, sample } = product
+    const { id, name, price, sale, tag, sample } = product
     const dispatch = useAppDispatch()
 
     const { t } = useTranslation(['product']);
@@ -38,9 +37,10 @@ const ProductCard: FC<ProductCardProps> = ({
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
     const [activeQuickAdd, setActiveQuickAdd] = useState(false)
     const [cartItem, setCartItem] = useState<ICartItem>({
-        productId: '',
+        product: product,
         quantity: 0,
-        type: { color: product?.sample[0].color }
+        type: { color: product?.sample && product?.sample[0].color },
+        imageModel: product?.sample && product?.sample[0].imageSrc
     })
     const handleChooseColor = (color: string) => setCartItem({ ...cartItem, type: { ...cartItem.type, color: color } })
 
@@ -58,6 +58,16 @@ const ProductCard: FC<ProductCardProps> = ({
     const handleInActiveQuickAdd = () => setActiveQuickAdd(false)
     const handleAddToWishList = () => dispatch(addToWishList(product))
 
+    const renderMiniAddCart = useMemo(() => {
+        return <MiniAddCart
+            onClose={handleInActiveQuickAdd}
+            isOpen={activeQuickAdd}
+            product={product}
+            title={'quick add to cart'}
+            cartItem={cartItem}
+        />
+    }, [cartItem, activeQuickAdd])
+    
     return (
         <Box bg={mainColor.white} padding={7}>
 
@@ -65,9 +75,11 @@ const ProductCard: FC<ProductCardProps> = ({
 
             <CardHeader cartItem={cartItem} product={product} onClickShortCut={handleActiveModal} />
 
-            <Link href={`/product/${id}`}> <Text fontSize='lg' marginBottom={2}>{name?.slice(0, 45)}...</Text></Link>
+            <Box>
+                <Link href={`/product/${id}`}><Text fontSize='lg' marginBottom={2}>{name?.slice(0, 45)}...</Text></Link>
+            </Box>
 
-            <SimpleRating direction="horizon" value={product.rate}/>
+            <SimpleRating direction="horizon" value={product.rate} />
 
             <Flex marginTop={3} alignItems='center' >
                 <Text textDecoration='line-through' color={mainColor.gray1}>{renderPrice(sale)}</Text>
@@ -82,7 +94,7 @@ const ProductCard: FC<ProductCardProps> = ({
                         onClick={() => handleChooseColor(isNonEmptyString(product.color))}
                         label={product.color}
                         color={product.color}
-                        marginX={1} marginY={4} active={cartItem.type.color === product.color && true}
+                        marginX={1} marginY={4} active={cartItem.type && cartItem.type.color === product.color && true}
                     />
                 ))}
             </Flex>
@@ -99,13 +111,7 @@ const ProductCard: FC<ProductCardProps> = ({
                 />
             </Flex>
 
-            <MiniAddCart
-                onClose={handleInActiveQuickAdd}
-                isOpen={activeQuickAdd}
-                product={product}
-                title={'quick add to cart'}
-                cartItem={cartItem}
-            />
+            {renderMiniAddCart}
 
             <ProductQuickView
                 product={product}

@@ -7,12 +7,12 @@ export interface CartInitState {
     loading?: boolean
 }
 export type CartData = {
-    created_at: number
-    modified_at: number
+    created_at?: number
+    modified_at?: number
 } & ICartItem
 export interface ICartItem {
-    productId: string
+    product: IProductItem
     quantity: number
     type: ProductSample
-    imageSrc: string
+    imageModel: string
 }

@@ -6,9 +6,9 @@ type DrawerCPNProps = {
     ref?: RefObject<any>
     onClose: () => void
     placement?: SlideDirection
-    footer?: boolean
-    title? : string
+    footer?: any
     body?: any
+    title? : string
     size?: sizeType 
 };
 
@@ -16,8 +16,8 @@ const DrawerCPN: FC<DrawerCPNProps> = ({
     ref,
     onClose,
     placement,
-    footer,
     title,
+    footer,
     body,
     size = 'sm',
 }) => {
@@ -38,14 +38,9 @@ const DrawerCPN: FC<DrawerCPNProps> = ({
                 <DrawerBody>
                     {body}
                 </DrawerBody>
-                {footer &&
-                    <DrawerFooter>
-                        <Button variant='outline' mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme='blue'>Save</Button>
-                    </DrawerFooter>
-                }
+                <DrawerFooter>
+                    {footer}
+                </DrawerFooter>
             </DrawerContent>
         </Drawer>
     );
