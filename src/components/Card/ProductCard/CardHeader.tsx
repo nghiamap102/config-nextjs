@@ -15,7 +15,6 @@ type CardHeaderProps = {
 export const CardHeader: FC<CardHeaderProps> = ({ cartItem, product, onClickShortCut }) => {
 
     const [activeQuickView, setActiveQuickView] = useState(false);
-    const [cartItemInit, setCartItemInit] = useState(cartItem);
     const handleMouseQuickViewActive = () => setActiveQuickView(true)
     const handleMouseQuickViewInActive = () => setActiveQuickView(false)
     return (
@@ -27,7 +26,7 @@ export const CardHeader: FC<CardHeaderProps> = ({ cartItem, product, onClickShor
             {product.sample?.map((item) =>
                 <Box
                     key={item.color}
-                    className={classNames(cartItemInit.type && cartItemInit.type.color === item.color ? 'fade-in' : 'hidden')}
+                    className={classNames(cartItem.type && cartItem.type.color === item.color ? 'fade-in' : 'hidden')}
                 >
                     <Image src={item.imageSrc || ImageAssets.NoImage} alt={product.name} height={250} width={250} />
                 </Box>

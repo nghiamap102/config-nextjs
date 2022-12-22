@@ -1,6 +1,3 @@
-type UiSelectFieldProps = {
-
-};
 const UiSelectField = () => {
     return (
         <div>

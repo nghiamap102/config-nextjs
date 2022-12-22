@@ -9,10 +9,11 @@ export interface IProductItem {
     id?: string
     name?: string
     rate?: number
-    sale?: string
+    sale?: number
     sample?: ProductSample[]
     tag?: string
     price?: number
+    quatity_remain: number
     saleCount?: number
 }
 export interface ProductSample {

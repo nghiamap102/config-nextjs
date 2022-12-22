@@ -16,7 +16,7 @@ const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		getProductList: (state: CartInitState, action: PayloadAction<ListResponseModel<CartData>>) => {
+		getListCart: (state: CartInitState, action: PayloadAction<ListResponseModel<CartData>>) => {
 			state.list = action.payload.data
 		},
 		addToCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
@@ -63,8 +63,21 @@ const cartSlice = createSlice({
 				}
 			})
 		},
+		updateCartItem: (state: CartInitState, action: PayloadAction<CartData>) => {
+			state.list?.map(cart => {
+				if (cart.product.id === action.payload.product.id) {
+					cart = action.payload
+				}
+				return cart
+			})
+			console.log(state.list);
+		},
 		addToWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
-			state.wishList?.push(action.payload)
+			if (!state.wishList?.some(item => item.id === action.payload.id)) {
+				state.wishList?.push(action.payload)
+			} else if (state.wishList.length < 0) {
+				state.wishList?.push(action.payload)
+			}
 		},
 		removeItemFromWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
 			const newArr = state.wishList?.filter(cart => {
@@ -87,10 +100,11 @@ export const cartReducer = cartSlice.reducer;
 export const cartActions = cartSlice.actions;
 
 export const {
-	getProductList,
+	getListCart,
 	addToCart,
 	removeItemFromCart,
 	updateCart,
+	updateCartItem,
 	addToWishList,
 	removeItemFromWishList
 } = cartSlice.actions;

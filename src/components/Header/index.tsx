@@ -5,16 +5,15 @@ import Navbar from '@components/Navbar';
 import { mainColor } from "@theme/common/color";
 import { EventType } from 'models/commonModel';
 import Image from "next/image";
+import Link from 'next/link';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { selectCommon, setSearchKey } from 'redux/common/commonSlice';
-import { useAppSelector } from 'redux/hooks';
+import { setSearchKey } from 'redux/common/commonSlice';
 import GridIconHeader from './GridIcon';
-import Link from 'next/link';
 
 const Header: FC = () => {
 
-    const common = useAppSelector(selectCommon)
+    // const common = useAppSelector(selectCommon)
     const dispatch = useDispatch()
 
     const handleChange = (e: EventType) => {

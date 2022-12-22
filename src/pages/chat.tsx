@@ -1,6 +1,6 @@
 import { SEND_MESSAGE } from "contants/common";
 import { useEffect, useRef, useState } from "react";
-import socketIOClient, { io } from "socket.io-client";
+import socketIOClient from "socket.io-client";
 
 const ChatPage = () => {
     const [mess, setMess] = useState([]);

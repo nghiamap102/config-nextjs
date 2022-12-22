@@ -22,6 +22,7 @@ import { SwiperSlide } from "swiper/react";
 
 const HomePage: FC<{ products: IProductItem[] }> = ({ products }) => {
     const cartSelector = useAppSelector(selectCart)
+    console.log(cartSelector.wishList);
     return (
         <>
             <Header />

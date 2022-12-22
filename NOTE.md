@@ -4,6 +4,7 @@ hover img[1] show [productCard]
 link diff btw next and ui
 research Nprogress 
 diagram.net
+detect refresh page to del sessionstorage
 
 <!-- Err -->
 [react-hydration-error/does-not-match-UI-render] is dont add sth into <Text>

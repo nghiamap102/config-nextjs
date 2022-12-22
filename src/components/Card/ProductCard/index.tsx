@@ -66,8 +66,8 @@ const ProductCard: FC<ProductCardProps> = ({
             title={'quick add to cart'}
             cartItem={cartItem}
         />
-    }, [cartItem, activeQuickAdd])
-    
+    }, [cartItem, activeQuickAdd, product])
+
     return (
         <Box bg={mainColor.white} padding={7}>
 

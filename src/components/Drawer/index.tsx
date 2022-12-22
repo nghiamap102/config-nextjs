@@ -1,4 +1,4 @@
-import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, SlideDirection } from "@chakra-ui/react";
+import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, SlideDirection } from "@chakra-ui/react";
 import { sizeType } from "models/commonModel";
 import { FC, RefObject } from "react";
 

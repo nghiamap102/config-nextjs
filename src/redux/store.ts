@@ -50,7 +50,7 @@ const reducer = (state: any, action: AnyAction) => {
             nextState.router = state.router
             nextState = {
                 ...nextState,
-                // ...JSON.parse(localStorage.getItem('cart') || '{}'),
+                ...JSON.parse(localStorage.getItem('cart') || '{}'),
             }
         }
         return rootReducer(nextState, action)

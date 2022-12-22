@@ -1,5 +1,4 @@
 import { IconButton, IconButtonProps } from "@chakra-ui/react";
-import { mainColor } from "@theme/theme";
 import { FC } from "react";
 
 const IconButtonPrimary: FC<IconButtonProps> = ({ children, ...props }) => {

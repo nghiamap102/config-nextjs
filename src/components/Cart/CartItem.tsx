@@ -4,25 +4,33 @@ import { Box, Checkbox, Grid, GridItem, Text, useNumberInput } from "@chakra-ui/
 import UiNumberInputControl from "@components/Field/UiNumberInputControl";
 import Translation from "@components/Translate";
 import { ICartItem } from "@redux/cart/cartModel";
+import { selectCart, updateCartItem } from "@redux/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
 import { formatCurrency, formatValueCurrency } from "@utils/helper";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 type CartItemProps = {
     item: ICartItem
-    onClickCheck?: () => void
+    onChangeCheck?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onRemoveItem?: () => void
 };
 
-const CartItem: FC<CartItemProps> = ({ item, onClickCheck, onRemoveItem }) => {
-    const numberInput = useNumberInput({ step: 1, defaultValue: 1, min: 1, precision: 0, })
+const CartItem: FC<CartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
+    const dispatch = useAppDispatch()
+    const cartSelector = useAppSelector(selectCart)
+    const numberInput = useNumberInput({ step: 1, defaultValue: item.quantity, min: 1, precision: 0, })
     const router = useRouter()
+    useEffect(() => {
+        dispatch(updateCartItem({ ...item, quantity: parseInt(numberInput.value) }))
+    }, [numberInput.value])
+
     return (
-        <Grid templateColumns={'repeat(24,1fr)'} className='items-center relative'>
+        <Grid templateColumns={'repeat(24,1fr)'} className='items-center relative my-3'>
             <GridItem colSpan={1} className='flex items-center'>
-                <Checkbox onClick={onClickCheck} />
+                <Checkbox onChange={onChangeCheck} />
             </GridItem>
 
             <GridItem border={`1px solid ${mainColor.gray}`} padding={5} colSpan={5} mx='3'>

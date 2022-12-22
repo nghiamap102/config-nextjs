@@ -11,7 +11,7 @@ import { mainColor } from "@theme/theme";
 import { isNonEmptyString } from "@utils/validations";
 import classNames from "classnames";
 import { toastConst } from "contants/common";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 type MiniAddCartProps = {
     product: IProductItem
