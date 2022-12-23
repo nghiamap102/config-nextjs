@@ -1,20 +1,41 @@
 import { Box, ChakraProvider } from '@chakra-ui/react'
-import '@styles/globals.scss'
 import Global from '@theme/global'
 import theme from '@theme/theme'
 import { gapi } from 'gapi-script'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
+import NProgress from 'nprogress'
 import { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { wrapper } from 'redux/store'
-import './_app.css'
+import '../../public/other/nprogress.css'
+import './_app.css' 
+import '@styles/globals.scss'
+import ProgressBar from '@components/ProgressBar'
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const router = useRouter();
 
     useEffect(() => {
         decodeScript()
-    });
+    }, []);
+
+    useEffect(() => {
+        NProgress.configure({ showSpinner: false });
+        const handleStart = () => NProgress.start()
+        const handleStop = () => NProgress.done()
+
+        router.events.on('routeChangeStart', handleStart)
+        router.events.on('routeChangeComplete', handleStop)
+        router.events.on('routeChangeError', handleStop)
+
+        return () => {
+            router.events.off('routeChangeStart', handleStart)
+            router.events.off('routeChangeComplete', handleStop)
+            router.events.off('routeChangeError', handleStop)
+        }
+    }, [router])
 
     const decodeScript = () => {
         const initClient = async () => {
@@ -32,6 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <ChakraProvider theme={theme}>
                     <Global />
                     <Box bg='#fff' color='#000'>
+                        <ProgressBar />
                         <Component {...pageProps} />
                     </Box>
                 </ChakraProvider>

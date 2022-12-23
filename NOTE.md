@@ -5,6 +5,7 @@ link diff btw next and ui
 research Nprogress 
 diagram.net
 detect refresh page to del sessionstorage
+change react-gg-login & fb-login to nextauth
 
 <!-- Err -->
 [react-hydration-error/does-not-match-UI-render] is dont add sth into <Text>

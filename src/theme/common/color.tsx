@@ -1,10 +1,5 @@
 import { Global } from '@emotion/react'
 
-const common = {
-  blue: '##4267B2',
-  black: '#222731'
-}
-
 export const mainColor = {
   black: '#000000',
   blueDark: '#4267B2',

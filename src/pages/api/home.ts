@@ -2,10 +2,8 @@
 import { ImageAssets } from '@assets/index'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<any>,
-) {
+
+const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
     res.status(200).json(
         {
             product: [
@@ -138,3 +136,6 @@ export default function handler(
         }
     )
 }
+
+
+export default handler 
