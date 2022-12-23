@@ -20,7 +20,7 @@ const ProgressBar: FC = () => {
 
     return (
         <div className={styles.progressBarContainer} >
-            <div className={styles.progressBar} style={{ transform: `scale(${scroll}, 1)`, opacity: `${scroll}` }} />
+            <div className={styles.progressBar} style={{ transform: `scale(${scroll}, 1)`, opacity: `${scroll + 0.1}` }} />
         </div>
     );
 };
