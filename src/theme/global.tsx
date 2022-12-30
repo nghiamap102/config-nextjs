@@ -4,11 +4,11 @@ import Fonts from './common/fonts'
 import Swiper from './common/swiper'
 
 const Global = () => (
-  <>
-    <Fonts />
-    <Color />
-    <Swiper />
-  </>
+    <>
+        <Fonts />
+        <Color />
+        <Swiper />
+    </>
 )
 
 export default Global

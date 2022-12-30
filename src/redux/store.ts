@@ -4,12 +4,12 @@ import {
     combineReducers,
     configureStore,
     Store,
-    ThunkAction
+    ThunkAction,
 } from '@reduxjs/toolkit'
 import {
     createRouterMiddleware,
     routerReducer,
-    RouterState
+    RouterState,
 } from 'connected-next-router'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
@@ -79,7 +79,7 @@ const reHydrateStore = () => {
         typeof localStorage !== 'undefined' &&
         localStorage.getItem('cart') !== null
     ) {
-        return JSON.parse(localStorage.getItem('cart') || '') // re-hydrate the store
+        // return JSON.parse(localStorage.getItem('cart') || '') // re-hydrate the store
     }
     return {}
 }
@@ -98,7 +98,7 @@ const store = configureStore({
 })
 
 export const makeStore = () => {
-    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
+    ;(store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
     return store
 }
 

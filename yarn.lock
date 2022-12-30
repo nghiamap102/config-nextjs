@@ -3902,10 +3902,10 @@ functions-have-names@^1.2.2:
   resolved "https://vd.gisx.vn/functions-have-names/-/functions-have-names-1.2.3.tgz"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
-gapi-script@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/gapi-script/-/gapi-script-1.1.0.tgz#4b15cf019f3e8b146206df107f72ead952ea68d6"
-  integrity sha512-zpPzI+Ze8OADLLz0w76FOgGUE5WYpANuAJGsI3zB51SzByPmR7gKa8xMSsqhinaFpDQ7lRqvQRstSD2cFwI4Yg==
+gapi-script@1.2.0:
+  version "1.2.0"
+  resolved "https://vd.gisx.vn/gapi-script/-/gapi-script-1.2.0.tgz#8106ad0abb36661ce4fab62ef6efada288d7169e"
+  integrity sha512-NKTVKiIwFdkO1j1EzcrWu/Pz7gsl1GmBmgh+qhuV2Ytls04W/Eg5aiBL91SCiBM9lU0PMu7p1hTVxhh1rPT5Lw==
 
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
@@ -5343,10 +5343,10 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
-nprogress@^0.2.0:
+nprogress@0.2.0:
   version "0.2.0"
-  resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
-  integrity sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==
+  resolved "https://vd.gisx.vn/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
 
 nth-check@^2.0.1:
   version "2.1.1"

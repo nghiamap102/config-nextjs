@@ -19,8 +19,6 @@ import NoImage from './no-image.png'
 import ShopifyLogo from './Shopify-Logo.png'
 import BGLogin from './bg-login.jpeg'
 
-
-
 export {
     Bread,
     Clothing,
@@ -41,5 +39,5 @@ export {
     ProuductLoa2,
     NoImage,
     ShopifyLogo,
-    BGLogin
+    BGLogin,
 }

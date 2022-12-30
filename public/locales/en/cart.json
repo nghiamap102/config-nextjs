@@ -1,6 +1,6 @@
 {
     "checkout": "check out",
     "empty_cart": "empty cart",
-    "view_cart" : "view cart",
-    "remove_item" : "remove item"
+    "view_cart": "view cart",
+    "remove_item": "remove item"
 }

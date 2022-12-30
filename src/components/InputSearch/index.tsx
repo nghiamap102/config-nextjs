@@ -1,16 +1,15 @@
-
-import { Box } from '@chakra-ui/react';
-import classNames from 'classnames';
-import { EventType } from 'models/commonModel';
-import styles from './Input.module.css';
-import { FC } from 'react';
+import { Box } from '@chakra-ui/react'
+import classNames from 'classnames'
+import { EventType } from 'models/commonModel'
+import styles from './Input.module.css'
+import { FC } from 'react'
 
 type InputSearchProps = {
     icon?: any
     value?: string
-    onChange?: (e: EventType) => void;
-    onClickSearch?: () => void;
-};
+    onChange?: (e: EventType) => void
+    onClickSearch?: () => void
+}
 
 const InputSearch: FC<InputSearchProps> = ({
     icon,
@@ -18,7 +17,6 @@ const InputSearch: FC<InputSearchProps> = ({
     onChange,
     onClickSearch,
 }) => {
-
     const handleKeyDown = (e: any) => {
         e.keyCode === 13 && onClickSearch
     }
@@ -35,11 +33,12 @@ const InputSearch: FC<InputSearchProps> = ({
             <Box
                 onClick={onClickSearch}
                 transform={'translateY(-50%)'}
-                className="absolute top-1/2 right-5 font-bold cursor-pointer">
+                className="absolute top-1/2 right-5 font-bold cursor-pointer"
+            >
                 {icon}
             </Box>
         </Box>
-    );
-};
+    )
+}
 
-export default InputSearch;
+export default InputSearch

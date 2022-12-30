@@ -9,7 +9,7 @@
             "@theme/*": ["theme/*"],
             "@assets/*": ["assets/*"],
             "@view/*": ["view/*"],
-            "@redux/*": ["redux/*"],
+            "@redux/*": ["redux/*"]
         },
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],

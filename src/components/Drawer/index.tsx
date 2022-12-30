@@ -1,6 +1,15 @@
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, SlideDirection } from "@chakra-ui/react";
-import { sizeType } from "models/commonModel";
-import { FC, RefObject } from "react";
+import {
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    SlideDirection,
+} from '@chakra-ui/react'
+import { sizeType } from 'models/commonModel'
+import { FC, RefObject } from 'react'
 
 type DrawerCPNProps = {
     ref?: RefObject<any>
@@ -8,9 +17,9 @@ type DrawerCPNProps = {
     placement?: SlideDirection
     footer?: any
     body?: any
-    title? : string
-    size?: sizeType 
-};
+    title?: string
+    size?: sizeType
+}
 
 const DrawerCPN: FC<DrawerCPNProps> = ({
     ref,
@@ -21,7 +30,6 @@ const DrawerCPN: FC<DrawerCPNProps> = ({
     body,
     size = 'sm',
 }) => {
-
     return (
         <Drawer
             isOpen={true}
@@ -33,17 +41,13 @@ const DrawerCPN: FC<DrawerCPNProps> = ({
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader textTransform='capitalize'>{title}</DrawerHeader>
+                <DrawerHeader textTransform="capitalize">{title}</DrawerHeader>
 
-                <DrawerBody>
-                    {body}
-                </DrawerBody>
-                <DrawerFooter>
-                    {footer}
-                </DrawerFooter>
+                <DrawerBody>{body}</DrawerBody>
+                <DrawerFooter>{footer}</DrawerFooter>
             </DrawerContent>
         </Drawer>
-    );
-};
+    )
+}
 
 export default DrawerCPN

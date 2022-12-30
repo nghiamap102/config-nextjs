@@ -1,5 +1,5 @@
 export const Text = {
-    baseStyle : {
+    baseStyle: {
         // wordBreak :'break-all'
-    }
+    },
 }

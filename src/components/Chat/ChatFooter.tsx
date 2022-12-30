@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const ChatFooter = ({ socket }) => {
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('')
 
-    const handleSendMessage = (e) => {
-        e.preventDefault();
+    const handleSendMessage = e => {
+        e.preventDefault()
         if (message.trim() && localStorage.getItem('userName')) {
             socket.emit('message', {
                 text: message,
                 name: localStorage.getItem('userName'),
                 id: `${socket.id}${Math.random()}`,
                 socketID: socket.id,
-            });
+            })
         }
-        setMessage('');
-    };
+        setMessage('')
+    }
 
     return (
         <div className="chat__footer">
@@ -24,12 +24,12 @@ const ChatFooter = ({ socket }) => {
                     placeholder="Write message"
                     className="message"
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={e => setMessage(e.target.value)}
                 />
                 <button className="sendBtn">SEND</button>
             </form>
         </div>
-    );
-};
+    )
+}
 
-export default ChatFooter;
+export default ChatFooter

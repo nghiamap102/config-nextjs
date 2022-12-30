@@ -1,6 +1,6 @@
 {
     "checkout": "thanh toán",
     "empty_cart": "hiện tại giỏ hàng đang trống",
-    "view_cart" : "xem giỏ hàng",
-    "remove_item" : "xoá"
+    "view_cart": "xem giỏ hàng",
+    "remove_item": "xoá"
 }

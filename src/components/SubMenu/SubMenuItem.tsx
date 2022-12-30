@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react'
 
 const SubMenuItem: FC = () => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+    return <div></div>
+}
 
 export default SubMenuItem

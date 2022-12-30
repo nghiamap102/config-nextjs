@@ -2,8 +2,8 @@ import { Global } from '@emotion/react'
 import { mainColor } from './color'
 
 const Swiper = () => (
-  <Global
-    styles={`
+    <Global
+        styles={`
     :root{
       '--swiper-navigation-color': ${mainColor.white}; 
       '--swiper-pagination-color': ${mainColor.white};
@@ -43,7 +43,7 @@ const Swiper = () => (
       width: 50%;
     }
       `}
-  />
+    />
 )
 
 export default Swiper

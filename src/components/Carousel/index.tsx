@@ -9,21 +9,20 @@ import { Swiper } from 'swiper/react'
 import { ICarousel } from './Carousel'
 
 const Carousel: FC<ICarousel> = ({ children, ...rest }) => {
-
-  return (
-    <Swiper
-      {...rest}
-      className="cursor-pointer"
-      spaceBetween={20}
-      // autoplay={{
-      //   delay: 5000,
-      //   disableOnInteraction: false,
-      // }}
-      modules={[Autoplay, Pagination, Navigation]}
-    >
-      {children}
-    </Swiper>
-  )
+    return (
+        <Swiper
+            {...rest}
+            className="cursor-pointer"
+            spaceBetween={20}
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
+            modules={[Autoplay, Pagination, Navigation]}
+        >
+            {children}
+        </Swiper>
+    )
 }
 
 export default Carousel

@@ -1,6 +1,6 @@
 import { Box, ChakraProvider } from '@chakra-ui/react'
 import Global from '@theme/global'
-import theme from '@theme/theme'
+import theme, { mainColor } from '@theme/theme'
 import { gapi } from 'gapi-script'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
@@ -10,19 +10,20 @@ import { useEffect } from 'react'
 import { CookiesProvider } from 'react-cookie'
 import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
-import './_app.css' 
+import './_app.css'
 import '@styles/globals.scss'
 import ProgressBar from '@components/ProgressBar'
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const router = useRouter();
+    const router = useRouter()
 
     useEffect(() => {
         decodeScript()
-    }, []);
+    }, [])
 
     useEffect(() => {
-        NProgress.configure({ showSpinner: false });
+        NProgress.configure({ showSpinner: false })
+        NProgress.inc(0.4)
         const handleStart = () => NProgress.start()
         const handleStop = () => NProgress.done()
 
@@ -41,10 +42,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         const initClient = async () => {
             gapi.client.init({
                 clientId: process.env.CLIENT_ID,
-                scope: ''
-            });
-        };
-        gapi.load('client:auth2', initClient);
+                scope: '',
+            })
+        }
+        gapi.load('client:auth2', initClient)
     }
 
     return (
@@ -52,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <CookiesProvider>
                 <ChakraProvider theme={theme}>
                     <Global />
-                    <Box bg='#fff' color='#000'>
+                    <Box bg={mainColor.gray} color="#000" minHeight="100vh">
                         <ProgressBar />
                         <Component {...pageProps} />
                     </Box>
@@ -61,6 +62,5 @@ function MyApp({ Component, pageProps }: AppProps) {
         </>
     )
 }
-
 
 export default wrapper.withRedux(appWithTranslation(MyApp))

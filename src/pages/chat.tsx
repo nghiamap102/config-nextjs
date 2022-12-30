@@ -1,14 +1,14 @@
-import { SEND_MESSAGE } from "contants/common";
-import { useEffect, useRef, useState } from "react";
-import socketIOClient from "socket.io-client";
+import { SEND_MESSAGE } from 'contants/common'
+import { useEffect, useRef, useState } from 'react'
+import socketIOClient from 'socket.io-client'
 
 const ChatPage = () => {
-    const [mess, setMess] = useState([]);
-    const [message, setMessage] = useState('');
-    const [id, setId] = useState();
+    const [mess, setMess] = useState([])
+    const [message, setMessage] = useState('')
+    const [id, setId] = useState()
 
-    const socketRef = useRef();
-    const messagesEnd = useRef();
+    const socketRef = useRef()
+    const messagesEnd = useRef()
 
     useEffect(() => {
         socketRef.current = socketIOClient.connect(process.env.BE_API_URL)
@@ -23,15 +23,15 @@ const ChatPage = () => {
         })
 
         return () => {
-            socketRef.current.disconnect();
-        };
-    }, []);
+            socketRef.current.disconnect()
+        }
+    }, [])
 
     const sendMessage = () => {
         if (message !== null) {
             const msg = {
                 content: message,
-                id: id
+                id: id,
             }
             socketRef.current.emit(SEND_MESSAGE, msg)
             setMessage('')
@@ -39,21 +39,25 @@ const ChatPage = () => {
     }
 
     const scrollToBottom = () => {
-        messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+        messagesEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
 
-
-    const renderMess = mess.map((m, index) =>
-        <div key={index} className={`${m.id === id ? 'your-message' : 'other-people'} chat-item`}>
+    const renderMess = mess.map((m, index) => (
+        <div
+            key={index}
+            className={`${
+                m.id === id ? 'your-message' : 'other-people'
+            } chat-item`}
+        >
             {m.content}
         </div>
-    )
+    ))
 
-    const handleChange = (e) => {
+    const handleChange = e => {
         setMessage(e.target.value)
     }
 
-    const onEnterPress = (e) => {
+    const onEnterPress = e => {
         if (e.keyCode == 13 && e.shiftKey == false) {
             sendMessage()
         }
@@ -63,9 +67,10 @@ const ChatPage = () => {
         <div className="box-chat">
             <div className="box-chat_message">
                 {renderMess}
-                <div style={{ float: "left", clear: "both" }}
-                    ref={messagesEnd}>
-                </div>
+                <div
+                    style={{ float: 'left', clear: 'both' }}
+                    ref={messagesEnd}
+                ></div>
             </div>
 
             <div className="send-box">
@@ -75,13 +80,10 @@ const ChatPage = () => {
                     onChange={handleChange}
                     placeholder="Nhập tin nhắn ..."
                 />
-                <button onClick={sendMessage}>
-                    Send
-                </button>
+                <button onClick={sendMessage}>Send</button>
             </div>
-
         </div>
-    );
-};
+    )
+}
 
-export default ChatPage;
+export default ChatPage

@@ -1,7 +1,11 @@
 {
     "price": "{{value,currency}}",
-    "quick_view" : "xem nhanh",
+    "quick_view": "xem nhanh",
     "add_to_cart": "thêm vào giỏ",
     "no_purchase_yet": "chưa có lượt mua",
-    "submit": "xác nhận"
+    "submit": "xác nhận",
+    "unit_price": "đơn giá",
+    "quantity": "số lượng",
+    "total": "tổng",
+    "action": "thao tác"
 }

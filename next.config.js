@@ -11,7 +11,12 @@ const nextConfig = {
         includePaths: [path.join(__dirname, 'styles')],
     },
     images: {
-        domains: ['dummyjson.com', 'via.placeholder.com', 'res.cloudinary.com', 'https://nghia-hoang.imgbb.com/'],
+        domains: [
+            'dummyjson.com',
+            'via.placeholder.com',
+            'res.cloudinary.com',
+            'https://nghia-hoang.imgbb.com/',
+        ],
     },
     env: {
         BE_API_URL: process.env.BE_API_URL,

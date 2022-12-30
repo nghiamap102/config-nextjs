@@ -1,8 +1,8 @@
 import { Global } from '@emotion/react'
 
 const Fonts = () => (
-  <Global
-    styles={`
+    <Global
+        styles={`
       /* latin */
       @font-face {
         font-family: 'Heading Font Name';
@@ -72,7 +72,7 @@ const Fonts = () => (
         src: url('fonts/Rubik-Bold.ttf');
       }
       `}
-  />
+    />
 )
 
 export default Fonts

@@ -12,25 +12,25 @@ const theme = extendTheme({
                 fontFamily: 'Body Font Name',
                 fontSize: {
                     base: '14px !important',
-                    md: '16px'
-                }
+                    md: '16px',
+                },
             },
             'input:hover': {
-                borderColor: '#CFD2D6'
+                borderColor: '#CFD2D6',
             },
             '*, *::before, *::after': {
-                borderColor: '#CFD2D6'
+                borderColor: '#CFD2D6',
             },
-            'a': {
+            a: {
                 fontSize: '12px',
-                textDecoration: 'none'
+                textDecoration: 'none',
             },
             'a:hover': {
                 textDecoration: 'none !important',
                 color: mainColor.newTag,
-                transition: '0.3s all'
-            }
-        }
+                transition: '0.3s all',
+            },
+        },
     },
     fonts: {
         heading: 'Heading Font Name',
@@ -39,11 +39,11 @@ const theme = extendTheme({
         Rubik: 'Rubik',
     },
     breakpoints: {
-        sm: "320px",
-        md: "768px",
-        lg: "960px",
-        xl: "1200px",
-        '2xl': "1570px",
+        sm: '320px',
+        md: '768px',
+        lg: '960px',
+        xl: '1200px',
+        '2xl': '1570px',
     },
     colors: {
         main: mainColor,
@@ -58,20 +58,20 @@ const theme = extendTheme({
             600: '#00b3b0',
             700: '#00807e',
             800: '#004e4c',
-            900: '#001c1b'
+            900: '#001c1b',
         },
         sub: {
             50: '#FBFBFB',
             100: '#f6f7f9',
             150: '#84888D',
             200: '#787880',
-            300: '#A7AEB6'
-        }
+            300: '#A7AEB6',
+        },
     },
     components: {
         Container,
         Text,
-    }
+    },
 })
 
 export { mainColor }

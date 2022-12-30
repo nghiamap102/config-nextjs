@@ -1,7 +1,7 @@
-import { IconAssets } from "@assets/index";
-import { Box, Text } from "@chakra-ui/react";
-import { isNonEmptyArray } from "@utils/validations";
-import { FC } from "react";
+import { IconAssets } from '@assets/index'
+import { Box, Text } from '@chakra-ui/react'
+import { isNonEmptyArray } from '@utils/validations'
+import { FC } from 'react'
 
 type SubMenuProps = {
     text?: string
@@ -9,7 +9,7 @@ type SubMenuProps = {
     childItem?: any[]
     handleMouseEnter?: any
     onClick?: () => void
-};
+}
 
 const SubMenu: FC<SubMenuProps> = ({
     text,
@@ -18,7 +18,6 @@ const SubMenu: FC<SubMenuProps> = ({
     childItem,
     onClick,
 }) => {
-
     return (
         <Box
             className="submenu cursor-pointer px-8 py-1.5 flex items-center justify-between"
@@ -35,7 +34,7 @@ const SubMenu: FC<SubMenuProps> = ({
                 
             ))} */}
         </Box>
-    );
-};
+    )
+}
 
 export default SubMenu

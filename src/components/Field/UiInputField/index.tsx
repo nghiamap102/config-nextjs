@@ -1,4 +1,4 @@
-import { IconAssets } from '@assets/index';
+import { IconAssets } from '@assets/index'
 import {
     Box,
     FormControl,
@@ -6,9 +6,9 @@ import {
     FormLabel,
     Input,
     InputGroup,
-    InputRightElement
+    InputRightElement,
 } from '@chakra-ui/react'
-import { mainColor } from '@theme/theme';
+import { mainColor } from '@theme/theme'
 import { FC, useState } from 'react'
 
 export interface UiInputFieldProps {
@@ -31,12 +31,14 @@ const UiInputField: FC<UiInputFieldProps> = ({
     placeholder = '',
     autoComplete = 'off',
     disabled = false,
-    isRequired = false
+    isRequired = false,
 }) => {
-    const [show, setShow] = useState<boolean>(type === 'password' ? false : true)
+    const [show, setShow] = useState<boolean>(
+        type === 'password' ? false : true,
+    )
     const handleClick = () => {
         setShow(!show)
-        console.log('abc');
+        console.log('abc')
     }
     const { name } = field
     const { errors, touched } = form
@@ -44,9 +46,13 @@ const UiInputField: FC<UiInputFieldProps> = ({
 
     return (
         <>
-            <FormControl isInvalid={showError} isRequired={isRequired} marginBottom={5}>
+            <FormControl
+                isInvalid={showError}
+                isRequired={isRequired}
+                marginBottom={5}
+            >
                 {label && (
-                    <FormLabel htmlFor={name} fontSize='15px'>
+                    <FormLabel htmlFor={name} fontSize="15px">
                         {label}
                     </FormLabel>
                 )}
@@ -59,27 +65,30 @@ const UiInputField: FC<UiInputFieldProps> = ({
                         autoComplete={autoComplete}
                         disabled={disabled}
                         bg={mainColor.skin}
-                        borderRadius='20'
+                        borderRadius="20"
                         paddingY={7}
                     />
                     {type === 'password' && (
                         <InputRightElement
-                            top='50%'
-                            transform='translateY(-50%)'
-                            color='gray.300'
-                            fontSize='1.2em'
+                            top="50%"
+                            transform="translateY(-50%)"
+                            color="gray.300"
+                            fontSize="1.2em"
                         >
-                            <Box
-                                cursor={'pointer'}
-                                onClick={handleClick}
-                            >
-                                {show && <IconAssets.ReactIcon.IconAi.AiOutlineEye />}
-                                {!show && <IconAssets.ReactIcon.IconAi.AiOutlineEyeInvisible />}
+                            <Box cursor={'pointer'} onClick={handleClick}>
+                                {show && (
+                                    <IconAssets.ReactIcon.IconAi.AiOutlineEye />
+                                )}
+                                {!show && (
+                                    <IconAssets.ReactIcon.IconAi.AiOutlineEyeInvisible />
+                                )}
                             </Box>
                         </InputRightElement>
                     )}
                 </InputGroup>
-                {showError && <FormErrorMessage>{errors[name]}</FormErrorMessage>}
+                {showError && (
+                    <FormErrorMessage>{errors[name]}</FormErrorMessage>
+                )}
             </FormControl>
         </>
     )

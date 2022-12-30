@@ -1,5 +1,5 @@
-import { ProductSample } from './../product/productModel';
-import { IProductItem } from "redux/product/productModel"
+import { ProductSample } from './../product/productModel'
+import { IProductItem } from 'redux/product/productModel'
 
 export interface CartInitState {
     list?: CartData[]

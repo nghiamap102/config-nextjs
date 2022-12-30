@@ -63,7 +63,6 @@ export const validateMobile = (mobile: string) => {
     return true
 }
 
-
 export const validateMonth = (month: string) => {
     if (Number(month) < 1 || Number(month) > 12) {
         return false
@@ -245,7 +244,7 @@ export const validStringWithoutSpecialCharacter = (value: string) => {
 }
 
 export const isNonEmptyArray = (array: any[] | undefined) => {
-    return Array.isArray(array) && array.length > 0;
+    return Array.isArray(array) && array.length > 0
 }
 
 export const isNonEmptyString = (value: string | undefined) => {

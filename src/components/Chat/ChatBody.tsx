@@ -1,11 +1,5 @@
-
 const ChatBody = () => {
+    return <></>
+}
 
-    return (
-        <>
-
-        </>
-    );
-};
-
-export default ChatBody;
+export default ChatBody

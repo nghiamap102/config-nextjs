@@ -1,4 +1,8 @@
-import { AutoplayOptions, NavigationOptions, PaginationOptions } from "swiper/types"
+import {
+    AutoplayOptions,
+    NavigationOptions,
+    PaginationOptions,
+} from 'swiper/types'
 
 export interface ICarousel {
     children: any
@@ -10,7 +14,7 @@ export interface ICarousel {
     direction?: 'vertical' | 'horizontal' | undefined
     slidesPerGroup?: number
     pagination?: PaginationOptions | boolean
-    navigation?: NavigationOptions | boolean 
+    navigation?: NavigationOptions | boolean
     centeredSlides?: boolean
     mousewheel?: boolean
     loop?: boolean

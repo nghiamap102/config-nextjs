@@ -1,30 +1,29 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ListResponseModel } from 'models/commonModel';
-import { RootState } from 'redux/store';
-import { IProductItem, ProductInitState } from './productModel';
-import ProductService from "./productService";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ListResponseModel } from 'models/commonModel'
+import { RootState } from 'redux/store'
+import { IProductItem, ProductInitState } from './productModel'
+import ProductService from './productService'
 
 const initialState: ProductInitState = {
     detail: null,
     list: [],
     listSearch: [],
-    loading: false
+    loading: false,
 }
 
-
-export const fetchProductList = createAsyncThunk(
-    'product/list',
-    async () => {
-        const response = await ProductService.fetchProduct()
-        return response.data
-    }
-)
+export const fetchProductList = createAsyncThunk('product/list', async () => {
+    const response = await ProductService.fetchProduct()
+    return response.data
+})
 
 const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        fetchProductListSuccess: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
+        fetchProductListSuccess: (
+            state: ProductInitState,
+            action: PayloadAction<ListResponseModel<IProductItem>>,
+        ) => {
             state.list = action.payload.data
         },
         // getProductDetail: (state: ProductInitState, action: PayloadAction<string>) => {
@@ -35,33 +34,45 @@ const productSlice = createSlice({
         //     })
         //     newArr ? state.detail = newArr[0] : state.detail = null
         // },
-        fetchProductListSearch: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
+        fetchProductListSearch: (
+            state: ProductInitState,
+            action: PayloadAction<ListResponseModel<IProductItem>>,
+        ) => {
             state.list = action.payload.data
         },
-        getProductById: (state: ProductInitState, action: PayloadAction<IProductItem>) => {
+        getProductById: (
+            state: ProductInitState,
+            action: PayloadAction<IProductItem>,
+        ) => {
             state.detail = action.payload
-        }
+        },
     },
-    extraReducers: (builder) => {
-        builder.addCase(fetchProductList.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
-            state.list = action.payload?.data
-        })
+    extraReducers: builder => {
+        builder.addCase(
+            fetchProductList.fulfilled,
+            (
+                state: ProductInitState,
+                action: PayloadAction<ListResponseModel<IProductItem>>,
+            ) => {
+                state.list = action.payload?.data
+            },
+        )
         builder.addCase(fetchProductList.pending, (state: ProductInitState) => {
             state.loading = true
         })
-        builder.addCase(fetchProductList.rejected, (state: ProductInitState) => {
-            state.list = []
-        })
-    }
+        builder.addCase(
+            fetchProductList.rejected,
+            (state: ProductInitState) => {
+                state.list = []
+            },
+        )
+    },
 })
 
 export const productReducer = productSlice.reducer
 export const productActions = productSlice.actions
 
-export const {
-    fetchProductListSuccess,    
-    getProductById,
-} = productSlice.actions
+export const { fetchProductListSuccess, getProductById } = productSlice.actions
 
 export const selectProduct = (state: RootState) => state.common
 export const selectListProduct = (state: RootState) => state.product.list

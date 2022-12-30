@@ -1,7 +1,6 @@
-import { Box } from "@chakra-ui/react";
-import { mainColor } from "@theme/theme";
-import { FC, useState } from "react";
-
+import { Box } from '@chakra-ui/react'
+import { mainColor } from '@theme/theme'
+import { FC, useState } from 'react'
 
 type IconHeaderProps = {
     text?: string
@@ -10,7 +9,7 @@ type IconHeaderProps = {
     colorText?: string
     children?: any
     onClick?: () => void
-};
+}
 
 export const IconHeader: FC<IconHeaderProps> = ({
     text,
@@ -20,7 +19,6 @@ export const IconHeader: FC<IconHeaderProps> = ({
     children,
     onClick,
 }) => {
-
     const [active, setActive] = useState(false)
 
     return (
@@ -31,13 +29,20 @@ export const IconHeader: FC<IconHeaderProps> = ({
             onMouseEnter={() => setActive(true)}
             onMouseLeave={() => setActive(false)}
         >
-            <Box display='flex' className={`${active && 'icon-animate'}`}>
+            <Box display="flex" className={`${active && 'icon-animate'}`}>
                 {icon}
             </Box>
-            {text && <Box className="capitalize mx-2" color={colorText ? colorText : mainColor.white} >{text}</Box>}
+            {text && (
+                <Box
+                    className="capitalize mx-2"
+                    color={colorText ? colorText : mainColor.white}
+                >
+                    {text}
+                </Box>
+            )}
             {children}
         </Box>
-    );
-};
+    )
+}
 
-export default IconHeader 
+export default IconHeader

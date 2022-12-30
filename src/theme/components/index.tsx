@@ -1,9 +1,4 @@
+import { Container } from './Box'
+import { Text } from './Text'
 
-import { Container } from "./Box"
-import { Text } from "./Text"
-
-
-export {
-    Container,
-    Text,
-}
+export { Container, Text }
