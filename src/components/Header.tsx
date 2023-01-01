@@ -1,14 +1,13 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 import {
   SearchIcon,
   ShoppingBagIcon,
   UserIcon,
 } from "@heroicons/react/outline";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useSelector } from "react-redux";
 import { selectBasketItems } from "../redux/basketSlice";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 function Header() {
   const { data: session } = useSession();
@@ -23,6 +22,7 @@ function Header() {
               src="https://rb.gy/vsvv2o"
               layout="fill"
               objectFit="contain"
+              alt="apple"
             />
           </div>
         </Link>
@@ -52,7 +52,7 @@ function Header() {
               session.user?.image ||
               "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
             }
-            alt=""
+            alt="avatar"
             className="cursor-pointer rounded-full"
             width={34}
             height={34}
