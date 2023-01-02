@@ -1,74 +1,54 @@
-import { Banner } from '@components/Banner';
-import { CardBlock } from '@components/Card';
-import { Contact } from '@components/Contact';
-import { Footer } from '@components/Footer';
-import { Navbar } from '@components/Navbar';
-import { Projects } from '@components/Projects';
-import { Box } from '@mui/material';
-import { mainColor } from '@theme/global';
+import Layout from '@components/Layout';
+import ProductItem from '@components/Product/ProductItem';
+import { Store } from '@utils/Store';
+import axios from 'axios';
 import type { NextPage } from 'next';
+import { useContext } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import { toast } from 'react-toastify';
 
-const Home: NextPage = ({ content }) => {
+const Home: NextPage = ({ data }) => {
+
+    const { state, dispatch } = useContext(Store);
+    const { cart } = state;
+    const addToCartHandler = async (product: any) => {
+        const existItem = cart.cartItems.find((x) => x.slug === product.slug);
+        const quantity = existItem ? existItem.quantity + 1 : 1;
+        // const { data } = await axios.get(`/api/products/${product._id}`);
+
+        // if (data.countInStock < quantity) {
+        //     return toast.error('Sorry. Product is out of stock');
+        // }
+        dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+
+        toast.success('Product added to the cart');
+    };
+
     return (
         <>
-            <Navbar routes={content?.navbar} style={{ zIndex: '999' }} />
-            <Banner
-                title='Creative Innovative Design Agency'
-                description='Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, 
-                consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            />
-            <Box className='grid grid-cols-2'>
-                {content.categories?.map((ele) => (
-                    <Projects
-                        key={ele.title}
-                        more
-                        link={ele.title}
-                        img={ele.background}
-                        description={ele.description}
-                        title={ele.title}
-                    />
-                ))}
-            </Box>
-            <Box className='relative' sx={{ p: '10% 0', backgroundColor: mainColor.black }}>
-                <Box className='sub_title text-center mb-10'>Services</Box>
-                <Box className='grid grid-cols-2' sx={{ p: '0 12%' }} >
-                    {content.services?.map((ele) => (
-                        <CardBlock
-                            key={ele.title}
-                            price={ele.price}
-                            title={ele.title}
-                            link={ele.title}
-                            description={ele.description}
-                        />
+            <Layout title="Home Page">
+                {/* <Carousel showThumbs={false} autoPlay>
+                    {featuredProducts.map((product) => (
+                        <div key={product._id}>
+                            <Link href={`/product/${product.slug}`} passHref>
+                                <a className="flex">
+                                    <img src={product.banner} alt={product.name} />
+                                </a>
+                            </Link>
+                        </div>
                     ))}
-                </Box>
-            </Box>
-            <Box className='relative' sx={{ p: '10% 0', backgroundColor: mainColor.black }}>
-                <Box className='sub_title text-center '>Ourteam</Box>
-                <Box className='text text-center' sx={{ p: '8%', color: mainColor.grey }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </Box>
-                <Box className='grid grid-cols-4'>
-                    {content.ourteam?.map((ele) => (
-                        <Projects
-                            style={{ minHeight: '600px' }}
-                            key={ele.name}
-                            more={false}
-                            link={ele.name}
-                            img={ele.avatar}
-                            description={ele.job}
-                            title={ele.job}
-                        />
+                </Carousel> */}
+                <h2 className="h2 my-4">Latest Products</h2>
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                    {data.products?.map((product) => (
+                        <ProductItem
+                            product={product}
+                            key={product.slug}
+                            addToCartHandler={addToCartHandler}
+                        ></ProductItem>
                     ))}
-                </Box>
-            </Box>
-            <Box className='relative' sx={{ p: '10% 0', backgroundColor: mainColor.black, color: mainColor.white }}>
-                <Contact routes={content?.contact} />
-            </Box>
-            <Box className='p-10'>
-                <Footer privacy={content?.footer}/>
-            </Box>
+                </div>
+            </Layout>
         </>
     )
 }
@@ -76,11 +56,11 @@ const Home: NextPage = ({ content }) => {
 
 export async function getServerSideProps() {
     const res = await fetch('http://localhost:3030/api/home')
-    const content = await res.json();
+    const data = await res.json();
 
     return {
         props: {
-            content
+            data
         },
     }
 }

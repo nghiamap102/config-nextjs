@@ -1,18 +1,18 @@
-import { ApolloProvider } from '@apollo/client'
-import { client } from '@common/apolloClient'
 import '@styles/globals.scss'
-import { appWithTranslation } from 'next-i18next'
+import { StoreProvider } from '@utils/Store'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
-import { wrapper } from 'redux/store'
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <>
-            <ApolloProvider client={client}>
-                <Component {...pageProps} />
-            </ApolloProvider>
+            <SessionProvider session={session}>
+                <StoreProvider>
+                    <Component {...pageProps} />
+                </StoreProvider>
+            </SessionProvider>
         </>
     )
 }
 
 
-export default wrapper.withRedux(appWithTranslation(MyApp))
+export default MyApp

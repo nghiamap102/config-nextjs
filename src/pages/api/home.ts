@@ -1,144 +1,107 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<any>,
-) {
-    res.status(200).json(
+import bcrypt from 'bcryptjs';
+
+
+
+const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
+    return res.status(200).json(
         {
-            navbar: [
+            users: [
                 {
-                    name: 'work',
-                    link: 'work'
+                    name: 'John',
+                    email: 'admin@example.com',
+                    password: bcrypt.hashSync('123456'),
+                    isAdmin: true,
                 },
                 {
-                    name: 'services',
-                    link: 'services'
-                },
-                {
-                    name: 'contact',
-                    link: 'contact'
-                },
-            ],
-
-            categories: [
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897587/Rectangle_1_xhogwi.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-
-                },
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897591/Rectangle_2_cgevig.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                },
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897593/Rectangle_1_1_ndr86w.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                },
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897596/Rectangle_3_q4tav8.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                },
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897600/Rectangle_2_1_m3y8ax.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                },
-                {
-                    background: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897280/Rectangle_13_korvpd.png',
-                    title: 'Abstract Design',
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. orem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    name: 'Jane',
+                    email: 'user@example.com',
+                    password: bcrypt.hashSync('123456'),
+                    isAdmin: false,
                 },
             ],
-            services: [
+            products: [
                 {
-                    title: 'Graphic Design',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ',
-                    link: '',
-                    price: 400,
+                    name: 'Free Shirt',
+                    slug: 'free-shirt',
+                    category: 'Shirts',
+                    image: '/images/shirt1.jpg',
+                    price: 70,
+                    brand: 'Nike',
+                    rating: 4.5,
+                    numReviews: 8,
+                    countInStock: 20,
+                    description: 'A popular shirt',
+                    isFeatured: true,
+                    banner: '/images/banner1.jpg',
                 },
                 {
-                    title: 'Graphic Design',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ',
-                    link: '',
-                    price: 400,
+                    name: 'Fit Shirt',
+                    slug: 'fit-shirt',
+                    category: 'Shirts',
+                    image: '/images/shirt2.jpg',
+                    price: 80,
+                    brand: 'Adidas',
+                    rating: 3.2,
+                    numReviews: 10,
+                    countInStock: 20,
+                    description: 'A popular shirt',
+                    isFeatured: true,
+                    banner: '/images/banner2.jpg',
                 },
                 {
-                    title: 'Graphic Design',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ',
-                    link: '',
-                    price: 400,
+                    name: 'Slim Shirt',
+                    slug: 'slim-shirt',
+                    category: 'Shirts',
+                    image: '/images/shirt3.jpg',
+                    price: 90,
+                    brand: 'Raymond',
+                    rating: 4.5,
+                    numReviews: 3,
+                    countInStock: 20,
+                    description: 'A popular shirt',
                 },
                 {
-                    title: 'Graphic Design',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur ',
-                    link: '',
-                    price: 400,
+                    name: 'Golf Pants',
+                    slug: 'golf-pants',
+                    category: 'Pants',
+                    image: '/images/pants1.jpg',
+                    price: 90,
+                    brand: 'Oliver',
+                    rating: 2.9,
+                    numReviews: 13,
+                    countInStock: 20,
+                    description: 'Smart looking pants',
+                },
+                {
+                    name: 'Fit Pants',
+                    slug: 'fit-pants',
+                    category: 'Pants',
+                    image: '/images/pants2.jpg',
+                    price: 95,
+                    brand: 'Zara',
+                    rating: 3.5,
+                    numReviews: 7,
+                    countInStock: 20,
+                    description: 'A popular pants',
+                },
+                {
+                    name: 'Classic Pants',
+                    slug: 'classic-pants',
+                    category: 'Pants',
+                    image: '/images/pants3.jpg',
+                    price: 75,
+                    brand: 'Casely',
+                    rating: 2.4,
+                    numReviews: 14,
+                    countInStock: 20,
+                    description: 'A popular pants',
                 },
             ],
-            ourteam: [
-                {
-                    name: 'Jhon Doe',
-                    avatar: 'https://res.cloudinary.com/openuniversity/image/upload/v1663919393/Rectangle_4_g6t6qa.png',
-                    job: 'Digital Marketing Manager',
-                },
-                {
-                    name: 'Jhon Doe',
-                    avatar: 'https://res.cloudinary.com/openuniversity/image/upload/v1663919387/Rectangle_5_jlvzxh.png',
-                    job: 'Digital Marketing Manager',
-                },
-                {
-                    name: 'Jhon Doe',
-                    avatar: 'https://res.cloudinary.com/openuniversity/image/upload/v1663919385/Rectangle_6_sk07z1.png',
-                    job: 'Digital Marketing Manager',
-                },
-                {
-                    name: 'Jhon Doe',
-                    avatar: 'https://res.cloudinary.com/openuniversity/image/upload/v1663897289/Rectangle_7_sslvqe.png',
-                    job: 'Digital Marketing Manager',
-                }
-            ],
-            contact: [
-                {
-                    name: 'Twitter',
-                    link: 'Twitter',
-                },
-                {
-                    name: 'LinkedIn',
-                    link: 'Twitter',
-                },
-                {
-                    name: 'Dribbble',
-                    link: 'Twitter',
-                },
-                {
-                    name: 'YouTube',
-                    link: 'Twitter',
-                },
-                {
-                    name: 'Instagram',
-                    link: 'Twitter',
-                },
-                {
-                    name: 'Facebook',
-                    link: 'Twitter',
-                },
-            ],
-            footer:[
-                {
-                    name :'Privacy Policy',
-                    link :'Privacy Policy',
-                },
-                {
-                    name :'Privacy Policy',
-                    link :'Privacy Policy',
-                },
-            ]
-        },
+        }
     )
 }
+
+export default handler
