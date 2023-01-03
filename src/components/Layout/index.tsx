@@ -12,7 +12,7 @@ import DropdownLink from '@components/DropdownLink';
 const Layout = ({ title, children }) => {
   const { status, data: session } = useSession();
 
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatch } = useContext<any>(Store);
   const { cart } = state;
   const [cartItemsCount, setCartItemsCount] = useState(0);
   useEffect(() => {

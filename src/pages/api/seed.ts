@@ -1,9 +1,10 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import Product from '../../models/Product';
 import User from '../../models/User';
 import data from '../../utils/data';
 import db from '../../utils/db';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   await db.connect();
   await User.deleteMany();
   await User.insertMany(data.users);

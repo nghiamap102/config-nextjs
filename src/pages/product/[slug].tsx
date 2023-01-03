@@ -12,7 +12,7 @@ const ProductScreen = ({ data }) => {
   // const { product } = props;
   const { query } = useRouter()
   const product = data.products.filter(x => x.slug === query.slug)[0]
-  const { state, dispatch } = useContext(Store);
+  const { state, dispatch } = useContext<any>(Store);
   const router = useRouter();
 
   if (!product) {
