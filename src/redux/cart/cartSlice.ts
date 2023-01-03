@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { isNonEmptyArray } from '@utils/validations'
-import { ListResponseModel } from 'models/commonModel'
+import { ListResponseModel } from 'models/common'
 import { HYDRATE } from 'next-redux-wrapper'
 import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'

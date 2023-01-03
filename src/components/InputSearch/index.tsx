@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import classNames from 'classnames'
-import { EventType } from 'models/commonModel'
+import { EventType } from 'models/common'
 import styles from './Input.module.css'
 import { FC } from 'react'
 

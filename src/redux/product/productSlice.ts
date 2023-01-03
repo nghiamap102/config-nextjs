@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ListResponseModel } from 'models/commonModel'
+import { ListResponseModel } from 'models/common'
 import { RootState } from 'redux/store'
 import { IProductItem, ProductInitState } from './productModel'
 import ProductService from './productService'

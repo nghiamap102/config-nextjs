@@ -1,5 +1,5 @@
 import { axiosClient } from '@common/axiosClient'
-import { DataResponseModel } from 'models/commonModel'
+import { DataResponseModel } from 'models/common'
 
 const voucherService = {
     getVoucherList: async (): Promise<DataResponseModel<any>> => {

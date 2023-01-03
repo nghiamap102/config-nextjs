@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ListResponseModel } from 'models/commonModel'
+import { ListResponseModel } from 'models/common'
 import { RootState } from 'redux/store'
 import { VoucherData, VoucherInitState } from './voucherModel'
 import voucherService from './voucherService'

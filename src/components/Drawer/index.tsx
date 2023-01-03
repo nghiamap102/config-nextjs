@@ -8,7 +8,7 @@ import {
     DrawerOverlay,
     SlideDirection,
 } from '@chakra-ui/react'
-import { sizeType } from 'models/commonModel'
+import { sizeType } from 'models/common'
 import { FC, RefObject } from 'react'
 
 type DrawerCPNProps = {

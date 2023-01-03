@@ -1,5 +1,5 @@
 import { RootState } from 'redux/store'
-import { ListResponseModel } from 'models/commonModel'
+import { ListResponseModel } from 'models/common'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { ChatInitialState, ICurrentChat } from './chatModel'
 import { createSlice } from '@reduxjs/toolkit'

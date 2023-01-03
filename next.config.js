@@ -21,9 +21,12 @@ const nextConfig = {
     env: {
         BE_API_URL: process.env.BE_API_URL,
         API_URL: process.env.API_URL,
-        GG_API_KEY: process.env.GG_API_KEY,
-        CLIENT_ID: process.env.CLIENT_ID,
-        CLIENT_SECRET: process.env.CLIENT_SECRET,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+        GITHUB_ID: process.env.GITHUB_ID,
+        GITHUB_SECRET: process.env.GITHUB_SECRET,
+        FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
+        FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
         NO_IMAGE: process.env.NO_IMAGE,
     },
     // experimental: {

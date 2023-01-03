@@ -6,13 +6,12 @@ import { mainColor } from '@theme/theme'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { selectCart } from 'redux/cart/cartSlice'
-import { useAppDispatch, useAppSelector } from 'redux/hooks'
+import { useAppSelector } from 'redux/hooks'
 
 const GridIconHeader = () => {
     const [drawerType, setDrawerType] = useState('')
     const cartState = useAppSelector(selectCart)
     const router = useRouter()
-    const dispatch = useAppDispatch()
 
     return (
         <>

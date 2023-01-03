@@ -7,12 +7,12 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import { useEffect } from 'react'
-import { CookiesProvider } from 'react-cookie'
 import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
 import './_app.css'
 import '@styles/globals.scss'
 import ProgressBar from '@components/ProgressBar'
+import { SessionProvider, useSession } from 'next-auth/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
@@ -37,30 +37,51 @@ function MyApp({ Component, pageProps }: AppProps) {
             router.events.off('routeChangeError', handleStop)
         }
     }, [router])
-
     const decodeScript = () => {
         const initClient = async () => {
             gapi.client.init({
-                clientId: process.env.CLIENT_ID,
+                clientId: process.env.GOOGLE_CLIENT_ID,
                 scope: '',
             })
         }
         gapi.load('client:auth2', initClient)
     }
-
+    
     return (
-        <>
-            <CookiesProvider>
-                <ChakraProvider theme={theme}>
-                    <Global />
-                    <Box bg={mainColor.gray} color="#000" minHeight="100vh">
-                        <ProgressBar />
-                        <Component {...pageProps} />
-                    </Box>
-                </ChakraProvider>
-            </CookiesProvider>
-        </>
+        <SessionProvider session={pageProps.session}>
+            <ChakraProvider theme={theme}>
+                <Global />
+                <Box bg={mainColor.gray} color="#000" minHeight="100vh">
+                    <ProgressBar />
+                    {/* {Component.auth ? (
+                            <Auth adminOnly={Component.auth.adminOnly}>
+                                <Component {...pageProps} />
+                            </Auth>
+                        ) : (
+                            <Component {...pageProps} />
+                        )} */}
+                    <Component {...pageProps} />
+                </Box>
+            </ChakraProvider>
+        </SessionProvider>
     )
+}
+export const Auth = ({ children, adminOnly }) => {
+    const router = useRouter();
+    const { status, data: session } = useSession({
+        required: true,
+        onUnauthenticated() {
+            router.push('/unauthorized?message=login required');
+        },
+    });
+    if (status === 'loading') {
+        return <div>Loading...</div>;
+    }
+    if (adminOnly && !session.user.role === 'admin') {
+        router.push('/unauthorized?message=admin login required');
+    }
+
+    return children;
 }
 
 export default wrapper.withRedux(appWithTranslation(MyApp))

@@ -6,25 +6,19 @@ import {
     Store,
     ThunkAction,
 } from '@reduxjs/toolkit'
-import {
-    createRouterMiddleware,
-    routerReducer,
-    RouterState,
-} from 'connected-next-router'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
 import { CartInitState } from './cart/cartModel'
 import { cartReducer } from './cart/cartSlice'
 import { ChatInitialState } from './chat/chatModel'
 import { chatReducer } from './chat/chatSlice'
-import { CommonInitState } from './common/commonModel'
 import { commonReducer } from './common/commonSlice'
 import { ProductInitState } from './product/productModel'
 import { productReducer } from './product/productSlice'
+import { CommonInitState } from './common/commonModel'
 import rootSaga from './rootSaga'
 
 export interface State {
-    router: RouterState
     common: CommonInitState
     cart: CartInitState
     product: ProductInitState
@@ -32,7 +26,6 @@ export interface State {
 }
 
 const rootReducer = combineReducers({
-    router: routerReducer,
     common: commonReducer,
     cart: cartReducer,
     product: productReducer,
@@ -84,21 +77,19 @@ const reHydrateStore = () => {
     return {}
 }
 const sagaMiddleware = createSagaMiddleware()
-const routerMiddleware = createRouterMiddleware()
 const store = configureStore({
     reducer,
     preloadedState: reHydrateStore(),
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(
             sagaMiddleware,
-            routerMiddleware,
             localStorageMiddleware,
         ),
     devTools: true,
 })
 
 export const makeStore = () => {
-    ;(store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
+    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
     return store
 }
 
