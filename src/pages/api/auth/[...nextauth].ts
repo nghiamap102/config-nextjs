@@ -12,22 +12,22 @@ export default NextAuth({
     strategy: 'jwt',
   },
   callbacks: {
-    async jwt({ token, user }: any) {
-      if (user?._id) token._id = user._id;
-      if (user?.isAdmin) token.isAdmin = user.isAdmin;
-      return token;
-    },
-    async session({ session, token }: any) {
-      if (token?._id) session.user._id = token._id;
-      if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
-      return session;
-    },
-    async signIn({ account, profile }: any) {
-      if (account.provider === "google") {
-        return profile.email_verified && profile.email.endsWith("@example.com")
-      }
-      return true
-    },
+    // async jwt({ token, user }: any) {
+    //   if (user?._id) token._id = user._id;
+    //   if (user?.isAdmin) token.isAdmin = user.isAdmin;
+    //   return token;
+    // },
+    // async session({ session, token }: any) {
+    //   if (token?._id) session.user._id = token._id;
+    //   if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
+    //   return session;
+    // },
+    // async signIn({ account, profile }: any) {
+    //   if (account.provider === "google") {
+    //     return profile.email_verified && profile.email.endsWith("@example.com")
+    //   }
+    //   return true
+    // },
   },
   providers: [
     CredentialsProvider({
@@ -50,16 +50,25 @@ export default NextAuth({
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || ''
+      clientId: process.env.GOOGLE_CLIENT_ID || '299190570307-5tvf8egekv02fpdnfnoavjthecqdkk8e.apps.googleusercontent.com',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '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',
+
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     }),
     GithubProvider({
-      clientId: process.env.GITHUB_ID || '',
-      clientSecret: process.env.GITHUB_SECRET || '',
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
     FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID || '',
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     })
   ],
+  secret: 'condimemay'
 });

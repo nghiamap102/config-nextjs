@@ -7,7 +7,7 @@ type LoginSocialButtonProps = {
     text: string
     loading?: boolean
     icon?: any
-    handleLogin?: () => void
+    handleLogin?: (res: any) => Promise<void>
 } & ButtonProps;
 const LoginSocialButton: FC<LoginSocialButtonProps> = ({
     text,

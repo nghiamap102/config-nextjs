@@ -1,12 +1,12 @@
 <!-- Doing -->
-
 rerender many times when init page
 hover img[1] show [productCard]
-link diff btw next and ui
-research Nprogress
 diagram.net
 detect refresh page to del sessionstorage
-change react-gg-login & fb-login to nextauth
+
+<!-- bug -->
+[bug] init nprogress 
+[bug] default port next auth
 
 <!-- Err -->
 

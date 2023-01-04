@@ -21,6 +21,7 @@ const nextConfig = {
     env: {
         BE_API_URL: process.env.BE_API_URL,
         API_URL: process.env.API_URL,
+        NEXTAUTH_URL: process.env.NEXTAUTH_URL,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
         GITHUB_ID: process.env.GITHUB_ID,

@@ -18,10 +18,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
 
     useEffect(() => {
-        decodeScript()
-    }, [])
-
-    useEffect(() => {
         NProgress.configure({ showSpinner: false })
         NProgress.inc(0.4)
         const handleStart = () => NProgress.start()
@@ -37,16 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             router.events.off('routeChangeError', handleStop)
         }
     }, [router])
-    const decodeScript = () => {
-        const initClient = async () => {
-            gapi.client.init({
-                clientId: process.env.GOOGLE_CLIENT_ID,
-                scope: '',
-            })
-        }
-        gapi.load('client:auth2', initClient)
-    }
-    
+
     return (
         <SessionProvider session={pageProps.session}>
             <ChakraProvider theme={theme}>
