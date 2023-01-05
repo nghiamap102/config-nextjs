@@ -5,6 +5,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'
 import { CartData, CartInitState, ICartItem } from './cartModel'
+import Cookies from 'js-cookie'
 
 const initialState: CartInitState = {
     list: [],
@@ -16,6 +17,10 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
+        setCart: (state: CartInitState, action: PayloadAction<CartInitState>) => {
+            state.list = action.payload.list
+            state.wishList = action.payload.wishList
+        },
         getListCart: (
             state: CartInitState,
             action: PayloadAction<ListResponseModel<CartData>>,
@@ -23,26 +28,19 @@ const cartSlice = createSlice({
             state.list = action.payload.data
         },
         addToCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-            if (
-                !state.list?.some(
-                    ele => ele.product.id === action.payload.product.id,
-                ) &&
-                isNonEmptyArray(state.list)
-            ) {
-                state.list?.push({
-                    product: action.payload.product,
-                    quantity: 1,
-                    type: action.payload.type,
-                    created_at: new Date().getTime(),
-                    modified_at: new Date().getTime(),
-                    imageModel: action.payload.imageModel,
-                })
-            } else if (
-                state.list?.some(
-                    ele => ele.product.id === action.payload.product.id,
-                ) &&
-                isNonEmptyArray(state.list)
-            ) {
+            const cartItem = {
+                product: action.payload.product,
+                quantity: 1,
+                type: action.payload.type,
+                created_at: new Date().getTime(),
+                modified_at: new Date().getTime(),
+                imageModel: action.payload.imageModel,
+            }
+            if (!state.list?.some(ele => ele.product.id === action.payload.product.id,) && isNonEmptyArray(state.list)) {
+
+                state.list?.push(cartItem)
+
+            } else if (state.list?.some(ele => ele.product.id === action.payload.product.id,) && isNonEmptyArray(state.list)) {
                 const newArr = state.list?.map(cart => {
                     if (cart.product.id === action.payload.product.id) {
                         return {
@@ -55,15 +53,9 @@ const cartSlice = createSlice({
                 })
                 state.list = newArr
             } else {
-                state.list?.push({
-                    product: action.payload.product,
-                    quantity: 1,
-                    type: action.payload.type,
-                    created_at: new Date().getTime(),
-                    modified_at: new Date().getTime(),
-                    imageModel: action.payload.imageModel,
-                })
+                state.list?.push(cartItem)
             }
+            Cookies.set('cart', JSON.stringify({ ...state }));
         },
         removeItemFromCart: (
             state: CartInitState,
@@ -75,6 +67,7 @@ const cartSlice = createSlice({
                 }
             })
             state.list = newArr
+            Cookies.set('cart', JSON.stringify({ ...state }));
         },
         updateCart: (state: CartInitState, action: PayloadAction<CartData>) => {
             state.list?.map(cart => {
@@ -82,6 +75,7 @@ const cartSlice = createSlice({
                     return { ...cart, count: action.payload }
                 }
             })
+            Cookies.set('cart', JSON.stringify({ ...state }));
         },
         updateCartItem: (
             state: CartInitState,
@@ -93,7 +87,7 @@ const cartSlice = createSlice({
                 }
                 return cart
             })
-            console.log(state.list)
+            Cookies.set('cart', JSON.stringify({ ...state }));
         },
         addToWishList: (
             state: CartInitState,
@@ -132,6 +126,7 @@ export const cartReducer = cartSlice.reducer
 export const cartActions = cartSlice.actions
 
 export const {
+    setCart,
     getListCart,
     addToCart,
     removeItemFromCart,

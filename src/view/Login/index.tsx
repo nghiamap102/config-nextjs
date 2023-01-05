@@ -1,6 +1,6 @@
 import { ReactIcon } from '@assets/icon'
 import { Box, Checkbox, Flex, Text } from '@chakra-ui/react'
-import ButtonPrimary from '@components/ButtonPrimary'
+import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
 import UiInputField from '@components/Field/UiInputField'
 import { mainColor } from '@theme/theme'
 import { checkValueError } from '@utils/helper'
@@ -54,7 +54,7 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = props => {
                     <Checkbox m="0 1rem" />
                 </Flex>
 
-                <ButtonPrimary
+                <ButtonBorderPrimary
                     py="6"
                     type="submit"
                     w="100%"
@@ -65,7 +65,7 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = props => {
                     _hover={{ opacity: 0.8 }}
                 >
                     {t('Login')}
-                </ButtonPrimary>
+                </ButtonBorderPrimary>
             </Box>
 
             <Flex direction="column">

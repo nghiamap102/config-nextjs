@@ -2,5 +2,6 @@
     "checkout": "check out",
     "empty_cart": "empty cart",
     "view_cart": "view cart",
-    "remove_item": "remove item"
+    "remove_item": "remove item",
+    "your_cart_is_empty_now,_let's_shopping":"your cart is empty now, let's shopping"
 }

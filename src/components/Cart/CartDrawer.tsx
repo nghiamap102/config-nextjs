@@ -1,5 +1,5 @@
 import { Button, Flex } from '@chakra-ui/react'
-import CartItem from '@components/Cart/CartItem'
+import MiniCartItem from '@components/Cart/CartItem'
 import DrawerCPN from '@components/Drawer'
 import Translation from '@components/Translate'
 import { CartData } from '@redux/cart/cartModel'
@@ -56,7 +56,7 @@ const CartDrawer: FC<CartDrawerProps> = ({ onClose }) => {
             body={
                 cartState.list && cartState.list?.length > 0 ? (
                     cartState.list?.map(cart => (
-                        <CartItem
+                        <MiniCartItem
                             onChangeCheck={e => handleOnClickCheck(e, cart)}
                             item={cart}
                             key={cart.product && cart.product.id}

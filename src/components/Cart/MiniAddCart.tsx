@@ -1,7 +1,7 @@
 import { IconAssets } from '@assets/index'
 import { Box, Flex, IconButton, useToast } from '@chakra-ui/react'
 import ButtonCircle from '@components/ButtonCircle'
-import ButtonPrimary from '@components/ButtonPrimary'
+import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
 import Translation from '@components/Translate'
 import { ICartItem } from '@redux/cart/cartModel'
 import { addToCart } from '@redux/cart/cartSlice'
@@ -140,14 +140,14 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
                     })}
                 </Flex>
 
-                <ButtonPrimary
+                <ButtonBorderPrimary
                     w="100%"
                     marginRight={4}
                     textTransform="capitalize"
                     onClick={handleAddtoCart}
                 >
                     <Translation text="submit" type={['product']} />
-                </ButtonPrimary>
+                </ButtonBorderPrimary>
             </Box>
         </>
     )

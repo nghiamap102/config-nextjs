@@ -1,5 +1,5 @@
 import { Box, ButtonProps } from '@chakra-ui/react';
-import ButtonPrimary from '@components/ButtonPrimary';
+import ButtonBorderPrimary from '@components/ButtonBorderPrimary';
 import Translation from '@components/Translate';
 import { FC } from 'react';
 
@@ -18,7 +18,7 @@ const LoginSocialButton: FC<LoginSocialButtonProps> = ({
 }) => {
 
     return (
-        <ButtonPrimary
+        <ButtonBorderPrimary
             onClick={handleLogin}
             disabled={loading}
             _hover={{ opacity: 0.5 }}
@@ -31,7 +31,7 @@ const LoginSocialButton: FC<LoginSocialButtonProps> = ({
                 {icon}
             </Box>
             <Translation className='capitalize' text={text} type={['login']} />
-        </ButtonPrimary>
+        </ButtonBorderPrimary>
     );
 };
 export default LoginSocialButton

@@ -1,22 +1,16 @@
-import {
-    Action,
-    AnyAction,
-    combineReducers,
-    configureStore,
-    Store,
-    ThunkAction,
-} from '@reduxjs/toolkit'
-import { createWrapper, HYDRATE } from 'next-redux-wrapper'
+import { Action, AnyAction, Store, ThunkAction, combineReducers, configureStore, } from '@reduxjs/toolkit'
+import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
 import { CartInitState } from './cart/cartModel'
 import { cartReducer } from './cart/cartSlice'
 import { ChatInitialState } from './chat/chatModel'
 import { chatReducer } from './chat/chatSlice'
+import { CommonInitState } from './common/commonModel'
 import { commonReducer } from './common/commonSlice'
 import { ProductInitState } from './product/productModel'
 import { productReducer } from './product/productSlice'
-import { CommonInitState } from './common/commonModel'
 import rootSaga from './rootSaga'
+import Cookies from 'js-cookie'
 
 export interface State {
     common: CommonInitState
@@ -41,10 +35,7 @@ const reducer = (state: any, action: AnyAction) => {
 
         if (typeof window !== 'undefined' && state?.router) {
             nextState.router = state.router
-            nextState = {
-                ...nextState,
-                ...JSON.parse(localStorage.getItem('cart') || '{}'),
-            }
+            nextState = { ...nextState }
         }
         return rootReducer(nextState, action)
     } else {
@@ -56,24 +47,7 @@ export interface SagaStore extends Store {
     sagaTask: Task
 }
 
-const localStorageMiddleware = ({ getState }: { getState: any }) => {
-    return (next: any) => (action: any) => {
-        const result = next(action)
-        const { cart } = getState()
-        if (typeof localStorage !== 'undefined' && cart) {
-            localStorage.setItem('cart', JSON.stringify({ cart }))
-        }
-        return result
-    }
-}
-
 const reHydrateStore = () => {
-    if (
-        typeof localStorage !== 'undefined' &&
-        localStorage.getItem('cart') !== null
-    ) {
-        // return JSON.parse(localStorage.getItem('cart') || '') // re-hydrate the store
-    }
     return {}
 }
 const sagaMiddleware = createSagaMiddleware()
@@ -83,7 +57,6 @@ const store = configureStore({
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(
             sagaMiddleware,
-            localStorageMiddleware,
         ),
     devTools: true,
 })

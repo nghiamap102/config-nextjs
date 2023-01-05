@@ -1,33 +1,25 @@
 import { ReactIcon } from '@assets/icon'
 import { NoImage } from '@assets/image'
-import {
-    Box,
-    Checkbox,
-    Grid,
-    GridItem,
-    Text,
-    useNumberInput,
-} from '@chakra-ui/react'
+import { Box, Checkbox, Grid, GridItem, Text, useNumberInput, } from '@chakra-ui/react'
 import UiNumberInputControl from '@components/Field/UiNumberInputControl'
 import Translation from '@components/Translate'
-import { ICartItem } from '@redux/cart/cartModel'
-import { selectCart, updateCartItem } from '@redux/cart/cartSlice'
-import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { IMiniCartItem } from '@redux/cart/cartModel'
+import { updateMiniCartItem } from '@redux/cart/cartSlice'
+import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { formatCurrency, formatValueCurrency } from '@utils/helper'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
 
-type CartItemProps = {
-    item: ICartItem
+type MiniCartItemProps = {
+    item: IMiniCartItem
     onChangeCheck?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onRemoveItem?: () => void
 }
 
-const CartItem: FC<CartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
+const MiniCartItem: FC<MiniCartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
     const dispatch = useAppDispatch()
-    const cartSelector = useAppSelector(selectCart)
     const numberInput = useNumberInput({
         step: 1,
         defaultValue: item.quantity,
@@ -37,7 +29,7 @@ const CartItem: FC<CartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
     const router = useRouter()
     useEffect(() => {
         dispatch(
-            updateCartItem({ ...item, quantity: parseInt(numberInput.value) }),
+            updateMiniCartItem({ ...item, quantity: parseInt(numberInput.value) }),
         )
     }, [numberInput.value])
 
@@ -62,7 +54,7 @@ const CartItem: FC<CartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
                             item?.product?.sample[0].imageSrc) ||
                         NoImage
                     }
-                    alt="cartItem"
+                    alt="MiniCartItem"
                     height={150}
                     width={150}
                 />
@@ -103,4 +95,4 @@ const CartItem: FC<CartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
     )
 }
 
-export default CartItem
+export default MiniCartItem

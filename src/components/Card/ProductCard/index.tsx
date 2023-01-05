@@ -1,7 +1,6 @@
 import { IconAssets } from '@assets/index'
 import { Box, Flex, Tag, Text } from '@chakra-ui/react'
 import ButtonCircle from '@components/ButtonCircle'
-import ButtonPrimary from '@components/ButtonPrimary'
 import MiniAddCart from '@components/Cart/MiniAddCart'
 import IconButtonPrimary from '@components/IconButtonPrimary'
 import SimpleRating from '@components/Rating'
@@ -18,6 +17,7 @@ import { FC, useMemo, useState } from 'react'
 import { IProductItem } from 'redux/product/productModel'
 import { CardHeader } from './CardHeader'
 import Link from 'next/link'
+import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
 
 type ProductCardProps = {
     product: IProductItem
@@ -132,14 +132,14 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
             </Flex>
 
             <Flex>
-                <ButtonPrimary
+                <ButtonBorderPrimary
                     w="100%"
                     marginRight={4}
                     textTransform="capitalize"
                     onClick={handleActiveQuickAdd}
                 >
                     add to cart
-                </ButtonPrimary>
+                </ButtonBorderPrimary>
 
                 <IconButtonPrimary
                     aria-label="wishlist"

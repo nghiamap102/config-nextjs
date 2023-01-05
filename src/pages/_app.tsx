@@ -1,7 +1,11 @@
 import { Box, ChakraProvider } from '@chakra-ui/react'
+import ProgressBar from '@components/ProgressBar'
+import { setCart } from '@redux/cart/cartSlice'
+import { useAppDispatch } from '@redux/hooks'
 import Global from '@theme/global'
 import theme, { mainColor } from '@theme/theme'
-import { gapi } from 'gapi-script'
+import Cookies from 'js-cookie'
+import { SessionProvider, useSession } from 'next-auth/react'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -11,16 +15,23 @@ import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
 import './_app.css'
 import '@styles/globals.scss'
-import ProgressBar from '@components/ProgressBar'
-import { SessionProvider, useSession } from 'next-auth/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        JSON.parse(Cookies.get('cart')) && dispatch(setCart(JSON.parse(Cookies.get('cart'))))
+    }, [])
 
     useEffect(() => {
         NProgress.configure({ showSpinner: false })
-        NProgress.inc(0.4)
-        const handleStart = () => NProgress.start()
+
+        const handleStart = () => {
+            NProgress.start()
+            NProgress.inc(0.4);
+            NProgress.configure({ easing: 'ease', speed: 500 });
+        }
         const handleStop = () => NProgress.done()
 
         router.events.on('routeChangeStart', handleStart)
