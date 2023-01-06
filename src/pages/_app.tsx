@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        JSON.parse(Cookies.get('cart')) && dispatch(setCart(JSON.parse(Cookies.get('cart'))))
+        Cookies.get('cart') && dispatch(setCart(JSON.parse(Cookies.get('cart'))))
     }, [])
 
     useEffect(() => {

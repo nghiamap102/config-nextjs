@@ -1,5 +1,5 @@
 import { IconAssets } from '@assets/index'
-import { Box, Flex, Tag, Text } from '@chakra-ui/react'
+import { Box, BoxProps, Flex, Tag, Text } from '@chakra-ui/react'
 import ButtonCircle from '@components/ButtonCircle'
 import MiniAddCart from '@components/Cart/MiniAddCart'
 import IconButtonPrimary from '@components/IconButtonPrimary'
@@ -18,6 +18,7 @@ import { IProductItem } from 'redux/product/productModel'
 import { CardHeader } from './CardHeader'
 import Link from 'next/link'
 import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
+import Translation from '@components/Translate'
 
 type ProductCardProps = {
     product: IProductItem
@@ -28,8 +29,6 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
     const { id, name, price, sale, tag, sample } = product
     const dispatch = useAppDispatch()
 
-    const { t } = useTranslation(['product'])
-    const router = useRouter()
 
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
     const [activeQuickAdd, setActiveQuickAdd] = useState(false)
@@ -39,20 +38,8 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
         type: { color: product?.sample && product?.sample[0].color },
         imageModel: product?.sample && product?.sample[0].imageSrc,
     })
-    const handleChooseColor = (color: string) =>
-        setCartItem({ ...cartItem, type: { ...cartItem.type, color: color } })
+    const handleChooseColor = (color: string) => setCartItem({ ...cartItem, type: { ...cartItem.type, color: color } })
 
-    const renderPrice = (price: any) => {
-        return t('price', {
-            value: formatValueCurrency(router.locale, price),
-            formatParams: {
-                value: {
-                    currency: formatCurrency(router.locale),
-                    locale: router.locale,
-                },
-            },
-        })
-    }
 
     const handleActiveModal = () => setActiveModal(true)
     const handleActiveQuickAdd = () => setActiveQuickAdd(true)
@@ -99,15 +86,15 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
 
             <Flex marginTop={3} alignItems="center">
                 <Text textDecoration="line-through" color={mainColor.gray1}>
-                    {renderPrice(sale)}
+                    <RenderPrice price={price} />
                 </Text>
                 {sale && (
                     <Text marginX={3} color={mainColor.gray1}>
-                        {t('From')}
+                        <Translation type={['product']} text='from' />
                     </Text>
                 )}
                 <Text color={mainColor.red} fontWeight={700} fontSize="xl">
-                    {renderPrice(price)}
+                    <RenderPrice price={price - (price * sale / 100)} />
                 </Text>
             </Flex>
 
@@ -115,9 +102,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
                 {sample?.map(product => (
                     <ButtonCircle
                         key={product.color}
-                        onClick={() =>
-                            handleChooseColor(isNonEmptyString(product.color))
-                        }
+                        onClick={() => handleChooseColor(isNonEmptyString(product.color))}
                         label={product.color}
                         color={product.color}
                         marginX={1}
@@ -160,5 +145,26 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
         </Box>
     )
 }
+
+
+type RenderPriceProp = {
+    price: number | string
+} & BoxProps
+
+export const RenderPrice: FC<RenderPriceProp> = ({ price, ...props }) => {
+    const { t } = useTranslation(['product'])
+    const router = useRouter()
+
+    return t('price', {
+        value: formatValueCurrency(router.locale, price),
+        formatParams: {
+            value: {
+                currency: formatCurrency(router.locale),
+                locale: router.locale,
+            },
+        },
+    })
+}
+
 
 export default ProductCard

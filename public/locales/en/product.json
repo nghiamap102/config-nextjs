@@ -2,10 +2,14 @@
     "price": "{{value, currency}}",
     "quick_view": "quick view",
     "add_to_cart": "add to cart",
-    "no_purchase_yet": "no purchase yet",
+    "saled": "saled",
+    "rate": "rate",
     "submit": "submit",
     "unit_price": "unit price",
     "quantity": "quantity",
     "total": "total",
-    "action": "action"
+    "action": "action",
+    "shipping_method": "shipping method",
+    "free_ship": "free ship",
+    "buy_now":"buy now"
 }

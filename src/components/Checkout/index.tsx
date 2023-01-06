@@ -32,7 +32,7 @@ const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
             />
         )
     }
-    const renderPrice = (type: 'unit' | 'total') => {
+    const RenderPrice = (type: 'unit' | 'total') => {
         return (
             <Translation
                 type={['product']}
@@ -77,7 +77,7 @@ const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
                 </GridItem>
                 <GridItem colSpan={3} />
                 <GridItem colSpan={1} className="flex items-center">
-                    {renderPrice('unit')}
+                    {RenderPrice('unit')}
                 </GridItem>
                 <GridItem
                     colSpan={1}
@@ -86,7 +86,7 @@ const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
                     <Text>{item.quantity}</Text>
                 </GridItem>
                 <GridItem colSpan={2} className="flex items-center justify-end">
-                    {renderPrice('total')}
+                    {RenderPrice('total')}
                 </GridItem>
             </Grid>
             <Box bg={'#fafdff'} px={7} py={5}>

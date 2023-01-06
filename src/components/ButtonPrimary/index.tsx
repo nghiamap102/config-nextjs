@@ -1,13 +1,14 @@
+import { Button, ButtonProps } from '@chakra-ui/react';
+import { mainColor } from '@theme/theme';
 import { FC } from 'react'
 
-type ButtonPrimaryProps = {
+type ButtonPrimaryProps = ButtonProps;
 
-};
-
-export const ButtonPrimary: FC = (props: Props) => {
+const ButtonPrimary: FC<ButtonPrimaryProps> = ({ children, ...rest }) => {
     return (
-        <div>
-
-        </div>
+        <Button bg={mainColor.orange} color={mainColor.white} _hover={{ opacity: 0.8 }} {...rest}>
+            {children}
+        </Button>
     );
 };
+export default ButtonPrimary

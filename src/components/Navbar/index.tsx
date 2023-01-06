@@ -54,7 +54,7 @@ const Navbar: FC = () => {
                             borderLeftWidth={2}
                         />
                     </Box>
-                    <Box className="flex items-center">
+                    {/* <Box className="flex items-center">
                         <NavbarItem
                             type="submenu"
                             text={<Text fontSize="md">home page</Text>}
@@ -81,7 +81,7 @@ const Navbar: FC = () => {
                             text={<Text fontSize="md">rating</Text>}
                             tag="sale"
                         />
-                    </Box>
+                    </Box> */}
                 </GridItem>
 
                 <GridItem colSpan={2}></GridItem>

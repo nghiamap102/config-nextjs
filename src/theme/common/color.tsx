@@ -8,6 +8,7 @@ export const mainColor = {
     gray: '#f5f5f5',
     gray1: '#505050',
     gray2: '#bbb',
+    gray3: '#757575',
     hotTag: '#FFBB49',
     newTag: '#06BFE2',
     red: '#e10600',
@@ -28,6 +29,7 @@ const Color = () => (
       --gray: ${mainColor.gray};
       --gray1: ${mainColor.gray1};
       --gray2: ${mainColor.gray2};
+      --gray3: ${mainColor.gray3};
       --yellow: ${mainColor.yellow};
       --boxshadow: ${mainColor.boxshadow};
       --new-tag: ${mainColor.newTag};

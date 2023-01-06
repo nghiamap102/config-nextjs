@@ -16,7 +16,7 @@ const CartView: FC = () => {
     const handleSelectAllItems = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value)
     }
-    console.log(cartSelector);
+    
     return (
         <>
             <Header />

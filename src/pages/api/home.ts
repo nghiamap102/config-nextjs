@@ -11,7 +11,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                 rate: Math.round(Math.random() * 5),
                 price: 20,
                 sale: 10,
-                tag: 'hot',
+                tag: 'favourite',
                 sample: [
                     {
                         size: 'l',
@@ -33,10 +33,10 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
             {
                 id: '2',
                 name: '(Product 16) Sample - Computers & Accessories For Sale',
-                rate: Math.round(Math.random() * 5),
+                rate: 3.4,
                 price: 20,
                 sale: 10,
-                tag: 'hot',
+                tag: 'favourite',
                 sample: [
                     {
                         size: 'l',
@@ -61,7 +61,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                 rate: Math.round(Math.random() * 5),
                 price: 20,
                 sale: 10,
-                tag: 'hot',
+                tag: 'mall',
                 sample: [
                     {
                         size: 'l',
@@ -86,7 +86,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                 rate: Math.round(Math.random() * 5),
                 price: 20,
                 sale: 10,
-                tag: 'hot',
+                tag: 'mall',
                 sample: [
                     {
                         size: 'l',
@@ -111,7 +111,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                 rate: Math.round(Math.random() * 5),
                 price: 20,
                 sale: 10,
-                tag: 'hot',
+                tag: 'normal',
                 sample: [
                     {
                         size: 'l',

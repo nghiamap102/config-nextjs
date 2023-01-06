@@ -2,10 +2,14 @@
     "price": "{{value,currency}}",
     "quick_view": "xem nhanh",
     "add_to_cart": "thêm vào giỏ",
-    "no_purchase_yet": "chưa có lượt mua",
+    "saled": "đã bán",
+    "rate": "đánh giá",
     "submit": "xác nhận",
     "unit_price": "đơn giá",
     "quantity": "số lượng",
     "total": "tổng",
-    "action": "thao tác"
+    "action": "thao tác",
+    "shipping_method": "vận chuyển",
+    "free_ship": "miễn phí vận chuyển",
+    "buy_now":"mua ngay"
 }

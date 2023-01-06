@@ -36,11 +36,12 @@ const cartSlice = createSlice({
                 modified_at: new Date().getTime(),
                 imageModel: action.payload.imageModel,
             }
-            if (!state.list?.some(ele => ele.product.id === action.payload.product.id,) && isNonEmptyArray(state.list)) {
+            console.log(state.list);
+            if (!state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
 
                 state.list?.push(cartItem)
 
-            } else if (state.list?.some(ele => ele.product.id === action.payload.product.id,) && isNonEmptyArray(state.list)) {
+            } else if (state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
                 const newArr = state.list?.map(cart => {
                     if (cart.product.id === action.payload.product.id) {
                         return {

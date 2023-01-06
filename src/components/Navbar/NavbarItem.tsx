@@ -65,24 +65,10 @@ const NavbarItem: FC<NavbarItemProps> = ({ text, type, tag }) => {
                     {text}
                 </Box>
 
-                <Text
-                    position={'absolute'}
-                    top={-3}
-                    right={0}
-                    bg={`${renderColor(tag)}`}
-                    color={mainColor.white}
-                    lineHeight={1.5}
-                    className="px-2 capitalize"
-                >
-                    {tag}
-                </Text>
             </Box>
 
             <Box
-                className={classNames(
-                    active ? 'fade-up' : 'hidden',
-                    type === 'dropdown' ? 'py-2' : 'py-1',
-                )}
+                className={classNames( active ? 'fade-up' : 'hidden', type === 'dropdown' ? 'py-2' : 'py-1', )}
                 position={'absolute'}
                 left={renderEle()?.left}
                 top="100%"

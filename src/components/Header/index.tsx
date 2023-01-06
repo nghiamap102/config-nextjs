@@ -32,7 +32,7 @@ const Header: FC = () => {
                         colSpan={3}
                     >
                         <Link href="/">
-                            <Box className="italic heading">
+                            <Box className="italic heading cursor-pointer">
                                 <Image src={ImageAssets.Logo} alt="logo" />
                             </Box>
                         </Link>

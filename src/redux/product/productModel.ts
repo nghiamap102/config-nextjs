@@ -15,11 +15,14 @@ export interface IProductItem {
     price?: number
     quatity_remain: number
     saleCount?: number
+    decription?: string
 }
 export interface ProductSample {
     color?: string
     imageSrc?: string
     size?: string
-    type?: string
     anotherType?: string
+    countInStock?: number
 }
+
+export type ProductTag = 'favourite' | 'mall' | 'normal'

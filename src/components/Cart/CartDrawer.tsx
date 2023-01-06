@@ -1,5 +1,5 @@
 import { Button, Flex } from '@chakra-ui/react'
-import MiniCartItem from '@components/Cart/CartItem'
+import MiniCartItem from '@components/Cart/MiniCartItem'
 import DrawerCPN from '@components/Drawer'
 import Translation from '@components/Translate'
 import { CartData } from '@redux/cart/cartModel'

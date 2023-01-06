@@ -3,8 +3,8 @@ import { NoImage } from '@assets/image'
 import { Box, Checkbox, Grid, GridItem, Text, useNumberInput, } from '@chakra-ui/react'
 import UiNumberInputControl from '@components/Field/UiNumberInputControl'
 import Translation from '@components/Translate'
-import { IMiniCartItem } from '@redux/cart/cartModel'
-import { updateMiniCartItem } from '@redux/cart/cartSlice'
+import { ICartItem } from '@redux/cart/cartModel'
+import { updateCartItem } from '@redux/cart/cartSlice'
 import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { formatCurrency, formatValueCurrency } from '@utils/helper'
@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
 
 type MiniCartItemProps = {
-    item: IMiniCartItem
+    item: ICartItem
     onChangeCheck?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onRemoveItem?: () => void
 }
@@ -28,9 +28,7 @@ const MiniCartItem: FC<MiniCartItemProps> = ({ item, onChangeCheck, onRemoveItem
     })
     const router = useRouter()
     useEffect(() => {
-        dispatch(
-            updateMiniCartItem({ ...item, quantity: parseInt(numberInput.value) }),
-        )
+        dispatch(updateCartItem({ ...item, quantity: parseInt(numberInput.value) }))
     }, [numberInput.value])
 
     return (
