@@ -131,6 +131,20 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                 ],
             },
         ],
+        payment:[
+            {
+                method:'cash',
+                description : 'Thanh toán khi nhận hàng Phí thu hộ: ₫0 VNĐ. Ưu đãi về phí vận chuyển (nếu có) áp dụng cả với phí thu hộ.'
+            },
+            {
+                method:'momo',
+                description : 'Thanh toán khi nhận hàng Phí thu hộ: ₫0 VNĐ. Ưu đãi về phí vận chuyển (nếu có) áp dụng cả với phí thu hộ.'
+            },
+            {
+                method:'paypal',
+                description : 'Thanh toán khi nhận hàng Phí thu hộ: ₫0 VNĐ. Ưu đãi về phí vận chuyển (nếu có) áp dụng cả với phí thu hộ.'
+            }
+        ]
     })
 }
 

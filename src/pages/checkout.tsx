@@ -10,6 +10,8 @@ const Checkout: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     () =>
         async ({ locale }) => {
+            // const res = await fetch(`http://localhost:3030/api/home`)
+            // const data = res.json()
             const translate = await serverSideTranslations(locale as string, [
                 'common',
                 'product',
@@ -20,6 +22,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
             return {
                 props: {
                     ...translate,
+                    // data
                 },
             }
         },

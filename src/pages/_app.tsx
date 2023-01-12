@@ -16,6 +16,8 @@ import '../../public/other/nprogress.css'
 import './_app.css'
 import '@styles/globals.scss'
 
+
+
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
     const dispatch = useAppDispatch()
@@ -47,20 +49,22 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <SessionProvider session={pageProps.session}>
-            <ChakraProvider theme={theme}>
-                <Global />
-                <Box bg={mainColor.gray} color="#000" minHeight="100vh">
-                    <ProgressBar />
-                    {/* {Component.auth ? (
+            <PayPalScriptProvider options={paypalScriptOptions}>
+                <ChakraProvider theme={theme}>
+                    <Global />
+                    <Box bg={mainColor.gray} color="#000" minHeight="100vh">
+                        <ProgressBar />
+                        {/* {Component.auth ? (
                             <Auth adminOnly={Component.auth.adminOnly}>
                                 <Component {...pageProps} />
                             </Auth>
                         ) : (
                             <Component {...pageProps} />
                         )} */}
-                    <Component {...pageProps} />
-                </Box>
-            </ChakraProvider>
+                        <Component {...pageProps} />
+                    </Box>
+                </ChakraProvider>
+            </PayPalScriptProvider>
         </SessionProvider>
     )
 }

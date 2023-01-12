@@ -5,6 +5,7 @@ import Translation from '@components/Translate'
 import { selectCart } from '@redux/cart/cartSlice'
 import { useAppSelector } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
+import DiscountView from '@view/Discount'
 import PaymentView from '@view/Payment'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
@@ -69,7 +70,10 @@ const CheckoutView: FC = () => {
                     checkout?.map(item => (
                         <CheckoutItem key={item.product.id} item={item} />
                     ))}
-                <PaymentView />
+
+                <DiscountView />
+                <PaymentView/>
+
                 <Box className="text-right" p={5}>
                     <Button
                         onClick={onPayment}
