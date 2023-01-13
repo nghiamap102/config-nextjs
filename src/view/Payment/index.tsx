@@ -2,12 +2,15 @@ import { Box, Flex } from "@chakra-ui/react"
 import PaypalButton from "@components/Button/PaypalButton"
 import SelectItem from "@components/SelectItem"
 import Translation from "@components/Translate"
+import { PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
 import classNames from "classnames"
 import { FC, useState, useMemo } from 'react'
 
+type PaymentView = {
+    paypalProps : PayPalButtonsComponentProps
+}
 
-export const PaymentView: FC = () => {
-
+export const PaymentView: FC<PaymentView> = ({ paypalProps }) => {
 
     const paymentMethod = [
         {
@@ -33,7 +36,7 @@ export const PaymentView: FC = () => {
 
         switch (payment.method) {
             case 'paypal':
-                return <PaypalButton />
+                return <PaypalButton {...paypalProps}/>
             default:
                 return ''
         }

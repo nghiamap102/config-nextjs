@@ -1,9 +1,12 @@
 <!-- Doing -->
-hover img[1] show [productCard]
-detect refresh page to del sessionstorage
 fetch all api to save state
+state for payment method
 [low] skeleton all page
 <!-- bug -->
+
+<!-- optimize -->
+export all cpn
+
 
 <!-- Err -->
 

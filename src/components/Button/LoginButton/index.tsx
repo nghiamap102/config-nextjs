@@ -1,5 +1,5 @@
 import { Box, ButtonProps } from '@chakra-ui/react';
-import ButtonBorderPrimary from '@components/ButtonBorderPrimary';
+import ButtonBorderPrimary from '@components/Button/ButtonBorderPrimary';
 import Translation from '@components/Translate';
 import { FC } from 'react';
 

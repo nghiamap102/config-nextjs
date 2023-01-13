@@ -1,6 +1,6 @@
 import { ReactIcon } from '@assets/icon'
 import { Box, Checkbox, Flex, Text } from '@chakra-ui/react'
-import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
+import ButtonBorderPrimary from '@components/Button/ButtonBorderPrimary'
 import UiInputField from '@components/Field/UiInputField'
 import { mainColor } from '@theme/theme'
 import { checkValueError } from '@utils/helper'
