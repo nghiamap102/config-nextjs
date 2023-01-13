@@ -1,7 +1,7 @@
 import { IconAssets, ImageAssets } from '@assets/index'
 import { Box, Grid, GridItem, Text } from '@chakra-ui/react'
 import InputSearch from '@components/InputSearch'
-import Navbar from '@components/Navbar'
+import Navbar from '@components/Layout/Navbar'
 import { mainColor } from '@theme/common/color'
 import { EventType } from 'models/common'
 import Image from 'next/image'

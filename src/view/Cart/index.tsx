@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Container, Flex, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Portal, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import Header from '@components/Header'
+import Header from '@components/Layout/Header'
 import Meow from '@components/Meow'
 import Translation from '@components/Translate'
 import { selectCart } from '@redux/cart/cartSlice'

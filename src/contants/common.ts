@@ -32,7 +32,7 @@ export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 export const DELETE_CONVERS = 'DELETE_CONVERS'
 export const STORE_CONVERS = 'STORE_CONVERS'
 
-export const paypalScriptOptions: ReactPayPalScriptOptions = {
-    "client-id":"AaUpVv8WDVM5uezwsQo79K6YBKmqm3EeLSOx5TFTX4RM2_ephwW68aJ4_ASXYPjbI8OyuXchwgkQ7bRl",
+export const paypalScriptOptions = {
+    "client-id": "ARE1pgMGOWlCw1yk-bEbGeZe-QVN-Nak4ThYLmOCYqTE2EVwCpdNoKAi7aUGTz9uxhPUHkhTHKofCDXH",
     currency: "USD"
 };

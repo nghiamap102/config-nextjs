@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, GridItem } from '@chakra-ui/react'
 import CheckoutItem from '@components/Checkout'
-import Header from '@components/Header'
+import Header from '@components/Layout/Header'
 import Translation from '@components/Translate'
 import { selectCart } from '@redux/cart/cartSlice'
 import { useAppSelector } from '@redux/hooks'

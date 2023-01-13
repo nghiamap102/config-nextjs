@@ -1,4 +1,4 @@
-import Header from '@components/Header'
+import Header from '@components/Layout/Header'
 import ProductView from '@view/Product'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

@@ -15,6 +15,8 @@ import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
 import './_app.css'
 import '@styles/globals.scss'
+import { paypalScriptOptions } from 'contants/common'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 
 

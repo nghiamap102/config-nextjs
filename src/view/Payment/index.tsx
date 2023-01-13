@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react"
+import PaypalButton from "@components/Button/PaypalButton"
 import SelectItem from "@components/SelectItem"
 import Translation from "@components/Translate"
 import classNames from "classnames"
@@ -24,7 +25,20 @@ export const PaymentView: FC = () => {
     ]
 
 
-    const [method, setMethod] = useState<any>({})
+    const [payment, setPayment] = useState<any>({})
+
+    const handleSelect = (items: any) => setPayment(items)
+
+    const renderMethod = () => {
+
+        switch (payment.method) {
+            case 'paypal':
+                return <PaypalButton />
+            default:
+                return ''
+        }
+    }
+
 
     return (
         <Box px={7} py={5}>
@@ -32,7 +46,7 @@ export const PaymentView: FC = () => {
                 <Translation type={['common']} text="payment_method" className="mr-10 text-xl capitalize" />
                 <Flex>
                     {paymentMethod.map(items => (
-                        <SelectItem key={items.method} mx={2} selected={method?.method === items.method} onSelect={() => setMethod(items)}>
+                        <SelectItem key={items.method} mx={2} selected={payment?.method === items.method} onSelect={() => handleSelect(items)}>
                             {items.method}
                         </SelectItem>
                     ))}
@@ -40,8 +54,9 @@ export const PaymentView: FC = () => {
             </Flex>
             <Box>
                 {paymentMethod.map(items => (
-                    <Box key={items.method} className={classNames(method.method === items.method ? 'fade-up' : 'hidden')}>
+                    <Box key={items.method} className={classNames(payment.method === items.method ? 'fade-up' : 'hidden')}>
                         {items.description}
+                        {renderMethod()}
                     </Box>
                 ))}
             </Box>
