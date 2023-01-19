@@ -23,7 +23,6 @@ const CheckoutView: FC = () => {
         return (
             <Translation
                 className="capitalize"
-                type={['product']}
                 text={text}
             />
         )

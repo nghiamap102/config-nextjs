@@ -2,6 +2,7 @@ import { Global } from '@emotion/react'
 
 export const mainColor = {
     black: '#000000',
+    lightBlack: 'rgba(0,0,0,.09)',
     blueDark: '#4267B2',
     boxshadow: '#0000000d',
     orange: '#fd6506',
@@ -26,6 +27,7 @@ const Color = () => (
       --orange: ${mainColor.orange};
       --white: ${mainColor.white};
       --black: ${mainColor.black};
+      --light-black: ${mainColor.lightBlack};
       --gray: ${mainColor.gray};
       --gray1: ${mainColor.gray1};
       --gray2: ${mainColor.gray2};

@@ -1,24 +1,16 @@
-import { IconAssets } from '@assets/index'
-import { Box, BoxProps, Flex, Tag, Text } from '@chakra-ui/react'
-import ButtonCircle from '@components/ButtonCircle'
-import MiniAddCart from '@components/Cart/MiniAddCart'
-import IconButtonPrimary from '@components/IconButtonPrimary'
+import { ReactIcon } from '@assets/icon'
+import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
 import SimpleRating from '@components/Rating'
-import { ICartItem } from '@redux/cart/cartModel'
-import { addToWishList } from '@redux/cart/cartSlice'
-import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { formatCurrency, formatValueCurrency } from '@utils/helper'
-import { isNonEmptyString } from '@utils/validations'
-import ProductQuickView from '@view/ProductQuickview'
+import ProductQuickView from '@view/Product/ProductQuickView'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 import { IProductItem } from 'redux/product/productModel'
 import { CardHeader } from './CardHeader'
-import Link from 'next/link'
-import ButtonBorderPrimary from '@components/ButtonBorderPrimary'
-import Translation from '@components/Translate'
+import Tag from '@components/Tag'
 
 type ProductCardProps = {
     product: IProductItem
@@ -26,116 +18,42 @@ type ProductCardProps = {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
-    const { id, name, price, sale, tag, sample } = product
-    const dispatch = useAppDispatch()
-
-
+    const { id, name, price, sale, tag } = product
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
-    const [activeQuickAdd, setActiveQuickAdd] = useState(false)
-    const [cartItem, setCartItem] = useState<ICartItem>({
-        product: product,
-        quantity: 0,
-        type: { color: product?.sample && product?.sample[0].color },
-        imageModel: product?.sample && product?.sample[0].imageSrc,
-    })
-    const handleChooseColor = (color: string) => setCartItem({ ...cartItem, type: { ...cartItem.type, color: color } })
-
-
     const handleActiveModal = () => setActiveModal(true)
-    const handleActiveQuickAdd = () => setActiveQuickAdd(true)
-    const handleInActiveQuickAdd = () => setActiveQuickAdd(false)
-    const handleAddToWishList = () => dispatch(addToWishList(product))
-
-    const renderMiniAddCart = useMemo(() => {
-        return (
-            <MiniAddCart
-                onClose={handleInActiveQuickAdd}
-                isOpen={activeQuickAdd}
-                product={product}
-                title={'quick add to cart'}
-                cartItem={cartItem}
-            />
-        )
-    }, [cartItem, activeQuickAdd, product])
 
     return (
-        <Box bg={mainColor.white} padding={7}>
+        <Box bg={mainColor.white} padding={7} className='border-primary'>
+
             <Tag
-                bg={mainColor.red2}
-                color={mainColor.red}
-                className="capitalize p-2 absolute top-7 left-7 duration-400"
+                tag={tag}
+                className="capitalize px-2 py-1 absolute top-7 left-7 "
             >
                 {tag}
             </Tag>
 
-            <CardHeader
-                cartItem={cartItem}
-                product={product}
-                onClickShortCut={handleActiveModal}
-            />
+            <CardHeader product={product} onClickShortCut={handleActiveModal} />
 
-            <Box>
-                <Link href={`/product/${id}`}>
-                    <Text fontSize="lg" marginBottom={2}>
-                        {name?.slice(0, 45)}...
-                    </Text>
-                </Link>
-            </Box>
+            <Link href={`/product/${id}`}>
+                <Text fontSize="lg" marginBottom={2}> {name?.slice(0, 45)}... </Text>
+            </Link>
 
-            <SimpleRating direction="horizon" value={product.rate} />
+            <SimpleRating direction="horizon" value={product.rate} avg={50} />
 
-            <Flex marginTop={3} alignItems="center">
-                <Text textDecoration="line-through" color={mainColor.gray1}>
-                    <RenderPrice price={price} />
-                </Text>
-                {sale && (
-                    <Text marginX={3} color={mainColor.gray1}>
-                        <Translation type={['product']} text='from' />
-                    </Text>
-                )}
-                <Text color={mainColor.red} fontWeight={700} fontSize="xl">
-                    <RenderPrice price={price - (price * sale / 100)} />
-                </Text>
+            <Tag className='inline-block my-2 px-2 py-1 rounded-lg text-sm' bg={mainColor.saleTag}>
+                <ReactIcon.IconIo5.IoTicketOutline color={mainColor.red2} className='mr-2' />
+                <Text lineHeight='normal'>30%</Text>
+            </Tag>
+
+            <Flex className='justify-between items-center'>
+                <Flex alignItems="center">
+                    <RenderPrice price={price || 0} textDecoration="line-through" color={mainColor.gray1} />
+                    <RenderPrice price={price - (price * sale / 100)} color={mainColor.red} className='font-bold text-xl ml-2' />
+                </Flex>
+                <Box>
+                    8.3k saled
+                </Box>
             </Flex>
-
-            <Flex>
-                {sample?.map(product => (
-                    <ButtonCircle
-                        key={product.color}
-                        onClick={() => handleChooseColor(isNonEmptyString(product.color))}
-                        label={product.color}
-                        color={product.color}
-                        marginX={1}
-                        marginY={4}
-                        active={
-                            cartItem.type &&
-                            cartItem.type.color === product.color &&
-                            true
-                        }
-                    />
-                ))}
-            </Flex>
-
-            <Flex>
-                <ButtonBorderPrimary
-                    w="100%"
-                    marginRight={4}
-                    textTransform="capitalize"
-                    onClick={handleActiveQuickAdd}
-                >
-                    add to cart
-                </ButtonBorderPrimary>
-
-                <IconButtonPrimary
-                    aria-label="wishlist"
-                    bg={mainColor.saleTag}
-                    color={mainColor.gray}
-                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart />}
-                    onClick={handleAddToWishList}
-                />
-            </Flex>
-
-            {renderMiniAddCart}
 
             <ProductQuickView
                 product={product}
@@ -152,18 +70,22 @@ type RenderPriceProp = {
 } & BoxProps
 
 export const RenderPrice: FC<RenderPriceProp> = ({ price, ...props }) => {
-    const { t } = useTranslation(['product'])
+    const { t } = useTranslation(['common'])
     const router = useRouter()
 
-    return t('price', {
-        value: formatValueCurrency(router.locale, price),
-        formatParams: {
-            value: {
-                currency: formatCurrency(router.locale),
-                locale: router.locale,
-            },
-        },
-    })
+    return (
+        <Box {...props}>
+            {t('price', {
+                value: formatValueCurrency(router.locale, price),
+                formatParams: {
+                    value: {
+                        currency: formatCurrency(router.locale),
+                        locale: router.locale,
+                    },
+                },
+            })}
+        </Box>
+    )
 }
 
 

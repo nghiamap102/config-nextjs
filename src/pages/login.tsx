@@ -1,4 +1,4 @@
-import { Box, Container, Grid, GridItem } from '@chakra-ui/react'
+import { Box, Container, Grid, GridItem, useToast } from '@chakra-ui/react'
 import BoxIntro from '@components/BoxIntro'
 import { mainColor } from '@theme/theme'
 import FormLoginWrapper from '@view/Login'
@@ -6,9 +6,22 @@ import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { wrapper } from 'redux/store'
+import { useEffect } from 'react'
 
 const Login: NextPage = () => {
     const router = useRouter()
+
+    const toast = useToast()
+    const { error } = router.query
+
+    useEffect(() => {
+        error && toast({
+            title: 'server is currently down',
+            status: 'error',
+            isClosable: true,
+        })
+    }, [])
+
     return (
         <Container maxW="100%" p={0} h="100vh">
             <Grid templateColumns="repeat(2,1fr)" h="100%">
@@ -48,10 +61,7 @@ const Login: NextPage = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
     () =>
         async ({ locale }) => {
-            const translate = await serverSideTranslations(locale as string, [
-                'common',
-                'product',
-            ])
+            const translate = await serverSideTranslations(locale as string, ['common'])
 
             return {
                 props: {

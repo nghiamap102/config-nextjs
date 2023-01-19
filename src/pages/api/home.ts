@@ -130,6 +130,31 @@ const handler = (req: NextApiRequest, res: NextApiResponse<any>) => {
                     },
                 ],
             },
+            {
+                id: '6',
+                name: '(Product 16) Sample - Computers & Accessories For Sale',
+                rate: Math.round(Math.random() * 5),
+                price: 20,
+                sale: 10,
+                tag: 'hot',
+                sample: [
+                    {
+                        size: 'l',
+                        color: 'black',
+                        imageSrc: ImageAssets.ProuductLoa1,
+                    },
+                    {
+                        size: 'xl',
+                        color: 'gray',
+                        imageSrc: ImageAssets.Categories1,
+                    },
+                    {
+                        size: 'm',
+                        color: 'orange',
+                        imageSrc: ImageAssets.ProuductLoa1,
+                    },
+                ],
+            },
         ],
         payment:[
             {

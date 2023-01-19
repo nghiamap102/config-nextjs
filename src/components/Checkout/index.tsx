@@ -1,18 +1,15 @@
 import { NoImage } from '@assets/image'
 import {
     Box,
-    Flex,
-    FormLabel,
     Grid,
     GridItem,
     Input,
-    Td,
-    Text,
-    Tr,
+    Text
 } from '@chakra-ui/react'
+import { RenderPrice } from '@components/Card/ProductCard'
 import Translation from '@components/Translate'
 import { ICartItem } from '@redux/cart/cartModel'
-import { formatCurrency, formatValueCurrency } from '@utils/helper'
+import { mainColor } from '@theme/theme'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -21,36 +18,12 @@ type CheckoutItemProps = {
     item: ICartItem
 }
 const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
-    const router = useRouter()
 
     const renderTranslate = text => {
         return (
             <Translation
                 className="capitalize inline"
-                type={['product']}
                 text={text}
-            />
-        )
-    }
-    const RenderPrice = (type: 'unit' | 'total') => {
-        return (
-            <Translation
-                type={['product']}
-                formatTranslate={{
-                    value: formatValueCurrency(
-                        router.locale,
-                        type === 'unit'
-                            ? item.product.price
-                            : item.product.price * item.quantity,
-                    ),
-                    formatParams: {
-                        value: {
-                            currency: formatCurrency(router.locale),
-                            locale: router.locale,
-                        },
-                    },
-                }}
-                text={'price'}
             />
         )
     }
@@ -77,7 +50,7 @@ const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
                 </GridItem>
                 <GridItem colSpan={3} />
                 <GridItem colSpan={1} className="flex items-center">
-                    {RenderPrice('unit')}
+                    <RenderPrice price={item.type?.unit_price || 0} textDecoration="line-through" color={mainColor.gray1} />
                 </GridItem>
                 <GridItem
                     colSpan={1}
@@ -86,7 +59,7 @@ const CheckoutItem: FC<CheckoutItemProps> = ({ item }) => {
                     <Text>{item.quantity}</Text>
                 </GridItem>
                 <GridItem colSpan={2} className="flex items-center justify-end">
-                    {RenderPrice('total')}
+                    <RenderPrice price={item.type?.unit_price && item.quantity && item.type?.unit_price * item.quantity || 0} textDecoration="line-through" color={mainColor.gray1} />
                 </GridItem>
             </Grid>
             <Box bg={'#fafdff'} px={7} py={5}>

@@ -26,11 +26,11 @@ const DiscountView = (props: Props) => {
             <Flex className="justify-between" px={7} py={5}>
                 <Flex className="items-center text-xl">
                     <ReactIcon.IconHi.HiOutlineTicket className="mr-2" color={mainColor.orange} />
-                    <Translation type={['common']} text="voucher" className="capitalize" />
+                    <Translation text="voucher" className="capitalize" />
                 </Flex>
 
                 <Box onClick={handleSelectVoucher} color={mainColor.newTag} className="cursor-pointer">
-                    <Translation type={['checkout']} text="select_voucher" className="capitalize" />
+                    <Translation text="select_voucher" className="capitalize" />
                 </Box>
 
                 <Popup isOpen={activeVoucher} onClose={handleCloseSelectVoucher} />
@@ -41,7 +41,7 @@ const DiscountView = (props: Props) => {
             <Flex className="justify-between" px={7} py={5}>
                 <Flex className="items-center text-xl">
                     <ReactIcon.IconBi.BiCoinStack className="mr-2" color={mainColor.hotTag} />
-                    <Translation type={['common']} text="coin" className="capitalize" />
+                    <Translation text="coin" className="capitalize" />
                 </Flex>
                 <Flex>
                     <UICheckBoxField content="[-₫150.000]" onChange={handleSelectCoin} />

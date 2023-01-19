@@ -11,6 +11,7 @@ import { FC } from 'react'
 import LoginSocial from './LoginSocial'
 import ValidateFieldsLogin from './ValidateField'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 interface LoginProps {
     isError?: boolean
@@ -92,10 +93,15 @@ export const FormLoginWrapper = withFormik<MyFormProps, LoginValue>({
     validate: checkValueError(ValidateFieldsLogin),
     handleSubmit: async (values, { setSubmitting, props }) => {
         const { router } = props
-        setTimeout(() => {
+        setTimeout(async () => {
+            await signIn('credentials', {
+                redirect: false,
+                email: values.emailOrUsername,
+                password: values.password,
+            });
+            router && router.push('/', undefined, { shallow: true })
             setSubmitting(true)
         }, 100)
-        router && router.push('/')
     },
 })(Login)
 

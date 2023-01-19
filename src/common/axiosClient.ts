@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import { API_URL } from 'contants/common'
 
 const axiosClient = axios.create({
-    baseURL: API_URL,
+    baseURL: process.env.BE_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },

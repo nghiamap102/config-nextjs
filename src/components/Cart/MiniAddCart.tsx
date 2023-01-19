@@ -29,7 +29,13 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
     onClose,
 }) => {
     const dispatch = useAppDispatch()
-    const [cartItemInit, setCartItemInit] = useState<ICartItem>([])
+    const [cartItemInit, setCartItemInit] = useState<ICartItem>({
+        active: true,
+        productId: '',
+        quantity: 1,
+        type: {}
+    })
+
     const toast = useToast({
         id: toastConst.cart,
         position: 'top',
@@ -39,7 +45,12 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
     })
 
     useEffect(() => {
-        setCartItemInit(cartItem)
+        setCartItemInit({
+            active: cartItem.active,
+            productId: cartItem.productId || product.id || '',
+            quantity: cartItem.quantity,
+            type: cartItem.type
+        })
     }, [cartItem])
 
     const handleChooseColor = (color: string) => {
@@ -70,10 +81,7 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
             >
                 <Flex className="justify-between items-center my-3 mb-5">
                     <Box className="capitalize">
-                        <Translation
-                            text={isNonEmptyString(title)}
-                            type={['product']}
-                        />
+                        <Translation text={isNonEmptyString(title)} />
                     </Box>
                     <IconButton
                         aria-label="btn"
@@ -133,7 +141,7 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
                                 marginY={4}
                                 active={
                                     cartItemInit?.type?.color ===
-                                        product.color && true
+                                    product.color && true
                                 }
                             />
                         )
@@ -146,7 +154,7 @@ const MiniAddCart: FC<MiniAddCartProps> = ({
                     textTransform="capitalize"
                     onClick={handleAddtoCart}
                 >
-                    <Translation text="submit" type={['product']} />
+                    <Translation text="submit" />
                 </ButtonBorderPrimary>
             </Box>
         </>

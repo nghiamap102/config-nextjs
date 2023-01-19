@@ -1,11 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { isNonEmptyArray } from '@utils/validations'
-import { ListResponseModel } from 'models/common'
+import Cookies from 'js-cookie'
 import { HYDRATE } from 'next-redux-wrapper'
 import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'
-import { CartData, CartInitState, ICartItem } from './cartModel'
-import Cookies from 'js-cookie'
+import { CartInitState, ICartItem } from './cartModel'
 
 const initialState: CartInitState = {
     list: [],
@@ -13,99 +12,69 @@ const initialState: CartInitState = {
     loading: false,
 }
 
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        setCart: (state: CartInitState, action: PayloadAction<CartInitState>) => {
-            state.list = action.payload.list
-            state.wishList = action.payload.wishList
-        },
-        getListCart: (
-            state: CartInitState,
-            action: PayloadAction<ListResponseModel<CartData>>,
-        ) => {
-            state.list = action.payload.data
+        setCartList: (state: CartInitState, action: PayloadAction<any[]>) => {
+            state.list = action.payload
         },
         addToCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-            const cartItem = {
-                product: action.payload.product,
-                quantity: 1,
-                type: action.payload.type,
-                created_at: new Date().getTime(),
-                modified_at: new Date().getTime(),
-                imageModel: action.payload.imageModel,
-            }
-            console.log(state.list);
-            if (!state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
+            if (!state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
 
-                state.list?.push(cartItem)
+                state.list?.push(action.payload)
 
-            } else if (state.list?.some(ele => ele.product.id === action.payload.product.id) && isNonEmptyArray(state.list)) {
+            } else if (state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
                 const newArr = state.list?.map(cart => {
-                    if (cart.product.id === action.payload.product.id) {
+                    if (cart.productId === action.payload.productId) {
                         return {
                             ...cart,
-                            quantity: cart.quantity + 1,
-                            modified_at: new Date().getTime(),
+                            quantity: cart.quantity && cart.quantity + 1
                         }
                     }
                     return cart
                 })
                 state.list = newArr
             } else {
-                state.list?.push(cartItem)
+                state.list?.push(action.payload)
             }
-            Cookies.set('cart', JSON.stringify({ ...state }));
         },
-        removeItemFromCart: (
-            state: CartInitState,
-            action: PayloadAction<CartData>,
-        ) => {
+        removeItemFromCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             const newArr = state.list?.filter(cart => {
-                if (cart.product.id !== action.payload.product.id) {
+                if (cart.productId !== action.payload.productId) {
                     return cart
                 }
             })
             state.list = newArr
             Cookies.set('cart', JSON.stringify({ ...state }));
         },
-        updateCart: (state: CartInitState, action: PayloadAction<CartData>) => {
+        updateCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             state.list?.map(cart => {
-                if (cart.product.id === action.payload.product.id) {
+                if (cart.productId === action.payload.productId) {
                     return { ...cart, count: action.payload }
                 }
             })
             Cookies.set('cart', JSON.stringify({ ...state }));
         },
-        updateCartItem: (
-            state: CartInitState,
-            action: PayloadAction<CartData>,
-        ) => {
+        updateCartItem: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             state.list?.map(cart => {
-                if (cart.product.id === action.payload.product.id) {
+                if (cart.productId === action.payload.productId) {
                     cart = action.payload
                 }
                 return cart
             })
-            Cookies.set('cart', JSON.stringify({ ...state }));
         },
-        addToWishList: (
-            state: CartInitState,
-            action: PayloadAction<IProductItem>,
-        ) => {
-            if (!state.wishList?.some(item => item.id === action.payload.id)) {
-                state.wishList?.push(action.payload)
+        addToWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
+            if (!state.wishList?.some(item => item.productId === action.payload.id)) {
+                state.wishList?.push({ productId: action.payload.id })
             } else if (state.wishList.length < 0) {
-                state.wishList?.push(action.payload)
+                state.wishList?.push({ productId: action.payload.id })
             }
         },
-        removeItemFromWishList: (
-            state: CartInitState,
-            action: PayloadAction<IProductItem>,
-        ) => {
+        removeItemFromWishList: (state: CartInitState, action: PayloadAction<IProductItem>,) => {
             const newArr = state.wishList?.filter(cart => {
-                if (cart.id !== action.payload.id) {
+                if (cart.productId !== action.payload.id) {
                     return cart
                 }
             })
@@ -119,16 +88,24 @@ const cartSlice = createSlice({
                     state = { ...state, ...action.payload.cart }
                 },
             )
+            builder.addCase(
+                'addCart',
+                (state: CartInitState, action: PayloadAction<any>) => {
+                    console.log('HYDRATE', action.payload)
+                    state = { ...state, ...action.payload.cart }
+                },
+            )
         },
     },
 })
+
+
 
 export const cartReducer = cartSlice.reducer
 export const cartActions = cartSlice.actions
 
 export const {
-    setCart,
-    getListCart,
+    setCartList,
     addToCart,
     removeItemFromCart,
     updateCart,

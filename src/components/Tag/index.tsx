@@ -1,10 +1,9 @@
-import { Box, BoxProps } from "@chakra-ui/react";
-import { ProductTag } from "@redux/product/productModel";
+import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import { FC } from 'react'
 
 type TagProps = {
-    tag?: ProductTag
+    tag?: string
 } & BoxProps
 
 const Tag: FC<TagProps> = ({ tag, children, ...props }) => {
@@ -15,7 +14,7 @@ const Tag: FC<TagProps> = ({ tag, children, ...props }) => {
             case 'favourite':
                 return mainColor.orange
             case 'mall':
-                return mainColor.hotTag
+                return mainColor.red
             default:
                 return ''
         }
@@ -23,7 +22,9 @@ const Tag: FC<TagProps> = ({ tag, children, ...props }) => {
 
     return (
         <Box bg={renderColor()} {...props} color={mainColor.white} textTransform='capitalize'>
-            {children} 
+            <Flex>
+                {children}
+            </Flex>
         </Box>
     );
 };

@@ -18,6 +18,23 @@ const nextConfig = {
             'https://nghia-hoang.imgbb.com/',
         ],
     },
+    async headers() {
+        return [
+            {
+                source: '/',
+                headers: [
+                    {
+                        key: 'Access-Control-Allow-Origin',
+                        value: 'my custom header value',
+                    },
+                    {
+                        key: 'x-another-custom-header',
+                        value: 'my other custom header value',
+                    },
+                ],
+            },
+        ]
+    },
     env: {
         BE_API_URL: process.env.BE_API_URL,
         API_URL: process.env.API_URL,

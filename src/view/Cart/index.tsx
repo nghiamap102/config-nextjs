@@ -1,83 +1,156 @@
-import { Box, Button, Checkbox, Container, Flex, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Portal, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import Header from '@components/Layout/Header'
+import { Button, Checkbox, Container, Flex, Grid, GridItem } from '@chakra-ui/react'
+import CartItems from '@components/Items/CartItems'
+import Layout from '@components/Layout'
 import Meow from '@components/Meow'
 import Translation from '@components/Translate'
-import { selectCart } from '@redux/cart/cartSlice'
-import { useAppSelector } from '@redux/hooks'
+import { ICartItem } from '@redux/cart/cartModel'
+import { selectCart, setCartList } from '@redux/cart/cartSlice'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import CartToolBar from './CartToolBar'
+import cartService from '@redux/cart/cartService'
 
 const CartView: FC = () => {
+    const dispatch = useAppDispatch()
     const cartSelector = useAppSelector(selectCart)
+
+    const [listItemChecked, setListItemChecked] = useState<ICartItem[]>([])
+
     const router = useRouter()
 
     const handleSelectAllItems = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value)
+        e.target.checked && cartSelector.list && setListItemChecked(cartSelector.list)
+        !e.target.checked && setListItemChecked([])
     }
-    
+
+    const handleSelected = (cartItem: ICartItem, e: React.ChangeEvent<HTMLInputElement>) => {
+        const listItem = [...listItemChecked]
+        if (e.target.checked) {
+            listItem.push(cartItem)
+            setListItemChecked(listItem)
+        } else {
+            const newArr = listItem.filter(item => {
+                if (item._id !== cartItem._id) {
+                    return item
+                }
+            })
+            setListItemChecked(newArr)
+        }
+    }
+
+    const handleDelItem = (item: ICartItem) => {
+        cartService.deleteItem(item)
+        const newArr: any[] = cartSelector.list?.filter(listItem => {
+            if (item._id !== listItem._id)
+                return listItem
+        })
+        dispatch(setCartList(newArr))
+    }
+
     return (
-        <>
-            <Header />
+        <Layout>
             <Container my={5} maxW="container.xl">
                 {cartSelector.list && cartSelector.list?.length > 0 && (
-                    <TableContainer>
-                        <Table variant="unstyled">
-                            <Thead>
-                                <Tr>
-                                    <Th>
-                                        <Flex>
-                                            <Checkbox onChange={handleSelectAllItems} mr={2} />
-                                            <Translation text="items" type={['product']} />
-                                        </Flex>
-                                    </Th>
-                                    <Th> <Translation text="unit_price" type={['product']} /> </Th>
-                                    <Th> <Translation text="quantity" type={['product']} /> </Th>
-                                    <Th> <Translation text="total" type={['product']} /> </Th>
-                                    <Th> <Translation text="action" type={['product']} /> </Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                <Tr>
-                                    <Td>
-                                        {cartSelector.list?.map(items => {
-                                            return (
-                                                <Box key={Math.random() * 1000}>
-                                                    <Popover>
-                                                        <PopoverTrigger>
-                                                            <Button>Trigger</Button>
-                                                        </PopoverTrigger>
-                                                        <Portal>
-                                                            <PopoverContent>
-                                                                <PopoverArrow />
-                                                                <PopoverBody>
-                                                                    {Object.values(items.type,).map(ele => ele,)} {items.product.name}
-                                                                </PopoverBody>
-                                                            </PopoverContent>
-                                                        </Portal>
-                                                    </Popover>
-                                                </Box>
-                                            )
-                                        })}
-                                    </Td>
-                                </Tr>
-                            </Tbody>
-                            <Tfoot></Tfoot>
-                        </Table>
-                    </TableContainer>
+                    <Grid templateColumns="repeat(24, 1fr)" px={7} py={5} bg={mainColor.white} mb={3}>
+                        <GridItem colSpan={1} fontSize="md" className='flex items-center'>
+                            <Checkbox onChange={handleSelectAllItems} />
+                        </GridItem>
+                        <GridItem colSpan={12} fontSize="md">
+                            <Translation className="capitalize" text='items' />
+                        </GridItem>
+
+                        <GridItem
+                            colSpan={3}
+                            color={mainColor.gray2}
+                            className="text-center"
+                        >
+                            <Translation className="capitalize" text='unit_price' />
+                        </GridItem>
+
+                        <GridItem
+                            colSpan={3}
+                            color={mainColor.gray2}
+                            className="text-center"
+                        >
+                            <Translation className="capitalize" text='quantity' />
+                        </GridItem>
+
+                        <GridItem
+                            colSpan={3}
+                            color={mainColor.gray2}
+                            className="text-center"
+                        >
+                            <Translation className="capitalize" text='total' />
+                        </GridItem>
+
+                        <GridItem
+                            colSpan={2}
+                            color={mainColor.gray2}
+                            className="text-center"
+                        >
+                            <Translation className="capitalize" text='action' />
+                        </GridItem>
+                    </Grid>
                 )}
+
+                {cartSelector.list?.map((item, index) => (
+                    <CartItems
+                        item={item} key={index}
+                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
+                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
+                        onDelete={() => handleDelItem(item)}
+                    />
+                ))}
+                {cartSelector.list?.map((item, index) => (
+                    <CartItems
+                        item={item} key={index}
+                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
+                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
+                        onDelete={() => handleDelItem(item)}
+                    />
+                ))}
+                {cartSelector.list?.map((item, index) => (
+                    <CartItems
+                        item={item} key={index}
+                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
+                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
+                        onDelete={() => handleDelItem(item)}
+                    />
+                ))}
+                {cartSelector.list?.map((item, index) => (
+                    <CartItems
+                        item={item} key={index}
+                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
+                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
+                        onDelete={() => handleDelItem(item)}
+                    />
+                ))}
+                {cartSelector.list?.map((item, index) => (
+                    <CartItems
+                        item={item} key={index}
+                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
+                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
+                        onDelete={() => handleDelItem(item)}
+                    />
+                ))}
+
+
                 {cartSelector.list && cartSelector.list?.length < 1 && (
-                    <Flex className='w-full justify-center items-center flex-col'>
+                    <Flex className='w-full justify-center items-center flex-col' px={7} py={5} bg={mainColor.white}>
                         <Meow />
-                        <Translation type={['cart']} text="your_cart_is_empty_now,_let's_shopping" className='capitalize font-bold' my={2} />
+                        <Translation text="your_cart_is_empty_now,_let's_shopping" className='capitalize font-bold' my={2} />
                         <Button bg={mainColor.orange} color={mainColor.white} _hover={{ opacity: 0.8 }} onClick={() => router.push('/')}>
-                            <Translation type={['cart']} text='shopping' className='capitalize' />
+                            <Translation text='shopping' className='capitalize' />
                         </Button>
                     </Flex>
                 )}
+
             </Container>
-        </>
+
+            <CartToolBar listItemChecked={listItemChecked}/>
+        </Layout>
     )
 }
 

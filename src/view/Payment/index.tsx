@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react"
 import PaypalButton from "@components/Button/PaypalButton"
-import SelectItem from "@components/SelectItem"
+import SelectItem from "@components/Items/SelectItem"
 import Translation from "@components/Translate"
 import { PayPalButtonsComponentProps } from "@paypal/react-paypal-js"
 import classNames from "classnames"

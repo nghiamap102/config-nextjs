@@ -3,12 +3,12 @@ import Footer from '@components/Layout/Footer';
 import Header from '@components/Layout/Header';
 import { FC } from 'react';
 
-const Layout = ({ children }) => {
+const Layout: FC<any> = ({ children }) => {
     return (
         <Box>
             <Header />
             {children}
-            <Footer />
+            {/* <Footer/> */}
         </Box>
     );
 };

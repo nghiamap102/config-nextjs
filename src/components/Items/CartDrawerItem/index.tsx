@@ -12,21 +12,23 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
 
-type MiniCartItemProps = {
-    item: ICartItem
+type CartDrawerItemProps = {
+    item?: ICartItem
     onChangeCheck?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onRemoveItem?: () => void
 }
 
-const MiniCartItem: FC<MiniCartItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
+const CartDrawerItem: FC<CartDrawerItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
     const dispatch = useAppDispatch()
     const numberInput = useNumberInput({
         step: 1,
-        defaultValue: item.quantity,
+        defaultValue: item && item.quantity || 1,
         min: 1,
         precision: 0,
     })
+
     const router = useRouter()
+
     useEffect(() => {
         dispatch(updateCartItem({ ...item, quantity: parseInt(numberInput.value) }))
     }, [numberInput.value])
@@ -47,26 +49,18 @@ const MiniCartItem: FC<MiniCartItemProps> = ({ item, onChangeCheck, onRemoveItem
                 mx="3"
             >
                 <Image
-                    src={
-                        (item?.product?.sample &&
-                            item?.product?.sample[0].imageSrc) ||
-                        NoImage
-                    }
-                    alt="MiniCartItem"
+                    src={NoImage}
+                    alt="CartDrawerItem"
                     height={150}
                     width={150}
                 />
             </GridItem>
 
             <GridItem colSpan={11}>
-                <Text>{item.product && item.product.name}</Text>
+                <Text>{item?.products && item?.products[0]?.name}</Text>
                 <Translation
-                    type={['product']}
                     formatTranslate={{
-                        value: formatValueCurrency(
-                            router.locale,
-                            item.product.price,
-                        ),
+                        value: formatValueCurrency(router.locale, item?.type?.unit_price || 0),
                         formatParams: {
                             value: {
                                 currency: formatCurrency(router.locale),
@@ -93,4 +87,4 @@ const MiniCartItem: FC<MiniCartItemProps> = ({ item, onChangeCheck, onRemoveItem
     )
 }
 
-export default MiniCartItem
+export default CartDrawerItem

@@ -5,9 +5,6 @@ import { FC } from 'react'
 import NavbarItem from './NavbarItem'
 
 const Navbar: FC = () => {
-    const handleMouseEnter = () => {
-        console.log('ac')
-    }
 
     return (
         <Box
@@ -19,7 +16,6 @@ const Navbar: FC = () => {
                 <GridItem
                     colSpan={1}
                     display="flex"
-                    onMouseEnter={handleMouseEnter}
                     cursor="pointer"
                 >
                     <NavbarItem

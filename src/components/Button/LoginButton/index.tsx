@@ -30,7 +30,7 @@ const LoginSocialButton: FC<LoginSocialButtonProps> = ({
             <Box className="mr-2">
                 {icon}
             </Box>
-            <Translation className='capitalize' text={text} type={['login']} />
+            <Translation className='capitalize' text={text} />
         </ButtonBorderPrimary>
     );
 };

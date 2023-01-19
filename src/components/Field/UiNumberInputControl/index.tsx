@@ -1,12 +1,24 @@
 import { ReactIcon } from '@assets/icon'
-import { HStack, IconButton, Input } from '@chakra-ui/react'
+import { HStack, IconButton, Input, useNumberInput } from '@chakra-ui/react'
 import { FC } from 'react'
 type UiNumberInputControlProps = {
-    numberInput: any
+    onChange?: any
+    value?: number
 }
 const UiNumberInputControl: FC<UiNumberInputControlProps> = ({
-    numberInput,
+    onChange,
+    value
 }) => {
+
+    const numberInput = useNumberInput({
+        step: 1,
+        defaultValue: value,
+        min: 0,
+        precision: 0,
+        onChange: onChange
+    })
+
+
     return (
         <HStack>
             <IconButton

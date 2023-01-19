@@ -8,21 +8,21 @@ export interface ProductInitState {
 export interface IProductItem {
     id?: string
     name?: string
-    rate?: number
-    sale?: number
-    sample?: ProductSample[]
+    image?: string[]
+    video?: any
     tag?: string
-    price?: number
-    quatity_remain: number
-    saleCount?: number
     decription?: string
 }
 export interface ProductSample {
-    color?: string
-    imageSrc?: string
-    size?: string
-    anotherType?: string
     countInStock?: number
+    unit_price?: number
+    image?: string
 }
+
+export interface IProductType {
+    label?: string
+    contentType?: string[]
+}
+
 
 export type ProductTag = 'favourite' | 'mall' | 'normal'

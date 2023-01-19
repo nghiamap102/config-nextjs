@@ -1,6 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 import { mainColor } from './common/color'
-import { Container, Text } from './components'
+import { Container, Text, Popover } from './components'
 
 const theme = extendTheme({
     styles: {
@@ -9,7 +9,7 @@ const theme = extendTheme({
                 lineHeight: 'tall',
                 background: '#FFFFFF',
                 color: '#2D2C3C',
-                fontFamily: 'Body Font Name',
+                fontFamily: 'var(--chakra-fonts-body)',
                 fontSize: {
                     base: '14px !important',
                     md: '16px',
@@ -71,6 +71,7 @@ const theme = extendTheme({
     components: {
         Container,
         Text,
+        Popover,
     },
 })
 

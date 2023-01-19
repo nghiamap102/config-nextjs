@@ -1,10 +1,10 @@
 import { Box, ChakraProvider } from '@chakra-ui/react'
 import ProgressBar from '@components/ProgressBar'
-import { setCart } from '@redux/cart/cartSlice'
-import { useAppDispatch } from '@redux/hooks'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import '@styles/globals.scss'
 import Global from '@theme/global'
 import theme, { mainColor } from '@theme/theme'
-import Cookies from 'js-cookie'
+import { paypalScriptOptions } from 'contants/common'
 import { SessionProvider, useSession } from 'next-auth/react'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
@@ -14,20 +14,11 @@ import { useEffect } from 'react'
 import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
 import './_app.css'
-import '@styles/globals.scss'
-import { paypalScriptOptions } from 'contants/common'
-import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter()
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        Cookies.get('cart') && dispatch(setCart(JSON.parse(Cookies.get('cart'))))
-    }, [])
-
     useEffect(() => {
         NProgress.configure({ showSpinner: false })
 

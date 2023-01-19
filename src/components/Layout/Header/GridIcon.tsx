@@ -3,6 +3,7 @@ import { Box, GridItem } from '@chakra-ui/react'
 import CartDrawer from '@components/Cart/CartDrawer'
 import IconHeader from '@components/IconHeader'
 import { mainColor } from '@theme/theme'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { selectCart } from 'redux/cart/cartSlice'
@@ -12,7 +13,25 @@ const GridIconHeader = () => {
     const [drawerType, setDrawerType] = useState('')
     const cartState = useAppSelector(selectCart)
     const router = useRouter()
+    const { data } = useSession()
+    const name = data?.user?.name
 
+    const renderUsername = () => {
+        if (name) {
+            if (name.length > 7) {
+                return name.slice(0, 7).split(/(\s+)/)[0]
+            } else {
+                return name
+            }
+        } else {
+            return 'sign in'
+        }
+    }
+
+    const handleSignin = () => {
+        !name ? router.push('/login') : router.push('/profile')
+    }
+    
     return (
         <>
             <GridItem className="flex relative justify-end mr-2" colSpan={3}>
@@ -34,8 +53,8 @@ const GridIconHeader = () => {
                     icon={
                         <IconAssets.ReactIcon.IconAi.AiOutlineUser size="2rem" />
                     }
-                    text="sign in"
-                    onClick={() => router.push('/login')}
+                    text={renderUsername()}
+                    onClick={handleSignin}
                     colorIcon={mainColor.white}
                 />
                 <IconHeader

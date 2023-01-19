@@ -48,3 +48,12 @@ body {
     transition: 0.3s all;
     cursor: pointer;
 }
+
+.border-primary {
+    border: 1px solid var(--white);
+
+}
+
+.border-primary:hover {
+    border: 1px solid var(--orange);
+}

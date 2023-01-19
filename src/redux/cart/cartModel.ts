@@ -1,18 +1,20 @@
-import { ProductSample } from './../product/productModel'
-import { IProductItem } from 'redux/product/productModel'
+import { IProductItem, ProductSample } from "@redux/product/productModel"
 
 export interface CartInitState {
-    list?: CartData[]
-    wishList?: IProductItem[]
+    list?: ICartItem[]
+    wishList?: IWishListItem[]
     loading?: boolean
 }
-export type CartData = {
-    created_at?: number
-    modified_at?: number
-} & ICartItem
+
+export interface IWishListItem {
+    productId?: string
+}
+
 export interface ICartItem {
-    product: IProductItem
-    quantity: number
-    type: ProductSample
-    imageModel: string
+    _id?:string
+    productId?: string
+    type?: ProductSample
+    quantity?: number
+    products?: IProductItem[]
+    active?: boolean
 }

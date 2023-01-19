@@ -1,6 +1,6 @@
 import { IconAssets } from '@assets/index'
 import { Box, Flex, Text } from '@chakra-ui/react'
-import LoginSocialButton from '@components/LoginButton'
+import { LoginSocialButton } from '@components/Button'
 import { mainColor } from '@theme/theme'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
