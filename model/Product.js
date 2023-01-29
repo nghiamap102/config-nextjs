@@ -6,11 +6,9 @@ const productSchema = new mongoose.Schema(
     video: { type: String, required: false },
     image: { type: Array, required: true },
     brand: { type: String, require: true },
+    type: { type: String },
     description: { type: String }
   },
-  {
-    timestamps: true,
-  }
 );
 
-module.exports = mongoose.model('Product', productSchema)
+module.exports = mongoose.model('product', productSchema)

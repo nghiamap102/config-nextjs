@@ -3,23 +3,23 @@ const express = require('express');
 const router = express.Router()
 const productModel = require('../model/Product');
 
-
 router.get('/', async (req, res) => {
-    productModel.find()
-        .then((allCourse) => {
-            return res.status(200).json({
+    // router.get('/:userId', async (req, res) => {
+    productModel.aggregate([
+        { $lookup: { from: "product_samples", localField: "_id", foreignField: "product_id", as: "product_sample" } },
+        { $lookup: { from: "product_types", localField: "_id", foreignField: "product_id", as: "product_type" } },
+        { $unwind: '$product_type' },
+    ])
+        .then((data) => {
+            res.status(200).json({
                 success: true,
-                message: 'A list of all course',
-                Course: allCourse,
-            });
+                message: 'success',
+                data: data
+            })
         })
-        .catch((err) => {
-            res.status(500).json({
-                success: false,
-                message: 'Server error. Please try again.',
-                error: err.message,
-            });
-        });
+        .catch(error => {
+            res.json({ message: 'An error occured!' })
+        })
 })
 
 router.post('/', async (req, res) => {

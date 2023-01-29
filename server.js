@@ -21,9 +21,10 @@ const app = express()
 app.use(express.json())
 
 const product = require('./route/product');
-const productDetail = require('./route/productdetail');
+const productDetail = require('./route/productDetail');
 const productType = require('./route/productType');
-const checkout = require('./route/Checkout');
+const productSample = require('./route/productSample');
+const checkout = require('./route/checkout');
 const cart = require('./route/cart');
 
 app.use(function (req, res, next) {
@@ -46,8 +47,9 @@ app.use(function (req, res, next) {
 });
 
 app.use('/product', product)
-app.use('/product/info', productDetail)
+// app.use('/product/info', productDetail)
 app.use('/product/type', productType)
+app.use('/product/sample', productSample)
 app.use('/checkout', checkout)
 app.use('/cart', cart)
 

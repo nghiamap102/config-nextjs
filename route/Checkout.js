@@ -4,30 +4,73 @@ const router = express.Router()
 const CheckoutModel = require('../model/Checkout');
 
 router.get('/', async (req, res) => {
-    CheckoutModel.find().then((data) => {
-        return res.status(200).json({
+    CheckoutModel.aggregate([
+        {
+            $set: {
+                product_ids: {
+                    $map: {
+                        input: "$cart_ids",
+                        as: "item",
+                        in: {
+                            $toObjectId: "$$item"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $lookup: {
+                from: "carts",
+                localField: "cart_ids",
+                foreignField: "_id",
+                as: "carts"
+            }
+        },
+        {
+            $unwind: '$carts'
+        },
+        {
+            $lookup: {
+                from: "product_samples",
+                localField: "carts.sample_id",
+                foreignField: "_id",
+                as: "product_sample"
+            }
+        }
+    ]).then((data) => {
+        res.status(200).json({
             success: true,
             message: 'success',
-            data: data,
-        });
+            data: data
+        })
     })
-        .catch((err) => {
-            res.status(500).json({
-                success: false,
-                message: 'Server error. Please try again.',
-                error: err.message,
-            });
-        });
+        .catch(error => {
+            res.json({ message: 'An error occured!' })
+        })
 })
 
 router.post('/', async (req, res) => {
-    const data = new CheckoutModel(req.body)
-    try {
-        const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
+    if (req.body.length === 0) {
+        res.status(500).json({ message: 'An error occured!' })
     }
-    catch (error) {
-        res.status(400).json({ message: error.message })
+    else {
+        const newArr = []
+        req.body.forEach(items => newArr.push({ _id: items }))
+        const data = new CheckoutModel({
+            "cart_ids": newArr
+        })
+        try {
+            const dataToSave = await data.save();
+            console.log(dataToSave)
+            res.status(200).json({
+                success: true,
+                message: 'success',
+                data: dataToSave
+            })
+        }
+        catch (error) {
+            res.status(500).json({ message: 'An error occured!' })
+        }
     }
 })
 

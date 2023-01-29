@@ -2,14 +2,10 @@ const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema(
     {
-        image: { type: String, required: true },
-        unit_price: { type: Number, required: true },
-        count_in_stock: { type: Number, required: true },
-        category: { type: Object, required: true }
-    },
-    {
-        timestamps: true,
+        product_id: { type: mongoose.Schema.Types.ObjectId, ref: 'products', require: true },
+        image: { type: String, require: true },
+        sample: { type: Array, required: true },
     }
 );
 
-module.exports = mongoose.model('productdetail', productSchema)
+module.exports = mongoose.model('product_sample', productSchema)

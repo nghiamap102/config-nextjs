@@ -24,10 +24,18 @@ router.post('/', async (req, res) => {
     const data = new CartModel(req.body)
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
+        res.status(200).json({
+            success: true,
+            message: 'success',
+            data: dataToSave,
+        });
     }
     catch (error) {
-        res.status(400).json({ message: error.message })
+        res.status(500).json({
+            success: true,
+            message: 'success',
+            error: error,
+        });
     }
 })
 
@@ -55,7 +63,7 @@ router.delete('/:itemId', async (req, res) => {
     const cart = await CartModel.findById(id)
     if (cart) {
         CartModel.findByIdAndDelete(id)
-            .then((singleCourse) => {
+            .then((data) => {
                 res.status(200).json({
                     success: true,
                     message: 'item is deleted',
@@ -73,11 +81,18 @@ router.delete('/:itemId', async (req, res) => {
 
 router.get('/items', async (req, res) => {
     CartModel.aggregate([
-        { $lookup: { from: "products", localField: "productId", foreignField: "_id", as: "products" } },
-        { $lookup: { from: "producttypes", localField: "productId", foreignField: "productId", as: "product_type" } },
+        { $lookup: { from: "products", localField: "product_id", foreignField: "_id", as: "product" } },
+        { $lookup: { from: "product_types", localField: "product_id", foreignField: "product_id", as: "product_type" } },
+        { $lookup: { from: "product_samples", localField: "product_id", foreignField: "product_id", as: "product_sample" } },
+        { $unwind: "$product_type" },
+        { $unwind: "$product" }
     ])
-        .then(response => {
-            res.json({ data: response })
+        .then((data) => {
+            res.status(200).json({
+                success: true,
+                message: 'success',
+                data: data
+            })
         })
         .catch(error => {
             res.json({ message: 'An error occured!' })

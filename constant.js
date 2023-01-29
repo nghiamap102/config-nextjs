@@ -5,3 +5,7 @@ const DELETE_MESSAGE = 'DELETE_MESSAGE'
 const DELETE_CONVERS = 'DELETE_CONVERS'
 const STORE_CONVERS = 'STORE_CONVERS'
 const DISCONNECTED = 'DISCONNECTED'
+
+const SUCCESS = 'SUCCESS'
+const ERROR = 'Server error. Please try again.'
+

@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 
 const checkoutSchema = new mongoose.Schema(
     {
-        cartId: { type: mongoose.Schema.Types.ObjectId, ref: 'carts', required: true, unique: true },
+        cart_ids: [{ type: mongoose.Schema.Types.ObjectId, ref: 'carts', require: true, min: 1 }],
     },
     {
         timestamps: true,
     }
 );
 
-module.exports = mongoose.model('Checkout', checkoutSchema)
+module.exports = mongoose.model('checkout', checkoutSchema)
