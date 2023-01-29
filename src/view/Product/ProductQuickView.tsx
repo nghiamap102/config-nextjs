@@ -4,11 +4,10 @@ import {
     ModalCloseButton,
     ModalContent,
     ModalHeader,
-    ModalOverlay,
-    useNumberInput
+    ModalOverlay
 } from '@chakra-ui/react'
 import Translation from '@components/Translate'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { IProductItem } from 'redux/product/productModel'
 import { ProductInfo } from './ProductInfo'
 
@@ -17,23 +16,7 @@ type ProductQuickViewProps = {
     handleClose: () => void
     isOpen: boolean
 }
-const ProductQuickView: FC<ProductQuickViewProps> = ({
-    isOpen,
-    product,
-    handleClose,
-}) => {
-
-
-    const numberInput = useNumberInput({
-        step: 1,
-        defaultValue: 1,
-        min: 1,
-        precision: 0,
-    })
-
-    const handleAddtoCart = () => {
-        // dispatch(addToCart({ product }))
-    }
+const ProductQuickView: FC<ProductQuickViewProps> = ({ isOpen, product, handleClose, }) => {
 
     return (
         <Modal
@@ -48,7 +31,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({
                     <Translation text='product_detail' className='capitalize' />
                 </ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>
+                <ModalBody overflow={'auto'} pb={8}>
                     <ProductInfo product={product} />
                 </ModalBody>
             </ModalContent>

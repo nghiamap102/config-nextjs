@@ -10,13 +10,15 @@ import { commonReducer } from './common/commonSlice'
 import { ProductInitState } from './product/productModel'
 import { productReducer } from './product/productSlice'
 import rootSaga from './rootSaga'
-import Cookies from 'js-cookie'
+import { checkoutReducer } from './checkout/checkoutSlice'
+import { CheckoutInitState } from './checkout/checkoutModel'
 
 export interface State {
     common: CommonInitState
     cart: CartInitState
     product: ProductInitState
     chat: ChatInitialState
+    checkout: CheckoutInitState
 }
 
 const rootReducer = combineReducers({
@@ -24,6 +26,7 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     product: productReducer,
     chat: chatReducer,
+    checkout: checkoutReducer,
 })
 
 const reducer = (state: any, action: AnyAction) => {

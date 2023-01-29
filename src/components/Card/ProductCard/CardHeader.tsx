@@ -23,9 +23,10 @@ export const CardHeader: FC<CardHeaderProps> = ({ product, onClickShortCut, }) =
             position={'relative'}
             onMouseEnter={handleMouseQuickViewActive}
             onMouseLeave={handleMouseQuickViewInActive}
+            onClick={onClickShortCut}
         >
             <Image
-                src={product.sample && product.sample[0].imageSrc || ImageAssets.NoImage}
+                src={product.image[0] || ImageAssets.NoImage}
                 alt={product.name}
                 height={250}
                 width={250}
@@ -38,7 +39,6 @@ export const CardHeader: FC<CardHeaderProps> = ({ product, onClickShortCut, }) =
                 bg={mainColor.white}
                 py={1}
                 px={2}
-                onClick={onClickShortCut}
             >
                 <Translation
                     text="quick_view"

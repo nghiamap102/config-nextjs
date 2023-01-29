@@ -6,6 +6,7 @@ import { OnApproveActions, OnApproveData } from '@paypal/paypal-js'
 import { mainColor } from '@theme/theme'
 import DiscountView from '@view/Discount'
 import { PaymentView } from '@view/Payment'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 
@@ -14,9 +15,10 @@ const CheckoutView: FC = () => {
     const router = useRouter()
 
     useEffect(() => {
-        JSON.parse(sessionStorage.getItem('checkout'))
-            ? setCheckout(JSON.parse(sessionStorage.getItem('checkout')))
-            : router.push('/')
+        Cookies.get('_id_ck') && router.push(`/checkout/?${JSON.parse(Cookies.get('_id_ck'))}`, undefined, { shallow: true })
+        // JSON.parse(sessionStorage.getItem('checkout'))
+        //     ? setCheckout(JSON.parse(sessionStorage.getItem('checkout')))
+        //     : 
     }, [])
 
     const renderTranslate = (text: string) => {

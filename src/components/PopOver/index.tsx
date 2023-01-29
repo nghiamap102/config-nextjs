@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverFooter, PopoverProps, PopoverTrigger, Portal } from '@chakra-ui/react';
+import { Box, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverFooter, PopoverProps, PopoverTrigger, Portal } from '@chakra-ui/react';
 import { mainColor } from '@theme/theme';
 import { FC } from 'react';
 
@@ -21,13 +21,16 @@ const PopOver: FC<PopOverProps> = ({
                 bg: 'white',
                 border: 'none',
                 outline: 'none',
+                zIndex: 999
             }}
             {...props}
         >
             <PopoverTrigger>
-                {popoverTrigger}
+                <Box className='cursor-pointer'>
+                    {popoverTrigger}
+                </Box>
             </PopoverTrigger>
-            <Portal>
+            <Portal appendToParentPortal>
                 <PopoverContent outline={'none'} bg={mainColor.white} boxShadow={`0 5px 10px 0 ${mainColor.lightBlack} `}>
                     <PopoverArrow />
                     <PopoverBody  >

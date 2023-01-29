@@ -10,15 +10,23 @@ import Categories from '@components/Categories'
 import Footer from '@components/Layout/Footer'
 import Header from '@components/Layout/Header'
 import { HeaderViewAll } from '@components/Layout/Header/HeaderViewAll'
-import { selectCart } from '@redux/cart/cartSlice'
-import { useAppSelector } from '@redux/hooks'
-import { IProductItem } from '@redux/product/productModel'
+import { fetchCartList } from '@redux/cart/cartSlice'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { fetchProductList, selectProduct } from '@redux/product/productSlice'
 import { mainColor } from '@theme/theme'
 import Image from 'next/image'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { SwiperSlide } from 'swiper/react'
 
-const HomeView: FC<{ products: IProductItem[] }> = ({ products }) => {
+const HomeView: FC = () => {
+
+    const dispatch = useAppDispatch()
+    const productState = useAppSelector(selectProduct)
+    useEffect(() => {
+        dispatch(fetchCartList())
+        dispatch(fetchProductList())
+    }, [])
+
     return (
         <>
             <Header />
@@ -67,7 +75,7 @@ const HomeView: FC<{ products: IProductItem[] }> = ({ products }) => {
                         <HeaderViewAll title="new products" LinkTo="abc" />
 
                         <Carousel slidesPerView={5} centeredSlides={false}>
-                            {products?.map((product, index) => (
+                            {productState.list && productState.list?.map((product, index) => (
                                 <SwiperSlide key={index}>
                                     <ProductCard product={product} />
                                 </SwiperSlide>

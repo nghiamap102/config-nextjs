@@ -18,7 +18,7 @@ type ProductCardProps = {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
-    const { id, name, price, sale, tag } = product
+    const { _id, name, tag } = product
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
     const handleActiveModal = () => setActiveModal(true)
 
@@ -28,27 +28,30 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
             <Tag
                 tag={tag}
                 className="capitalize px-2 py-1 absolute top-7 left-7 "
+                zIndex={999}
             >
                 {tag}
             </Tag>
 
             <CardHeader product={product} onClickShortCut={handleActiveModal} />
 
-            <Link href={`/product/${id}`}>
-                <Text fontSize="lg" marginBottom={2}> {name?.slice(0, 45)}... </Text>
+            <Link href={`/product/${_id}`}>
+                <Text fontSize="lg" className='my-2'> {name && name?.length > 44 ? `${name?.slice(0, 45)}...` : name} </Text>
             </Link>
 
-            <SimpleRating direction="horizon" value={product.rate} avg={50} />
+            <SimpleRating direction="horizon" value={3.5} avg={50} mb={2} />
 
-            <Tag className='inline-block my-2 px-2 py-1 rounded-lg text-sm' bg={mainColor.saleTag}>
+            <Tag className='inline-block px-2 py-1 rounded-lg text-sm mb-2' bg={mainColor.saleTag}>
                 <ReactIcon.IconIo5.IoTicketOutline color={mainColor.red2} className='mr-2' />
                 <Text lineHeight='normal'>30%</Text>
             </Tag>
 
             <Flex className='justify-between items-center'>
                 <Flex alignItems="center">
-                    <RenderPrice price={price || 0} textDecoration="line-through" color={mainColor.gray1} />
-                    <RenderPrice price={price - (price * sale / 100)} color={mainColor.red} className='font-bold text-xl ml-2' />
+                    <RenderPrice price={0} textDecoration="line-through" color={mainColor.gray1} />
+                    <RenderPrice
+                        price={0}
+                        color={mainColor.red} className='font-bold text-xl ml-2' />
                 </Flex>
                 <Box>
                     8.3k saled

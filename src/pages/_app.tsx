@@ -1,4 +1,4 @@
-import { Box, ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import ProgressBar from '@components/ProgressBar'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import '@styles/globals.scss'
@@ -14,10 +14,13 @@ import { useEffect } from 'react'
 import { wrapper } from 'redux/store'
 import '../../public/other/nprogress.css'
 import './_app.css'
-
-
+import { useAppSelector } from '@redux/hooks'
+import { selectCart } from '@redux/cart/cartSlice'
+import CustomToast from '@components/Toast'
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const toast = CustomToast()
+    const cartState = useAppSelector(selectCart)
     const router = useRouter()
     useEffect(() => {
         NProgress.configure({ showSpinner: false })
@@ -40,6 +43,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
     }, [router])
 
+    useEffect(() => {
+        cartState.error && toast({ title: "Add to cart success", status: "error" })
+    }, [cartState.error])
+
     return (
         <SessionProvider session={pageProps.session}>
             <PayPalScriptProvider options={paypalScriptOptions}>
@@ -61,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </SessionProvider>
     )
 }
+
 export const Auth = ({ children, adminOnly }) => {
     const router = useRouter();
     const { status, data: session } = useSession({

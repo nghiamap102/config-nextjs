@@ -1,19 +1,21 @@
 import { ReactIcon } from '@assets/icon'
-import { Box, BoxProps } from '@chakra-ui/react'
+import { Box, BoxProps, Button, ButtonProps } from '@chakra-ui/react'
 import { mainColor } from '@theme/theme'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 type SelectItemProps = {
     children?: any
     onSelect?: () => void
     selected?: boolean
-} & BoxProps
+} & ButtonProps
+
 const SelectItem: FC<SelectItemProps> = ({ children, onSelect, selected, ...props }) => {
     return (
-        <Box
+        <Button
             className="cursor-pointer relative px-4 py-2 capitalize"
             onClick={onSelect}
             border={`1px solid ${selected ? mainColor.orange : mainColor.gray2}`}
+            bg={'transparent'}
             {...props}
         >
             {children}
@@ -22,7 +24,7 @@ const SelectItem: FC<SelectItemProps> = ({ children, onSelect, selected, ...prop
                     <ReactIcon.IconBs.BsCheck size='1rem' />
                 </Box>
             }
-        </Box>
+        </Button>
     )
 }
 

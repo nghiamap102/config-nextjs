@@ -7,7 +7,7 @@ const cartService = {
         return axiosClient.post(`/carts`, data)
     },
     addToCart(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.post(`/cart`, data)
+        return axiosClient.post(`${API_ENDPOINT.cart}`, data)
     },
     getCart(): Promise<DataResponseModel<any>> {
         return axiosClient.get(`/cart`)

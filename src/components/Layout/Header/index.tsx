@@ -31,7 +31,7 @@ const Header: FC = () => {
                         className="flex justify-between items-center mr-10"
                         colSpan={3}
                     >
-                        <Link href="/">
+                        <Link href="/" shallow>
                             <Box className="italic heading cursor-pointer">
                                 <Image src={ImageAssets.Logo} alt="logo" />
                             </Box>

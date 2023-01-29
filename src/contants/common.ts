@@ -1,4 +1,3 @@
-import { ReactPayPalScriptOptions } from "@paypal/react-paypal-js"
 
 export const API_URL = process.env.API_URL
 export const tooltipArrayRating = [
@@ -21,7 +20,7 @@ export const Currency = {
     vi: 'vnd',
 }
 export const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full']
-export const toastConst = {
+export const toastId = {
     cart: 'cart',
 }
 

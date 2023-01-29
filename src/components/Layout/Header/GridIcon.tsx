@@ -31,36 +31,28 @@ const GridIconHeader = () => {
     const handleSignin = () => {
         !name ? router.push('/login') : router.push('/profile')
     }
-    
+
     return (
         <>
             <GridItem className="flex relative justify-end mr-2" colSpan={3}>
                 <IconHeader
-                    icon={
-                        <IconAssets.ReactIcon.IconAi.AiOutlineHeart size="2rem" />
-                    }
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineHeart size="2rem" />}
                     text="wish list"
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={
-                        <IconAssets.ReactIcon.IconAi.AiFillGift size="2rem" />
-                    }
+                    icon={<IconAssets.ReactIcon.IconAi.AiFillGift size="2rem" />}
                     text="voucher"
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={
-                        <IconAssets.ReactIcon.IconAi.AiOutlineUser size="2rem" />
-                    }
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineUser size="2rem" />}
                     text={renderUsername()}
                     onClick={handleSignin}
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={
-                        <IconAssets.ReactIcon.IconAi.AiOutlineShoppingCart size="3rem" />
-                    }
+                    icon={<IconAssets.ReactIcon.IconAi.AiOutlineShoppingCart size="3rem" />}
                     colorIcon={mainColor.white}
                     onClick={() => setDrawerType('cart')}
                 >
@@ -69,7 +61,7 @@ const GridIconHeader = () => {
                         bg="white"
                         color={mainColor.orange}
                     >
-                        {cartState.list?.length}
+                        {cartState.list?.length || 0}
                     </Box>
                 </IconHeader>
             </GridItem>

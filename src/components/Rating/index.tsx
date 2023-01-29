@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
 import Translation from '@components/Translate'
 import classNames from 'classnames'
 import { fillColorArrayRating, tooltipArrayRating } from 'contants/common'
@@ -9,11 +9,11 @@ type SimpleRatingProps = {
     direction?: 'vertical' | 'horizon'
     value?: number
     avg?: number
-}
+} & BoxProps
 
-const SimpleRating: FC<SimpleRatingProps> = ({ direction, value, avg }) => {
+const SimpleRating: FC<SimpleRatingProps> = ({ direction, value, avg , ...props }) => {
     return (
-        <Box>
+        <Box {...props}>
             <Rating
                 SVGclassName={classNames(direction === 'horizon' && 'inline-block')}
                 size={25}

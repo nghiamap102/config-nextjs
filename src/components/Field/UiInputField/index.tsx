@@ -38,7 +38,6 @@ const UiInputField: FC<UiInputFieldProps> = ({
     )
     const handleClick = () => {
         setShow(!show)
-        console.log('abc')
     }
     const { name } = field
     const { errors, touched } = form

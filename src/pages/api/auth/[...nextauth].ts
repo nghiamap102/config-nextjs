@@ -4,8 +4,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github"
 import FacebookProvider from "next-auth/providers/facebook"
-import db from '@utils/mongo/db';
-import User from 'models/User';
 
 export default NextAuth({
   session: {
@@ -27,50 +25,49 @@ export default NextAuth({
     },
     async signIn({ account, profile }: any) {
       if (account.provider === "google") {
-        await db.connect();
-        const user = await User.findOne({ email: profile.email })
-        if (!user) {
-          try {
-            const res = await User.insertMany([
-              {
-                name: profile.name,
-                phone: null,
-                email: profile.email,
-                password: null,
-                picture: profile.picture,
-                role: 'user',
-              },
-            ])
-            console.log(res, 'res')
-            return true
-          } catch (error) {
-            console.log(error, 'error')
-            return false
-          }
-        }
+        // await db.connect();
+        // const user = await User.findOne({ email: profile.email })
+        // if (!user) {
+        //   try {
+        //     const res = await User.insertMany([
+        //       {
+        //         name: profile.name,
+        //         phone: null,
+        //         email: profile.email,
+        //         password: null,
+        //         picture: profile.picture,
+        //         role: 'user',
+        //       },
+        //     ])
+        //     console.log(res, 'res')
+        //     return true
+        //   } catch (error) {
+        //     console.log(error, 'error')
+        //     return false
+        //   }
+        // }
       }
-      await db.disconnect();
       return false
     },
   },
   providers: [
     CredentialsProvider({
       async authorize(credentials: any) {
-        await db.connect();
-        const user = await User.findOne({
-          email: credentials.email,
-        });
-        await db.disconnect();
-        if (user && bcryptjs.compareSync(credentials.password, user.password)) {
-          return {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            image: 'f',
-            isAdmin: user.isAdmin,
-          };
-        }
-        throw new Error('Invalid email or password');
+        // await db.connect();
+        // const user = await User.findOne({
+        //   email: credentials.email,
+        // });
+        // await db.disconnect();
+        // if (user && bcryptjs.compareSync(credentials.password, user.password)) {
+        //   return {
+        //     _id: user._id,
+        //     name: user.name,
+        //     email: user.email,
+        //     image: 'f',
+        //     isAdmin: user.isAdmin,
+        //   };
+        // }
+        // throw new Error('Invalid email or password');
       },
     }),
     GoogleProvider({

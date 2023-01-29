@@ -20,7 +20,7 @@ const Popup: FC<PopupProps> = ({ title, ...props }) => {
                     <Button colorScheme='blue' mr={3} onClick={props.onClose}>
                         Apply
                     </Button>
-                    <Button variant='ghost'>Cancel</Button>
+                    <Button variant='ghost' onClick={props.onClose}>Cancel</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

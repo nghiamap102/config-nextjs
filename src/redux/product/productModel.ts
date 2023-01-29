@@ -6,22 +6,23 @@ export interface ProductInitState {
 }
 
 export interface IProductItem {
-    id?: string
+    _id?: string
     name?: string
     image?: string[]
     video?: any
     tag?: string
+    product_type?: IProductType
     decription?: string
-}
-export interface ProductSample {
-    countInStock?: number
-    unit_price?: number
-    image?: string
+    product_sample?:any[]
 }
 
 export interface IProductType {
-    label?: string
-    contentType?: string[]
+    category?: IProductTypeItem[]
+}
+
+export interface IProductTypeItem {
+    title?: string
+    cat_content?: string[]
 }
 
 

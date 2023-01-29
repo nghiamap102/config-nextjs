@@ -1,18 +1,20 @@
 import { ReactIcon } from '@assets/icon';
 import { NoImage } from '@assets/image';
-import { ImageAssets } from '@assets/index';
 import { Box, Button, Checkbox, Flex, Grid, GridItem, Text, useDisclosure } from '@chakra-ui/react';
 import { ButtonPrimary } from '@components/Button';
+import { RenderPrice } from '@components/Card/ProductCard';
 import UiNumberInputControl from '@components/Field/UiNumberInputControl';
 import PopOver from '@components/PopOver';
 import Tag from '@components/Tag';
 import Translation from '@components/Translate';
-import { ICartItem } from '@redux/cart/cartModel';
-import cartService from '@redux/cart/cartService';
+import { ICartItem, ICategory } from '@redux/cart/cartModel';
+import { updateCartItem } from '@redux/cart/cartSlice';
+import { useAppDispatch } from '@redux/hooks';
 import { mainColor } from '@theme/theme';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 import SelectItem from '../SelectItem';
+import CustomToast from '@components/Toast';
 
 type CartItemsProps = {
     item: ICartItem
@@ -28,20 +30,31 @@ const CartItems: FC<CartItemsProps> = ({
     onDelete,
 }) => {
 
-    const [cartItem, setCartItem] = useState<ICartItem>(item)
-
-    const handleChangeQuantity = (value: string) => {
-        cartService.updateCart({ ...item, quantity: parseInt(value) })
-        setCartItem({ ...cartItem, quantity: parseInt(value) })
-    }
+    const dispatch = useAppDispatch()
+    const toast = CustomToast()
 
     const handleClosePopOver = (item) => {
-        cartService.updateCart(item)
-        setCartItem(item)
+        dispatch(updateCartItem(item))
     }
 
     const handleDirectMsg = () => {
         console.log('abc')
+    }
+
+    const renderSample = () => {
+        const newObject = { sampleItem: undefined, sample: undefined }
+        const newArr = item.product_sample && item.product_sample.filter((productSampleItem) => {
+            const a = productSampleItem.sample.filter(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(item.category))
+            if (a.length > 0) newObject.sampleItem = a[0]
+            if (productSampleItem.sample.some(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(item.category))) { return productSampleItem }
+        })
+        newObject.sample = newArr[0]
+        return newObject
+    }
+
+    const handleChangeQuantity = (value: string) => {
+        renderSample().sampleItem.count_in_stock === parseInt(value) && toast({ title: `There's only ${renderSample().sampleItem.count_in_stock} items left`, status: 'info' })
+        dispatch(updateCartItem({ ...item, quantity: parseInt(value) }))
     }
 
     return (
@@ -60,21 +73,21 @@ const CartItems: FC<CartItemsProps> = ({
             </GridItem>
 
             <Box>
-                <Grid templateColumns="repeat(24, 1fr)"  px={7} py={5}>
+                <Grid templateColumns="repeat(24, 1fr)" px={7} py={5}>
                     <GridItem colSpan={1} fontSize="md" className='flex items-center'>
                         <Checkbox onChange={onSelect} isChecked={selected} />
                     </GridItem>
 
                     <GridItem colSpan={9} className="flex">
                         <Image
-                            src={ImageAssets.ProuductLoa1 || NoImage}
-                            alt={cartItem.products && cartItem.products[0].name}
+                            src={renderSample()?.sample.image || NoImage}
+                            alt={item.product && item.product.name}
                             height={100}
                             width={100}
                         />
 
-                        <Box className='flex-col ml-2'>
-                            <Text className='mb-2 capitalize'>{cartItem.products && cartItem.products[0].name}</Text>
+                        <Box className='flex-col ml-4'>
+                            <Text className='mb-2 capitalize'>{item.product && item.product.name}</Text>
 
                             <Tag className='inline-block px-2 py-1 rounded-lg text-sm' bg={mainColor.saleTag}>
                                 <ReactIcon.IconIo5.IoTicketOutline color={mainColor.red2} className='mr-2' />
@@ -85,20 +98,22 @@ const CartItems: FC<CartItemsProps> = ({
                     </GridItem>
 
                     <GridItem colSpan={3} className="flex items-center justify-center">
-                        <CartItemPopOver item={cartItem} handleClosePopOver={(item) => handleClosePopOver(item)} />
+                        <CartItemPopOver item={item} handleClosePopOver={(CartItemPopOver) => handleClosePopOver(CartItemPopOver)} />
                     </GridItem>
 
                     <GridItem colSpan={3} className="flex items-center justify-center">
-                        {/* <RenderPrice price={cartItem.type?.unit_price || 0} color={mainColor.gray1} /> */}
+                        <RenderPrice price={renderSample().sampleItem.unit_price || 0} color={mainColor.gray1} />
                     </GridItem>
 
                     <GridItem colSpan={3} className="flex items-center justify-center flex-col">
-                        <UiNumberInputControl value={cartItem.quantity || 1} onChange={handleChangeQuantity} />
-                        <Text className='text-sm mt-2' color={mainColor.red}>5 remain</Text>
+                        <UiNumberInputControl value={item.quantity || 1} onChange={handleChangeQuantity} max={renderSample()?.sampleItem?.count_in_stock} />
+                        {renderSample().sampleItem.count_in_stock < 10 &&
+                            <Text className='text-sm mt-2' color={mainColor.red}>{renderSample().sampleItem.count_in_stock} remain</Text>
+                        }
                     </GridItem>
 
                     <GridItem colSpan={3} className="flex items-center justify-center">
-                        {/* <RenderPrice price={cartItem.type?.unit_price && cartItem.quantity && cartItem.type?.unit_price * cartItem.quantity || 0} color={mainColor.red} /> */}
+                        <RenderPrice price={item.quantity && renderSample().sampleItem.unit_price * item.quantity || 0} color={mainColor.red} />
                     </GridItem>
 
                     <GridItem colSpan={2} className="flex items-center justify-center">
@@ -113,15 +128,20 @@ const CartItems: FC<CartItemsProps> = ({
 const CartItemPopOver: FC<{ item: ICartItem, handleClosePopOver: (item: ICartItem) => void }> = ({ item, handleClosePopOver }) => {
 
     const [cartItem, setCartItem] = useState<ICartItem>(item)
-    const [cartItemType, setCartItemType] = useState<ICartItem>(item.type)
+    const [cartItemType, setCartItemType] = useState<ICategory[]>(item.category)
     const { onOpen, onClose, isOpen } = useDisclosure()
 
-    const handleSelectType = (label: string, type: string) => {
-        setCartItemType({ ...cartItemType, [label]: type })
+    const handleSelectType = (title: string, catContent: string) => {
+        setCartItemType([...cartItemType].map(cartItemType => {
+            if (cartItemType.title === title) {
+                return { ...cartItemType, cat_content: catContent }
+            }
+            return cartItemType
+        }))
     }
 
-    const checkTypeSelected = (label: string, type: string) => {
-        if (Object.keys(cartItemType).some(type => type === label) && cartItemType[label] === type) {
+    const checkTypeSelected = (title: string, catContent: string) => {
+        if (cartItemType.some(itemType => itemType.title === title && itemType.cat_content === catContent)) {
             return true
         }
         return false
@@ -129,8 +149,28 @@ const CartItemPopOver: FC<{ item: ICartItem, handleClosePopOver: (item: ICartIte
 
     const handleClose = () => {
         onClose()
-        setCartItem({ ...cartItem, type: cartItemType })
-        handleClosePopOver({ ...cartItem, type: cartItemType })
+        if (JSON.stringify(cartItem.category) !== JSON.stringify(cartItemType)) {
+            setCartItem({ ...cartItem, category: cartItemType })
+            handleClosePopOver({ ...cartItem, category: cartItemType })
+        }
+    }
+
+    const checkDisable = (title: string, catContent: string, index: number) => {
+        const a: any[] = []
+        const catItem: ICategory = {
+            title,
+            cat_content: catContent,
+        }
+        // console.log(index)
+        // item.product_sample?.forEach((productSampleItem) => {
+        //     const _item = productSampleItem.sample.find(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(catItem))
+        //     console.log(_item)
+        //     _item && a.push(_item)
+        // })
+        // console.log(catItem)
+        // console.log(title, catContent)
+        // console.log(a[0].category.some(categoryItem => categoryItem.title === title && categoryItem.cat_content === catContent))
+        return false
     }
 
     return (
@@ -142,10 +182,11 @@ const CartItemPopOver: FC<{ item: ICartItem, handleClosePopOver: (item: ICartIte
             popoverTrigger={(
                 <Flex color={mainColor.gray2} className='items-center'>
                     <Box>
-                        {cartItem.type && Object.keys(cartItem.type).map(type => (
-                            <Box key={type}>
-                                <Text className='capitalize inline'>{type}</Text>{':'} {cartItem.type[type]}
-                            </Box>
+                        <Flex className='capitalize'>
+                            <Translation text='category' /> {':'}
+                        </Flex>
+                        {item.category?.map((itemType: any) => (
+                            <Text key={itemType.title} className='capitalize inline mr-1'>{itemType.cat_content}</Text>
                         ))}
                     </Box>
                     <ReactIcon.IconVsc.VscTriangleDown className='ml-2' />
@@ -153,19 +194,22 @@ const CartItemPopOver: FC<{ item: ICartItem, handleClosePopOver: (item: ICartIte
             )}
             popoverBody={(
                 <Box p={4} maxW={500}>
-                    {cartItem.product_type[0].category.map(cat => (
+                    {cartItem.product_type.category?.map((catItem: ICategory, index: Number) => (
                         <Box className='my-2' key={Math.random() * 1000}>
-                            <Text className='mb-3 capitalize'>{cat.label}:</Text>
+                            <Text className='mb-3 capitalize'>{catItem.title}</Text>
 
-                            {cat.type?.map((type: any, index: number) => (
+                            {catItem.cat_content?.map((cat, index: number) => (
                                 <SelectItem
-                                    display='inline-block' mx={1} key={index} selected={checkTypeSelected(cat.label, type)}
-                                    onSelect={() => handleSelectType(cat.label, type)}>
-                                    {type}
+                                    display='inline-block' mx={1} key={index} selected={checkTypeSelected(catItem.title, cat)}
+                                    onSelect={() => handleSelectType(catItem.title, cat)}
+                                    disabled={checkDisable(catItem.title, cat, index)}
+                                >
+                                    {cat}
                                 </SelectItem>
                             ))}
                         </Box>
                     ))}
+
                 </Box>
             )}
             popoverFooter={(

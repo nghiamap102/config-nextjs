@@ -1,11 +1,11 @@
 <!-- Doing -->
-fetch all api to save state
+update quantity when duplicate productid
 state for payment method
 [low] skeleton all page
 <!-- bug -->
 
 [nor]state init before change route
-
+[low] popover portal config zindex
 <!-- optimize -->
 export all cpn
 try catch all BE

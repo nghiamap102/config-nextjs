@@ -20,11 +20,10 @@ const CartView: FC = () => {
 
     const router = useRouter()
 
-    const handleSelectAllItems = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.target.checked && cartSelector.list && setListItemChecked(cartSelector.list)
-        !e.target.checked && setListItemChecked([])
+    const handleSelectAllItems = (selected: boolean) => {
+        selected && cartSelector.list && setListItemChecked(cartSelector.list)
+        !selected && setListItemChecked([])
     }
-
     const handleSelected = (cartItem: ICartItem, e: React.ChangeEvent<HTMLInputElement>) => {
         const listItem = [...listItemChecked]
         if (e.target.checked) {
@@ -55,7 +54,7 @@ const CartView: FC = () => {
                 {cartSelector.list && cartSelector.list?.length > 0 && (
                     <Grid templateColumns="repeat(24, 1fr)" px={7} py={5} bg={mainColor.white} mb={3}>
                         <GridItem colSpan={1} fontSize="md" className='flex items-center'>
-                            <Checkbox onChange={handleSelectAllItems} />
+                            <Checkbox onChange={(e) => handleSelectAllItems(e.target.checked)} />
                         </GridItem>
                         <GridItem colSpan={12} fontSize="md">
                             <Translation className="capitalize" text='items' />
@@ -103,39 +102,6 @@ const CartView: FC = () => {
                         onDelete={() => handleDelItem(item)}
                     />
                 ))}
-                {cartSelector.list?.map((item, index) => (
-                    <CartItems
-                        item={item} key={index}
-                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
-                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
-                        onDelete={() => handleDelItem(item)}
-                    />
-                ))}
-                {cartSelector.list?.map((item, index) => (
-                    <CartItems
-                        item={item} key={index}
-                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
-                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
-                        onDelete={() => handleDelItem(item)}
-                    />
-                ))}
-                {cartSelector.list?.map((item, index) => (
-                    <CartItems
-                        item={item} key={index}
-                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
-                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
-                        onDelete={() => handleDelItem(item)}
-                    />
-                ))}
-                {cartSelector.list?.map((item, index) => (
-                    <CartItems
-                        item={item} key={index}
-                        selected={listItemChecked.some((checked: ICartItem) => item._id === checked._id)}
-                        onSelect={(e: React.ChangeEvent<HTMLInputElement>) => handleSelected(item, e)}
-                        onDelete={() => handleDelItem(item)}
-                    />
-                ))}
-
 
                 {cartSelector.list && cartSelector.list?.length < 1 && (
                     <Flex className='w-full justify-center items-center flex-col' px={7} py={5} bg={mainColor.white}>
@@ -149,7 +115,7 @@ const CartView: FC = () => {
 
             </Container>
 
-            <CartToolBar listItemChecked={listItemChecked}/>
+            <CartToolBar listItemChecked={listItemChecked} handleSelectAllItem={(active: boolean) => handleSelectAllItems(active)} />
         </Layout>
     )
 }

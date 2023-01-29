@@ -1,89 +1,50 @@
 import { ReactIcon } from '@assets/icon';
 import { ImageAssets } from '@assets/index';
-import {
-    Box,
-    Flex,
-    Grid,
-    GridItem,
-    Popover,
-    PopoverArrow,
-    PopoverBody,
-    PopoverCloseButton,
-    PopoverContent,
-    PopoverHeader,
-    PopoverTrigger,
-    Text,
-    useNumberInput,
-    useToast
-} from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, UseToastOptions, position, useToast } from '@chakra-ui/react';
 import { ButtonPrimary } from '@components/Button';
 import UiNumberInputControl from '@components/Field/UiNumberInputControl';
 import IconButtonPrimary from '@components/IconButtonPrimary';
+import IconCircle from '@components/Icons/IconCircle';
 import SelectItem from '@components/Items/SelectItem';
 import Popup from '@components/Popup';
+import SimpleRating from '@components/Rating';
+import CustomToast from '@components/Toast';
 import Translation from '@components/Translate';
 import { ICartItem } from '@redux/cart/cartModel';
-import cartService from '@redux/cart/cartService';
-import { addToCart } from '@redux/cart/cartSlice';
-import { useAppDispatch } from '@redux/hooks';
+import { addToCart, selectCart } from '@redux/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { IProductItem } from '@redux/product/productModel';
 import { mainColor } from '@theme/theme';
-import { fillColorArrayRating, toastConst, tooltipArrayRating } from 'contants/common';
+import { toastId } from 'contants/common';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useEffect, useState } from 'react';
-import { Rating } from 'react-simple-star-rating';
+import { FC, useState } from 'react';
 
 type ProductInfoProps = {
     product: IProductItem
 };
 
-export const ProductInfo: FC<ProductInfoProps> = ({
-    product
-}) => {
+export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
 
     const dispatch = useAppDispatch()
+    const cartState = useAppSelector(selectCart)
+    console.log(cartState.list)
     const [cartItem, setCartItem] = useState<ICartItem>({
-        active: true,
-        productId: product.id || '',
+        product_id: product._id,
         quantity: 1,
-        unit_price: product.price || 0,
-        type: {},
+        sample_id: '',
+        category: [],
+        active: true,
     })
-
-    const toast = useToast({
-        id: toastConst.cart,
-        position: 'top',
-        title: 'Add to cart success',
-        isClosable: true,
-        status: 'success',
-    })
-
+    const toast = CustomToast()
     const [openPopup, setOpenPopup] = useState(false)
-    const numberInput = useNumberInput({
-        step: 1,
-        defaultValue: 1,
-        min: 1,
-        precision: 0,
-    })
-
 
     const handleAddtoCart = async () => {
-        const res = await cartService.addToCart(cartItem)
-        if (res.data) {
-            !toast.isActive(toastConst.cart) && toast()
+        if (product.product_type?.category?.length === cartItem.category?.length) {
             dispatch(addToCart(cartItem))
+            toast({ title: "Add to cart success", status: "success" })
         }
     }
-
-    const handleSelectItem = (item: any) => {
-        setCartItem({ ...cartItem, type: { ...cartItem.type, color: item.color } })
-    }
-
-    useEffect(() => {
-        setCartItem({ ...cartItem, quantity: parseInt(numberInput.value) })
-    }, [numberInput.value])
-
     const handleChangeAddress = () => {
         setOpenPopup(true)
     }
@@ -91,38 +52,73 @@ export const ProductInfo: FC<ProductInfoProps> = ({
         setOpenPopup(false)
     }
 
+    const handleChangeQuantity = (value: string) => {
+        setCartItem({ ...cartItem, quantity: parseInt(value) })
+    }
+
+    const checkSample = () => {
+        const newArr = product.product_sample?.filter((productSampleItem) => {
+            if (
+                cartItem.category && cartItem.category?.length > 1 &&
+                productSampleItem.sample.some(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(cartItem.category)) ||
+                cartItem.category && cartItem.category?.length < 2 &&
+                productSampleItem.sample.some(sampleItem => sampleItem.category.some(item => JSON.stringify(cartItem.category).includes(JSON.stringify(item))))
+            ) {
+                return productSampleItem
+            }
+        })
+        return newArr && newArr[0] || []
+    }
+
+    const handleSelectType = (title: string, catContent: string) => {
+        if (!cartItem.category?.some(item => item.title === title) && cartItem.category?.length < 1) {
+
+            setCartItem({ ...cartItem, category: [...cartItem.category, { title: title, cat_content: catContent }] })
+
+        } else if (!cartItem.category?.some(item => item.title === title) && cartItem.category.length >= 1) {
+            const category = [...cartItem.category, { title: title, cat_content: catContent }]
+
+            setCartItem({ ...cartItem, category: category, sample_id: checkSample()?._id })
+        }
+        else {
+            const category = [...cartItem.category].map(cartItemType => {
+                if (cartItemType.title === title) {
+                    return { ...cartItemType, cat_content: catContent }
+                }
+                return cartItemType
+            })
+            setCartItem({ ...cartItem, category: category, })
+        }
+    }
+
+    const checkSelected = (title: string, catContent: string) => {
+        return cartItem.category?.some(item => item.title === title && item.cat_content === catContent)
+    }
+
+    const renderImageSample = checkSample() && checkSample()?.image || null
+
     return (
-        <Grid templateColumns="repeat(2,1fr)">
+        <Grid templateColumns="repeat(2,1fr)" minH={500}>
             <GridItem colSpan={1}>
                 <Image
-                    src={product.sample && product.sample[0]?.imageSrc || ImageAssets.NoImage}
-                    alt={product.name}
+                    src={renderImageSample || product?.image[0] || ImageAssets.NoImage}
+                    alt={product?.name}
+                    height={450}
+                    width={450}
                 />
             </GridItem>
 
             <GridItem colSpan={1}>
 
-                <Link href={`/product/${product.id}`} >
-                    <Box className='link text-xl' mb={3}>
-                        {product.name}
+                <Link href={`/product/${product?._id}`} >
+                    <Box className='link text-xl'>
+                        {product?.name}
                     </Box>
                 </Link>
 
-                <Flex className='items-center'>
-                    <Rating
-                        SVGclassName="inline-block"
-                        size={25}
-                        readonly
-                        transition
-                        allowFraction
-                        tooltipArray={tooltipArrayRating}
-                        fillColorArray={fillColorArrayRating}
-                        initialValue={product.rate}
-                    />
-                    <Text ml={3} fontSize='lg'>50</Text>
-                </Flex>
+                <SimpleRating direction="horizon" value={3.5} avg={50} my={5} />
 
-                <Grid templateColumns='repeat(12,1fr)' gridGap={3} my={10}>
+                <Grid templateColumns='repeat(12,1fr)' gridGap={3}>
                     <GridItem colSpan={3}>
                         <Translation text='shipping_method' className='capitalize text-lg' color={mainColor.gray3} />
                     </GridItem>
@@ -145,10 +141,10 @@ export const ProductInfo: FC<ProductInfoProps> = ({
                                     </Flex>
 
                                     <Popup isOpen={openPopup} title='change address' onClose={handleCloseChangeAddress}>abc</Popup>
-
                                 </Flex>
                                 <Flex>
                                     <Translation text='Phí Vận Chuyển' />
+                                    {/* use cpn */}
                                     <Popover>
                                         <PopoverTrigger>
                                             <Flex className='items-center mx-3'>
@@ -163,39 +159,47 @@ export const ProductInfo: FC<ProductInfoProps> = ({
                                             <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
                                         </PopoverContent>
                                     </Popover>
+                                    {/* bug zindex too low */}
                                 </Flex>
                             </Flex>
                         </Flex>
                     </GridItem>
 
-                    {product.sample && product.sample[0].color &&
-                        <GridItem colSpan={3}>
-                            <Translation text='color' className='capitalize text-lg' color={mainColor.gray3} />
-                        </GridItem>
-                    }
+                </Grid>
 
-                    {/* seperate multi type */}
-                    {product.sample && product.sample[0].color &&
-                        <GridItem colSpan={8} className='flex'>
-                            {product.sample?.map(item => (
-                                <SelectItem key={item.color} mx={1} selected={cartItem.type.color === item.color} onSelect={() => handleSelectItem(item)}>
-                                    {item.color}
+                {product.product_type && product.product_type.category?.map((category) => (
+                    <Grid key={category.title} templateColumns='repeat(12,1fr)' gridGap={3} my={5}>
+                        <GridItem colSpan={3}>
+                            {category.title}
+                        </GridItem>
+                        <GridItem colSpan={9} className='flex' flexWrap='wrap'>
+                            {category.cat_content && category.cat_content?.map(catContent => (
+                                <SelectItem key={catContent}
+                                    selected={checkSelected(category.title, catContent)}
+                                    mx={2} my={2}
+                                    onSelect={() => handleSelectType(category.title, catContent)}
+                                >
+                                    {catContent}
                                 </SelectItem>
                             ))}
                         </GridItem>
-                    }
+                    </Grid>
+                ))}
+
+                <Grid templateColumns='repeat(12,1fr)' gridGap={3} my={5}>
 
                     <GridItem colSpan={3}>
                         <Translation text='quantity' className='capitalize text-lg' color={mainColor.gray3} />
                     </GridItem>
 
                     <GridItem colSpan={9}>
-                        <Box w='40%'>
-                            <UiNumberInputControl numberInput={numberInput} />
+                        <Box maxW='40%'>
+                            <UiNumberInputControl onChange={handleChangeQuantity} />
                         </Box>
                     </GridItem>
-
                 </Grid>
+
+
                 <Flex>
                     <ButtonPrimary onClick={handleAddtoCart} p={5} size='lg' mr={2}>
                         <ReactIcon.IconBs.BsCartPlus size='2rem' className='mx-2' />
@@ -214,3 +218,4 @@ export const ProductInfo: FC<ProductInfoProps> = ({
         </Grid>
     );
 };
+

@@ -1,17 +1,26 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { isNonEmptyArray } from '@utils/validations'
-import Cookies from 'js-cookie'
-import { HYDRATE } from 'next-redux-wrapper'
+import { ListResponseModel } from 'models/common'
 import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'
 import { CartInitState, ICartItem } from './cartModel'
+import cartService from './cartService'
+import { UPDATE_CART_ITEM } from '@redux/constant'
+import Notice from '@components/Notice'
+import { toastId } from 'contants/common'
+import Cookies from 'js-cookie'
 
 const initialState: CartInitState = {
     list: [],
     wishList: [],
     loading: false,
+    error: false
 }
 
+export const fetchCartList = createAsyncThunk('cart/list', async () => {
+    const res = await cartService.getCartDetails()
+    return res
+})
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -21,13 +30,17 @@ const cartSlice = createSlice({
             state.list = action.payload
         },
         addToCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-            if (!state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
+            state.loading = true
+        },
+        addToCartSuccess: (state: CartInitState, action: PayloadAction<ICartItem>) => {
+
+            if (!state.list?.some(ele => ele.product_id === action.payload.product_id) && isNonEmptyArray(state.list)) {
 
                 state.list?.push(action.payload)
 
-            } else if (state.list?.some(ele => ele.productId === action.payload.productId) && isNonEmptyArray(state.list)) {
+            } else if (state.list?.some(ele => ele.product_id === action.payload.product_id) && isNonEmptyArray(state.list)) {
                 const newArr = state.list?.map(cart => {
-                    if (cart.productId === action.payload.productId) {
+                    if (cart.product_id === action.payload.product_id) {
                         return {
                             ...cart,
                             quantity: cart.quantity && cart.quantity + 1
@@ -39,67 +52,61 @@ const cartSlice = createSlice({
             } else {
                 state.list?.push(action.payload)
             }
+            state.loading = false
+        },
+        addToCartFailed: (state: CartInitState) => {
+            state.error = true
         },
         removeItemFromCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             const newArr = state.list?.filter(cart => {
-                if (cart.productId !== action.payload.productId) {
+                if (cart.product_id !== action.payload.product_id) {
                     return cart
                 }
             })
             state.list = newArr
-            Cookies.set('cart', JSON.stringify({ ...state }));
-        },
-        updateCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-            state.list?.map(cart => {
-                if (cart.productId === action.payload.productId) {
-                    return { ...cart, count: action.payload }
-                }
-            })
-            Cookies.set('cart', JSON.stringify({ ...state }));
         },
         updateCartItem: (state: CartInitState, action: PayloadAction<ICartItem>) => {
-            state.list?.map(cart => {
-                if (cart.productId === action.payload.productId) {
+            state.loading = true
+        },
+        updateCartItemSuccess: (state: CartInitState, action: PayloadAction<ICartItem>) => {
+            state.list = state.list?.map(cart => {
+                if (cart.product_id === action.payload.product_id) {
                     cart = action.payload
                 }
                 return cart
             })
+            state.loading = false
         },
         addToWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
-            if (!state.wishList?.some(item => item.productId === action.payload.id)) {
-                state.wishList?.push({ productId: action.payload.id })
+            if (!state.wishList?.some(item => item.product_id === action.payload._id)) {
+                state.wishList?.push({ product_id: action.payload._id })
             } else if (state.wishList.length < 0) {
-                state.wishList?.push({ productId: action.payload.id })
+                state.wishList?.push({ product_id: action.payload._id })
             }
         },
-        removeItemFromWishList: (state: CartInitState, action: PayloadAction<IProductItem>,) => {
+        removeItemFromWishList: (state: CartInitState, action: PayloadAction<IProductItem>) => {
             const newArr = state.wishList?.filter(cart => {
-                if (cart.productId !== action.payload.id) {
+                if (cart.product_id !== action.payload._id) {
                     return cart
                 }
             })
             state.wishList = newArr
         },
-        extraReducers: (builder: any) => {
-            builder.addCase(
-                HYDRATE,
-                (state: CartInitState, action: PayloadAction<any>) => {
-                    console.log('HYDRATE', action.payload)
-                    state = { ...state, ...action.payload.cart }
-                },
-            )
-            builder.addCase(
-                'addCart',
-                (state: CartInitState, action: PayloadAction<any>) => {
-                    console.log('HYDRATE', action.payload)
-                    state = { ...state, ...action.payload.cart }
-                },
-            )
-        },
+    },
+    extraReducers: builder => {
+        builder.addCase(fetchCartList.fulfilled, (state: CartInitState, action: PayloadAction<ListResponseModel<ICartItem>>) => {
+            state.list = action.payload.data
+            state.loading = false
+        })
+        builder.addCase(fetchCartList.pending, (state: CartInitState) => {
+            state.loading = true
+        })
+        builder.addCase(fetchCartList.rejected, (state: CartInitState) => {
+            state.list = []
+            state.loading = true
+        })
     },
 })
-
-
 
 export const cartReducer = cartSlice.reducer
 export const cartActions = cartSlice.actions
@@ -107,9 +114,11 @@ export const cartActions = cartSlice.actions
 export const {
     setCartList,
     addToCart,
+    addToCartSuccess,
+    addToCartFailed,
     removeItemFromCart,
-    updateCart,
     updateCartItem,
+    updateCartItemSuccess,
     addToWishList,
     removeItemFromWishList,
 } = cartSlice.actions

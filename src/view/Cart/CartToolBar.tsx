@@ -1,35 +1,57 @@
 import { Box, Button, Checkbox, Container, Flex, Text } from '@chakra-ui/react'
 import { ButtonPrimary } from '@components/Button'
+import { RenderPrice } from '@components/Card/ProductCard'
+import UICheckBoxField from '@components/Field/UICheckBoxField'
 import Translation from '@components/Translate'
 import { ICartItem } from '@redux/cart/cartModel'
 import { selectCart } from '@redux/cart/cartSlice'
-import { useAppSelector } from '@redux/hooks'
+import { checkout, selectCheckout } from '@redux/checkout/checkoutSlice'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { useRouter } from 'next/router'
 import { FC, useEffect } from 'react'
 
 type CartToolBarProps = {
     listItemChecked: ICartItem[]
+    handleSelectAllItem?: (selected: boolean) => void
+    handleDelAllItem?: () => void
 }
 
 const CartToolBar: FC<CartToolBarProps> = ({
     listItemChecked,
+    handleDelAllItem,
+    handleSelectAllItem
 }) => {
     const cartState = useAppSelector(selectCart)
+    const checkoutState = useAppSelector(selectCheckout)
     const router = useRouter()
+    const dispatch = useAppDispatch()
+    /// fetch checkout session
+    // setTimeout(() => {
+    //     router.push(`/cart/?${Cookies.get('_id_ck')}`, undefined, { shallow: true })
+    // }, 400);
 
-    useEffect(()=>{
-        setTimeout(() => {
-            router.push('/cart/?counter=10', undefined, { shallow: true })
-        }, 200);
-    },[])
-
-    const handleClickAllItems = () => {
-
-    }
+    useEffect(() => {
+        checkoutState.success && router.push('/checkout')
+    }, [checkoutState.success])
 
     const handlePurchase = () => {
-        window.location.search = 'abc'
+        const newArr: any[] = []
+        if (listItemChecked.length > 0) {
+            listItemChecked.forEach(items => newArr.push(items._id))
+            dispatch(checkout(newArr))
+        }
+    }
+
+    const renderTotal = () => {
+        let price = 0
+        listItemChecked.forEach(item => {
+            item.product_sample && item.product_sample.filter((productSampleItem) => {
+                const a = productSampleItem.sample.filter(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(item.category))
+                if (a.length > 0) price += a[0].unit_price
+            })
+        })
+        return price
     }
 
     return (
@@ -37,12 +59,19 @@ const CartToolBar: FC<CartToolBarProps> = ({
             <Box bg={mainColor.white} p={5}>
                 <Flex gridColumnStart={1} gridColumnEnd={4} className='items-center'>
 
-                    <Flex onClick={handleClickAllItems} px={2}>
+                    {/* <Flex onClick={handleSelectAllItem} px={2} className='cursor-pointer'>
                         <Checkbox isChecked={cartState.list?.length === listItemChecked.length} />
                         <Text className='capitalize mx-2'>select all ({cartState.list?.length})</Text>
-                    </Flex>
+                    </Flex> */}
+                    <UICheckBoxField
+                        onCheckBoxClick={(active) => handleSelectAllItem && handleSelectAllItem(active)} content={`select all (${cartState.list?.length})`}
+                        px={2}
+                        textTransform='capitalize'
+                        placement='right'
+                        sizeCheckbox='md'
+                    />
 
-                    <Button className='capitalize' bg={'transparent'} _hover={{}} mx={2}>delete</Button>
+                    <Button className='capitalize' bg={'transparent'} _hover={{}} mx={2} onClick={handleDelAllItem}>delete</Button>
                     <Button className='capitalize' bg={'transparent'} _hover={{}} mx={2}>delete item invalid</Button>
                     <Button className='capitalize' bg={'transparent'} _hover={{}} mx={2}>add to wish list</Button>
 
@@ -51,8 +80,8 @@ const CartToolBar: FC<CartToolBarProps> = ({
                     <Flex className='items-center text-xl font-normal'>
                         <Translation text='total' className='capitalize' />
                         <Flex className='mx-1 items-center'>
-                            (<Box mr={1}>0</Box> <Translation text='items' />):
-                            <Text fontSize='2xl' className='mx-2'>1000$</Text>
+                            (<Box mr={1}>{listItemChecked.length}</Box> <Translation text='items' />){':'}
+                            <RenderPrice price={renderTotal()} className='mx-2' />
                         </Flex>
                     </Flex>
 
