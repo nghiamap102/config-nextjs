@@ -41,8 +41,8 @@ const GridIconHeader = () => {
                     colorIcon={mainColor.white}
                 />
                 <IconHeader
-                    icon={<IconAssets.ReactIcon.IconAi.AiFillGift size="2rem" />}
-                    text="voucher"
+                    icon={<IconAssets.ReactIcon.IconIo5.IoChatbubblesOutline size="2rem" />}
+                    text="chat"
                     colorIcon={mainColor.white}
                 />
                 <IconHeader

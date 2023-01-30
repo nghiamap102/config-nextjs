@@ -9,11 +9,12 @@ export const mainColor = {
     gray: '#f5f5f5',
     gray1: '#505050',
     gray2: '#bbb',
-    gray3: '#757575',
+    gray3: '#f03609',
     hotTag: '#FFBB49',
     newTag: '#06BFE2',
     red: '#e10600',
     red2: '#ffd8d7',
+    red3: '#fc4f26',
     skin: '#fbf1f1',
     saleTag: '#EF6454',
     white: '#ffff',
@@ -39,6 +40,7 @@ const Color = () => (
       --sale-tag: ${mainColor.saleTag};
       --red: ${mainColor.red};
       --red2: ${mainColor.red2};
+      --red3: ${mainColor.red3};
       --blueDark: ${mainColor.blueDark};
       --skin: ${mainColor.skin};
     }

@@ -13,7 +13,7 @@ const IconCircle: FC<FlexProps> = ({
     ...props
 }) => {
     return (
-        <Flex {...props} bg={bg} className='items-center rounded-full' px={1}>
+        <Flex {...props} bg={bg} className='items-center rounded-full' px={2}>
             {children}
         </Flex>
     );

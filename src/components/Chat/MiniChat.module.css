@@ -1,0 +1,7 @@
+.chatbox_max{
+    min-height: 28rem;
+    min-width: 40rem;
+}
+.chatbox_min{
+    opacity: 1;
+}

@@ -3,7 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import React from 'react'
 
-const ChatHeader = () => {
+const ChatBoxHeader = () => {
     return (
         <Flex>
             <Box className="flex items-center">
@@ -23,4 +23,4 @@ const ChatHeader = () => {
     )
 }
 
-export default ChatHeader
+export default ChatBoxHeader

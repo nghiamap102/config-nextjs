@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const ChatFooter = ({ socket }) => {
+const ChatBoxFooter = ({ socket }) => {
     const [message, setMessage] = useState('')
 
     const handleSendMessage = e => {
@@ -32,4 +32,4 @@ const ChatFooter = ({ socket }) => {
     )
 }
 
-export default ChatFooter
+export default ChatBoxFooter
