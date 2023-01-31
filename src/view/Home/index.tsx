@@ -7,6 +7,7 @@ import CategoriesCard from '@components/Card/CategoriesCard'
 import ProductCard from '@components/Card/ProductCard'
 import Carousel from '@components/Carousel'
 import Categories from '@components/Categories'
+import Layout from '@components/Layout'
 import Footer from '@components/Layout/Footer'
 import Header from '@components/Layout/Header'
 import { HeaderViewAll } from '@components/Layout/Header/HeaderViewAll'
@@ -23,13 +24,12 @@ const HomeView: FC = () => {
     const dispatch = useAppDispatch()
     const productState = useAppSelector(selectProduct)
     useEffect(() => {
-        dispatch(fetchCartList())
-        dispatch(fetchProductList())
+        // dispatch(fetchCartList())
+        // dispatch(fetchProductList())
     }, [])
 
     return (
-        <>
-            <Header />
+        <Layout>
             <Box bg={mainColor.gray} paddingBottom={50}>
                 <Container>
                     <BannerLearnMore
@@ -108,9 +108,7 @@ const HomeView: FC = () => {
                     </Box>
                 </Container>
             </Box>
-
-            <Footer />
-        </>
+        </Layout>
     )
 }
 

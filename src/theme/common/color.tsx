@@ -6,10 +6,11 @@ export const mainColor = {
     blueDark: '#4267B2',
     boxshadow: '#0000000d',
     orange: '#fd6506',
+    orange2: '#fa886c',
     gray: '#f5f5f5',
     gray1: '#505050',
     gray2: '#bbb',
-    gray3: '#f03609',
+    gray3: '#757575',
     hotTag: '#FFBB49',
     newTag: '#06BFE2',
     red: '#e10600',
@@ -26,6 +27,7 @@ const Color = () => (
         styles={`
     :root {
       --orange: ${mainColor.orange};
+      --orange2: ${mainColor.orange2};
       --white: ${mainColor.white};
       --black: ${mainColor.black};
       --light-black: ${mainColor.lightBlack};

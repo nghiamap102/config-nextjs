@@ -20,21 +20,22 @@ const MiniChat: FC<MiniChatProps> = ({
 
     const [openChat, setOpenChat] = useState(false)
 
-    const handleOpenChat = () => {
+    const handleChatToggle = () => {
         setOpenChat(!openChat)
         console.log('abc');
     }
+
     return (
-        <Flex className='sticky bottom-0 justify-end mr-10'>
-            <Flex className={classNames(!openChat && styles.chatbox_min, 'opacity-0 items-center cursor-pointer relative rounded-md')} px={3} py={2} color={mainColor.white} onClick={handleOpenChat} bg={mainColor.orange}>
+        <Flex className='sticky bottom-0 justify-end' zIndex={9999}>
+            <Flex className={classNames(!openChat ? 'fade-in' : 'fade-out', 'absolute items-center cursor-pointer bottom-0 rounded-md right-10')} px={3} py={2} color={mainColor.white}
+                onClick={handleChatToggle} bg={mainColor.orange}>
                 <ReactIcon.IconIo5.IoChatbubblesOutline className='mr-2' size='2rem' />
                 <Translation text='chat' className='capitalize' fontSize='xl' />
-                <IconCircle position='absolute' top='-2' right={-2} bg={mainColor.red3} children={'16'} />
+                <IconCircle position='absolute' top='-2' right={-2} bg={mainColor.red3} >16</IconCircle>
             </Flex>
-            <Box className={classNames(openChat ? styles.chatbox_max : 'opacity-0')}>
-                <ChatBoxHeader />
+            <Box className={classNames(openChat ? styles.chatbox_max : styles.chatbox_min, 'mr-20')}>
+                <ChatBoxHeader handleCloseChatView={handleChatToggle} />
                 <ChatBoxBody />
-                <ChatBoxFooter />
             </Box>
         </Flex>
     );

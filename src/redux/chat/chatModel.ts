@@ -1,11 +1,14 @@
 export interface ChatInitialState {
-    currentChat?: {
-        channel?: ICurrentChat
-        messages?: IMessage
-    }
+    currentChat?: ICurrentChat
+    loading?: boolean
+    erorr?: boolean
+    success?: boolean
 }
-
 export interface ICurrentChat {
+    channel?: IChannel
+    messages?: IMessage[]
+}
+export interface IChannel {
     channelId?: string
     name?: string
     user_auth?: boolean
@@ -25,3 +28,5 @@ export interface IMessage {
     deleted_at?: string
     modified_at?: number
 }
+
+export const FETCH_CURRENT_CHAT = 'FETCH_CURRENT_CHAT'

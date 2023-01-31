@@ -1,19 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 
-const ChatBoxFooter = ({ socket }) => {
+
+type ChatBoxFooterProps = {
+    handleSendMsg?: () => void
+}
+
+const ChatBoxFooter: FC<ChatBoxFooterProps> = ({ handleSendMsg }) => {
     const [message, setMessage] = useState('')
-
     const handleSendMessage = e => {
-        e.preventDefault()
-        if (message.trim() && localStorage.getItem('userName')) {
-            socket.emit('message', {
-                text: message,
-                name: localStorage.getItem('userName'),
-                id: `${socket.id}${Math.random()}`,
-                socketID: socket.id,
-            })
-        }
-        setMessage('')
+        handleSendMsg()
     }
 
     return (
