@@ -1,14 +1,13 @@
 import { ReactIcon } from '@assets/icon';
-import { Box, Container, Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import IconCircle from '@components/Icons/IconCircle';
 import Translation from '@components/Translate';
 import { mainColor } from '@theme/theme';
 import classNames from 'classnames';
-import { FC, useState } from 'react'
-import styles from './MiniChat.module.css'
-import ChatBoxHeader from './ChatBoxHeader';
-import IconCircle from '@components/Icons/IconCircle';
-import ChatBoxBody from './ChatBoxBody';
-import ChatBoxFooter from './ChatBoxFooter';
+import { FC, useState } from 'react';
+import ChatBody from './ChatBody';
+import ChatHeader from './ChatHeader';
+import styles from './MiniChat.module.css';
 
 
 type MiniChatProps = {
@@ -34,8 +33,8 @@ const MiniChat: FC<MiniChatProps> = ({
                 <IconCircle position='absolute' top='-2' right={-2} bg={mainColor.red3} >16</IconCircle>
             </Flex>
             <Box className={classNames(openChat ? styles.chatbox_max : styles.chatbox_min, 'mr-20')}>
-                <ChatBoxHeader handleCloseChatView={handleChatToggle} />
-                <ChatBoxBody />
+                <ChatHeader handleCloseChatView={handleChatToggle} />
+                <ChatBody />
             </Box>
         </Flex>
     );

@@ -11,6 +11,7 @@ body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: Helvetica, Helvetica Neue, RobotoRegular, Droid Sans, Arial, sans-serif !important;
 }
 
 .panel-box-shadow {
@@ -51,9 +52,22 @@ body {
 
 .border-primary {
     border: 1px solid var(--white);
-
 }
 
 .border-primary:hover {
     border: 1px solid var(--orange);
+}
+
+.custom-scroll {
+    scrollbar-width: thin;
+}
+.custom-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    border-radius: 100px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 100px;
 }
