@@ -1,10 +1,9 @@
 import { ReactIcon } from '@assets/icon';
 import { ImageAssets } from '@assets/index';
-import { Box, Flex, Grid, GridItem, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, UseToastOptions, position, useToast } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from '@chakra-ui/react';
 import { ButtonPrimary } from '@components/Button';
 import UiNumberInputControl from '@components/Field/UiNumberInputControl';
 import IconButtonPrimary from '@components/IconButtonPrimary';
-import IconCircle from '@components/Icons/IconCircle';
 import SelectItem from '@components/Items/SelectItem';
 import Popup from '@components/Popup';
 import SimpleRating from '@components/Rating';
@@ -15,7 +14,7 @@ import { addToCart, selectCart } from '@redux/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
 import { IProductItem } from '@redux/product/productModel';
 import { mainColor } from '@theme/theme';
-import { toastId } from 'contants/common';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -28,6 +27,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
 
     const dispatch = useAppDispatch()
     const cartState = useAppSelector(selectCart)
+    const { data: session } = useSession()
     console.log(cartState.list)
     const [cartItem, setCartItem] = useState<ICartItem>({
         product_id: product._id,
@@ -40,7 +40,8 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
     const [openPopup, setOpenPopup] = useState(false)
 
     const handleAddtoCart = async () => {
-        if (product.product_type?.category?.length === cartItem.category?.length) {
+
+        if (product.product_type?.category?.length === cartItem.category?.length && session ?.user) {
             dispatch(addToCart(cartItem))
             toast({ title: "Add to cart success", status: "success" })
         }

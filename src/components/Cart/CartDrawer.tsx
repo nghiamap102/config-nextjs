@@ -1,11 +1,11 @@
 import { Button, Flex } from '@chakra-ui/react'
 import DrawerCPN from '@components/Drawer'
 import Translation from '@components/Translate'
-import cartService from '@redux/cart/cartService'
+import { checkout } from '@redux/checkout/checkoutSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
-import { removeItemFromCart, selectCart, setCartList } from 'redux/cart/cartSlice'
+import { removeItemFromCart, selectCart } from 'redux/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from 'redux/hooks'
 import CartDrawerItem from '../Items/CartDrawerItem'
 
@@ -13,46 +13,40 @@ type CartDrawerProps = {
     onClose: () => void
 }
 const CartDrawer: FC<CartDrawerProps> = ({ onClose }) => {
-    const [checkout, setCheckout] = useState<any[]>([])
+    const [listItemChecked, setListItemChecked] = useState<any[]>([])
     const cartState = useAppSelector(selectCart)
     const dispatch = useAppDispatch()
     const router = useRouter()
 
     useEffect(() => {
-        document.addEventListener('keydown', (e: KeyboardEvent) => {
+        const close = (e: KeyboardEvent) => {
             e.keyCode === 27 && onClose
-        })
-    }, [])
-
-
-    useEffect(() => {
-        const getCartDetail = async () => {
-            const res = await cartService.getCartDetails()
-            dispatch(setCartList(res.data))
-            console.log(res.data)
         }
-        getCartDetail()
+        document.addEventListener('keydown', close)
+        return () => {
+            document.addEventListener('keydown', close)
+        }
     }, [])
 
     const handleOnClickCheck = (e: React.ChangeEvent<HTMLInputElement>, cart: any) => {
         if (e.target.checked) {
-            // const newArr = [...checkout]
-            // newArr.push(cart)
-            // setCheckout([...newArr])
+            const newArr = [...listItemChecked]
+            newArr.push(cart)
+            setListItemChecked([...newArr])
         } else {
-            // const newArr = checkout.filter(check => {
-            //     if (check.product.id !== cart.product.id) {
-            //         return check
-            //     }
-            // })
-            // setCheckout(newArr)
+            const newArr = listItemChecked.filter(check => {
+                if (check.product.id !== cart.product.id) {
+                    return check
+                }
+            })
+            setListItemChecked(newArr)
         }
     }
 
     const handleCheckOut = () => {
-        if (checkout.length > 0) {
-            sessionStorage.setItem('checkout', JSON.stringify(checkout))
+        if (listItemChecked.length > 0) {
             router.push('/checkout')
+            dispatch(checkout(listItemChecked))
         }
     }
 
@@ -60,14 +54,14 @@ const CartDrawer: FC<CartDrawerProps> = ({ onClose }) => {
         <DrawerCPN
             size="lg"
             onClose={onClose}
-            title={'shopping cart'}
+            title='shopping cart'
             body={
                 cartState.list && cartState.list?.length > 0 ? (
                     cartState.list?.map(item => (
                         <CartDrawerItem
                             onChangeCheck={e => handleOnClickCheck(e, item)}
                             item={item}
-                            key={item.productId}
+                            key={item._id}
                             onRemoveItem={() => dispatch(removeItemFromCart(item))}
                         />
                     ))
@@ -91,7 +85,7 @@ const CartDrawer: FC<CartDrawerProps> = ({ onClose }) => {
                             text="checkout"
                         />
                     </Button>
-                    <Link href="/cart">
+                    <Link href="/cart" shallow>
                         <Button className="w-full mx-2" colorScheme="blue">
                             <Translation
                                 className="capitalize"

@@ -1,16 +1,15 @@
 import { ReactIcon } from '@assets/icon'
 import { NoImage } from '@assets/image'
-import { Box, Checkbox, Grid, GridItem, Text, useNumberInput, } from '@chakra-ui/react'
+import { Box, Checkbox, Grid, GridItem, Text } from '@chakra-ui/react'
 import UiNumberInputControl from '@components/Field/UiNumberInputControl'
 import Translation from '@components/Translate'
 import { ICartItem } from '@redux/cart/cartModel'
-import { updateCartItem } from '@redux/cart/cartSlice'
 import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { formatCurrency, formatValueCurrency } from '@utils/helper'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 
 type CartDrawerItemProps = {
     item?: ICartItem
@@ -20,18 +19,12 @@ type CartDrawerItemProps = {
 
 const CartDrawerItem: FC<CartDrawerItemProps> = ({ item, onChangeCheck, onRemoveItem }) => {
     const dispatch = useAppDispatch()
-    const numberInput = useNumberInput({
-        step: 1,
-        defaultValue: item && item.quantity || 1,
-        min: 1,
-        precision: 0,
-    })
-
     const router = useRouter()
 
-    useEffect(() => {
-        dispatch(updateCartItem({ ...item, quantity: parseInt(numberInput.value) }))
-    }, [numberInput.value])
+    const handleChangeQuantity = (value: string) => {
+        // renderSample().sampleItem.count_in_stock === parseInt(value) && toast({ title: `There's only ${renderSample().sampleItem.count_in_stock} items left`, status: 'info' })
+        // dispatch(updateCartItem({ ...item, quantity: parseInt(value) }))
+    }
 
     return (
         <Grid
@@ -50,14 +43,16 @@ const CartDrawerItem: FC<CartDrawerItemProps> = ({ item, onChangeCheck, onRemove
             >
                 <Image
                     src={NoImage}
-                    alt="CartDrawerItem"
+                    // src={renderSample()?.sample.image || NoImage}
+                    // alt={item.product.name}
+                    alt={'a'}
                     height={150}
                     width={150}
                 />
             </GridItem>
 
             <GridItem colSpan={11}>
-                <Text>{item?.products && item?.products[0]?.name}</Text>
+                <Text>{item?.product?.name}</Text>
                 <Translation
                     formatTranslate={{
                         value: formatValueCurrency(router.locale, item?.type?.unit_price || 0),
@@ -73,7 +68,7 @@ const CartDrawerItem: FC<CartDrawerItemProps> = ({ item, onChangeCheck, onRemove
             </GridItem>
 
             <GridItem colSpan={6} className="flex items-center flex-col mx-2">
-                <UiNumberInputControl numberInput={numberInput} />
+                <UiNumberInputControl value={1} onChange={handleChangeQuantity} />
                 <Box className="absolute bottom-0 right-10"></Box>
             </GridItem>
             <GridItem

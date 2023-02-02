@@ -1,6 +1,7 @@
 import { Box, Button, Container, Grid, GridItem } from '@chakra-ui/react'
 import CheckoutItem from '@components/Checkout'
 import Layout from '@components/Layout'
+import Overlay from '@components/Overlay'
 import Translation from '@components/Translate'
 import { OnApproveActions, OnApproveData } from '@paypal/paypal-js'
 import { mainColor } from '@theme/theme'
@@ -9,13 +10,16 @@ import { PaymentView } from '@view/Payment'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
+import { HashLoader } from 'react-spinners'
 
 const CheckoutView: FC = () => {
     const [checkout, setCheckout] = useState<any[]>([])
     const router = useRouter()
-
+    console.log(router.query);
     useEffect(() => {
-        Cookies.get('_id_ck') && router.push(`/checkout/?${JSON.parse(Cookies.get('_id_ck'))}`, undefined, { shallow: true })
+        Cookies.get('_id_ck') && setTimeout(() => {
+            router.push(`/checkout/?state=${JSON.parse(Cookies.get('_id_ck'))}`, undefined, { shallow: true })
+        }, 500);
         // JSON.parse(sessionStorage.getItem('checkout'))
         //     ? setCheckout(JSON.parse(sessionStorage.getItem('checkout')))
         //     : 
@@ -33,7 +37,6 @@ const CheckoutView: FC = () => {
     const onPayment = () => {
         console.log('abc')
     }
-
     return (
         <Layout>
             <Container my={5} bg={mainColor.white} maxW="container.xl" p={0}>
@@ -91,6 +94,20 @@ const CheckoutView: FC = () => {
                     </Button>
                 </Box>
             </Container>
+            {!router.query.state && (
+                <Overlay bg={mainColor.white}>
+                    <Box>
+                        <HashLoader
+                            speedMultiplier={2}
+                            color={mainColor.red3}
+                            loading={true}
+                            size={100}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </Box>
+                </Overlay>
+            )}
         </Layout>
     )
 }

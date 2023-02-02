@@ -8,12 +8,9 @@ import ProductCard from '@components/Card/ProductCard'
 import Carousel from '@components/Carousel'
 import Categories from '@components/Categories'
 import Layout from '@components/Layout'
-import Footer from '@components/Layout/Footer'
-import Header from '@components/Layout/Header'
 import { HeaderViewAll } from '@components/Layout/Header/HeaderViewAll'
-import { fetchCartList } from '@redux/cart/cartSlice'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { fetchProductList, selectProduct } from '@redux/product/productSlice'
+import { selectProduct } from '@redux/product/productSlice'
 import { mainColor } from '@theme/theme'
 import Image from 'next/image'
 import { FC, useEffect } from 'react'
@@ -27,7 +24,6 @@ const HomeView: FC = () => {
         // dispatch(fetchCartList())
         // dispatch(fetchProductList())
     }, [])
-
     return (
         <Layout>
             <Box bg={mainColor.gray} paddingBottom={50}>

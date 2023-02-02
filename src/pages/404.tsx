@@ -1,13 +1,12 @@
-import { useTranslation } from 'next-i18next'
+import Translation from '@components/Translate'
 import Link from 'next/link'
 export default function FourOhFour() {
-    const { t } = useTranslation('common')
 
     return (
         <>
             <h1>404 - Page Not Found</h1>
             <Link href="/">
-                <a>{t('Go back home')}</a>
+                <Translation text='go_back_home' />
             </Link>
         </>
     )
