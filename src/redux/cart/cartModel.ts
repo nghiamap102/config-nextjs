@@ -1,4 +1,4 @@
-import { IProductItem } from "@redux/product/productModel"
+import { IProductItem, IProductSample, IProductType } from "@redux/product/productModel"
 
 export interface CartInitState {
     list?: ICartItem[]
@@ -13,18 +13,17 @@ export interface IWishListItem {
 
 export interface ICartItem {
     _id?: string
-    product_id?: string
-    quantity?: number
     product?: IProductItem
-    product_sample?: any[]
-    product_type?:any
-    sample_id?: string
-    category?: ICategory[]
-    active?: boolean
-    unit_price?:number
+    product_sample?: IProductSample
+    product_type?: IProductType[]
+    quantity?: number
+    description?: string
+    checked?: boolean 
 }
 
 export interface ICategory {
+    _id?: string
     title?: string
     cat_content?: string
+    cat_group?: number
 }

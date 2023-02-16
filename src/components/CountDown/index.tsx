@@ -1,8 +1,24 @@
-import { Box } from '@chakra-ui/react'
-import { FC } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const CountDown: FC = () => {
-    return <Box></Box>
+export interface CountDownProps {
+  setPhoneOrEmailOTP: () => void
+}
+
+const CountDown = ({ setPhoneOrEmailOTP }: CountDownProps) => {
+  const [countdown, setCountdown] = useState<number>(60)
+  useEffect(() => {
+    if (countdown === 0) {
+      setPhoneOrEmailOTP('expiredOTP')
+      return
+    }
+    const timeOut = setTimeout(() => {
+      setCountdown(countdown - 1)
+    }, 1000)
+    return () => {
+      clearTimeout(timeOut)
+    }
+  }, [countdown])
+  return <span>{countdown}</span>
 }
 
 export default CountDown

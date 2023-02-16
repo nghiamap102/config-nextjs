@@ -4,10 +4,13 @@ import { DataResponseModel } from 'models/common'
 
 const chatService = {
     sendMsg(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.post(`${API_ENDPOINT.CHAT.MESSAGE}`, data)
+        return axiosClient.post(`${API_ENDPOINT.MESSAGE.CREATE}`, data)
     },
     fetchCurrentChat(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.post(`${API_ENDPOINT.CHAT.CHANNEL}`, data)
+        return axiosClient.get(`${API_ENDPOINT.CHAT.CURRENT_CHAT}/${data}`)
+    },
+    fetchAllChats(data: any): Promise<DataResponseModel<any>> {
+        return axiosClient.get(`${API_ENDPOINT.CHAT.ALL_CHAT}/${data}`)
     },
 
 }

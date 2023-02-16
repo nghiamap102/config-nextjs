@@ -9,7 +9,7 @@ import Carousel from '@components/Carousel'
 
 const Categories: FC = () => {
     return (
-        <Container margin="auto" className="">
+        <Container margin="auto">
             <Grid templateColumns="repeat(15, 1fr)" paddingX={4} gap={2}>
                 <GridItem
                     bg={mainColor.white}

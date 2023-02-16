@@ -12,13 +12,19 @@ import { productReducer } from './product/productSlice'
 import rootSaga from './rootSaga'
 import { checkoutReducer } from './checkout/checkoutSlice'
 import { CheckoutInitState } from './checkout/checkoutModel'
+import { OrderInitState } from './order/orderModel'
+import { orderReducer } from './order/orderSlice'
+import { AuthInitState } from './auth/authModel'
+import { authReducer } from './auth/authSlice'
 
 export interface State {
     common: CommonInitState
     cart: CartInitState
     product: ProductInitState
-    chat: ChatInitialState
     checkout: CheckoutInitState
+    order: OrderInitState
+    auth: AuthInitState
+    chat: ChatInitialState
 }
 
 const rootReducer = combineReducers({
@@ -27,6 +33,8 @@ const rootReducer = combineReducers({
     product: productReducer,
     chat: chatReducer,
     checkout: checkoutReducer,
+    order: orderReducer,
+    auth: authReducer,
 })
 
 const reducer = (state: any, action: AnyAction) => {
@@ -61,7 +69,7 @@ const store = configureStore({
         getDefaultMiddleware().concat(
             sagaMiddleware,
         ),
-    devTools: true,
+    // devTools: true,
 })
 
 export const makeStore = () => {

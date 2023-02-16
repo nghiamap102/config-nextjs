@@ -36,9 +36,10 @@ const nextConfig = {
         ]
     },
     env: {
-        BE_API_URL: process.env.BE_API_URL,
+        API_URL_BE: process.env.API_URL_BE,
         API_URL: process.env.API_URL,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+        MONGODB_URI: process.env.MONGODB_URI,
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
         GITHUB_ID: process.env.GITHUB_ID,
@@ -46,6 +47,8 @@ const nextConfig = {
         FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
         FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
         NO_IMAGE: process.env.NO_IMAGE,
+        PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
+        PAYPAL_CLIENT_SECRET: process.env.PAYPAL_CLIENT_SECRET,
     },
     // experimental: {
     //     outputStandalone: true,

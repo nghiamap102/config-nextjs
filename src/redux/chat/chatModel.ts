@@ -1,32 +1,33 @@
 export interface ChatInitialState {
-    currentChat?: ICurrentChat
+    list?: IChat[]
+    currenChat?: ICurrentChat
     loading?: boolean
     erorr?: boolean
     success?: boolean
 }
 export interface ICurrentChat {
-    channel?: IChannel
+    _id?: string
     messages?: IMessage[]
 }
-export interface IChannel {
-    channelId?: string
-    name?: string
-    user_auth?: boolean
-    shop_auth?: boolean
-    admin_auth?: boolean
+export interface IChat {
+    _id?: string
+    partner?: any
+    members?: any
+    unread?: number
     last_post_at?: number
+    last_message?: IMessage
     delete_at?: number
-    modified_at?: number
-    created_at?: number
 }
 
 export interface IMessage {
     id?: string
+    chat_id?: string
     content?: string
-    post_at?: number
-    creator_id?: string
+    sender_id?: string
     deleted_at?: string
-    modified_at?: number
+    createdAt?: string
 }
 
-export const FETCH_CURRENT_CHAT = 'FETCH_CURRENT_CHAT'
+export const FETCH_ALL_CHAT = 'FETCH_ALL_CHAT'
+export const SEND_MESSAGE = 'send_message'
+export const MESSAGE_RESPONSE = 'message_response'

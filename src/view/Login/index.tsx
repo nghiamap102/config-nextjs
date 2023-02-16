@@ -2,16 +2,19 @@ import { ReactIcon } from '@assets/icon'
 import { Box, Checkbox, Flex, Text } from '@chakra-ui/react'
 import ButtonBorderPrimary from '@components/Button/ButtonBorderPrimary'
 import UiInputField from '@components/Field/UiInputField'
+import CustomToast from '@components/Toast'
 import { mainColor } from '@theme/theme'
 import { checkValueError } from '@utils/helper'
+import { TOASTID } from 'contants/common'
 import { FastField, Form, FormikProps, withFormik } from 'formik'
+import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import { NextRouter } from 'next/router'
 import { FC } from 'react'
 import LoginSocial from './LoginSocial'
 import ValidateFieldsLogin from './ValidateField'
-import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import Translation from '@components/Translate'
 
 interface LoginProps {
     isError?: boolean
@@ -67,6 +70,12 @@ const Login: FC<LoginProps & FormikProps<LoginValue>> = props => {
                 >
                     {t('Login')}
                 </ButtonBorderPrimary>
+                <Flex className='my-3 justify-center items-center'>
+                    <Translation text="you_don_t_have_any_account" firstCapital className='font-bold mr-4' />
+                    <Link href='/register' className=''>
+                        <Translation text='register' className='capitalize link' color={mainColor.orange} />
+                    </Link>
+                </Flex>
             </Box>
 
             <Flex direction="column">
@@ -93,15 +102,13 @@ export const FormLoginWrapper = withFormik<MyFormProps, LoginValue>({
     validate: checkValueError(ValidateFieldsLogin),
     handleSubmit: async (values, { setSubmitting, props }) => {
         const { router } = props
-        setTimeout(async () => {
-            await signIn('credentials', {
-                redirect: false,
-                email: values.emailOrUsername,
-                password: values.password,
-            });
-            router && router.push('/', undefined, { shallow: true })
-            setSubmitting(true)
-        }, 100)
+        const result = await signIn('credentials', {
+            redirect: false,
+            email: values.emailOrUsername,
+            password: values.password,
+        });
+
+        !result?.error && (router?.events.on('routeChangeStart', () => setSubmitting(true)), router?.push('/'))
     },
 })(Login)
 

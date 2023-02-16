@@ -1,29 +1,25 @@
 import {
-    validateEmail,
-    validateMinLength,
-    validateRequired,
+    validateMobile,
+    validateMobileLength,
+    validateRequired
 } from '@utils/validations'
 
-const ValidateFieldsLogin = {
-    emailOrUsername: [
+const ValidateFieldsRegister = {
+    phone: [
         {
             validator: validateRequired,
-            code: 'Email or Username is required',
+            code: 'Phone is required',
         },
         {
-            validator: validateEmail,
-            code: 'Please provide a valid email address or username',
+            validator: validateMobile,
+            code: 'Please provide a valid Phone',
         },
-    ],
-    password: [
+        
         {
-            validator: validateRequired,
-            code: 'Password is required',
+            validator: validateMobileLength,
+            code: 'Phone must have 10 characters ',
         },
-        {
-            validator: validateMinLength(8),
-            code: `Password need to be at least 8 character`,
-        },
+        
     ],
 }
-export default ValidateFieldsLogin
+export default ValidateFieldsRegister

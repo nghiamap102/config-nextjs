@@ -1,5 +1,4 @@
-import cartService from '@redux/cart/cartService'
-import { setCartList } from '@redux/cart/cartSlice'
+import { fetchCartList } from '@redux/cart/cartSlice'
 import { useAppDispatch } from '@redux/hooks'
 import CartView from '@view/Cart'
 import type { NextPage } from 'next'
@@ -11,13 +10,9 @@ const Cart: NextPage = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        getCart()
+        dispatch(fetchCartList())
     }, [])
 
-    const getCart = async () => {
-        const res = await cartService.getCartDetails()
-        dispatch(setCartList(res.data))
-    }
     return <CartView />
 }
 

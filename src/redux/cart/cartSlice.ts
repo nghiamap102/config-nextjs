@@ -1,14 +1,10 @@
-import { PayloadAction, createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { isNonEmptyArray } from '@utils/validations'
 import { ListResponseModel } from 'models/common'
 import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'
 import { CartInitState, ICartItem } from './cartModel'
 import cartService from './cartService'
-import { UPDATE_CART_ITEM } from '@redux/constant'
-import Notice from '@components/Notice'
-import { toastId } from 'contants/common'
-import Cookies from 'js-cookie'
 
 const initialState: CartInitState = {
     list: [],
@@ -34,13 +30,13 @@ const cartSlice = createSlice({
         },
         addToCartSuccess: (state: CartInitState, action: PayloadAction<ICartItem>) => {
 
-            if (!state.list?.some(ele => ele.product_id === action.payload.product_id) && isNonEmptyArray(state.list)) {
+            if (!state.list?.some(ele => ele.product?._id === action.payload.product?._id) && isNonEmptyArray(state.list)) {
 
                 state.list?.push(action.payload)
 
-            } else if (state.list?.some(ele => ele.product_id === action.payload.product_id) && isNonEmptyArray(state.list)) {
+            } else if (state.list?.some(ele => ele.product?._id === action.payload.product?._id) && isNonEmptyArray(state.list)) {
                 const newArr = state.list?.map(cart => {
-                    if (cart.product_id === action.payload.product_id) {
+                    if (cart.product?._id === action.payload.product?._id) {
                         return {
                             ...cart,
                             quantity: cart.quantity && cart.quantity + 1
@@ -57,9 +53,12 @@ const cartSlice = createSlice({
         addToCartFailed: (state: CartInitState) => {
             state.error = true
         },
-        removeItemFromCart: (state: CartInitState, action: PayloadAction<ICartItem>) => {
+        removeCartItem: (state: CartInitState, action: PayloadAction<ICartItem>) => {
+            state.loading = true
+        },
+        removeCartItemSuccess: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             const newArr = state.list?.filter(cart => {
-                if (cart.product_id !== action.payload.product_id) {
+                if (cart.product?._id !== action.payload.product?._id) {
                     return cart
                 }
             })
@@ -70,7 +69,7 @@ const cartSlice = createSlice({
         },
         updateCartItemSuccess: (state: CartInitState, action: PayloadAction<ICartItem>) => {
             state.list = state.list?.map(cart => {
-                if (cart.product_id === action.payload.product_id) {
+                if (cart.product?._id === action.payload.product?._id) {
                     cart = action.payload
                 }
                 return cart
@@ -116,7 +115,8 @@ export const {
     addToCart,
     addToCartSuccess,
     addToCartFailed,
-    removeItemFromCart,
+    removeCartItem,
+    removeCartItemSuccess,
     updateCartItem,
     updateCartItemSuccess,
     addToWishList,

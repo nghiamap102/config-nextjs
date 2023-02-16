@@ -7,13 +7,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { wrapper } from 'redux/store'
 import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
 const Login: NextPage = () => {
     const router = useRouter()
 
     const toast = useToast()
     const { error } = router.query
-
+    const { data: session, status } = useSession()
     useEffect(() => {
         error && toast({
             title: 'server is currently down',

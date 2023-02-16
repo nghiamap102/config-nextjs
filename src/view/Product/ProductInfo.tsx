@@ -9,11 +9,12 @@ import Popup from '@components/Popup';
 import SimpleRating from '@components/Rating';
 import CustomToast from '@components/Toast';
 import Translation from '@components/Translate';
-import { ICartItem } from '@redux/cart/cartModel';
+import { ICartItem, ICategory } from '@redux/cart/cartModel';
 import { addToCart, selectCart } from '@redux/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '@redux/hooks';
-import { IProductItem } from '@redux/product/productModel';
+import { IProductItem, IProductType } from '@redux/product/productModel';
 import { mainColor } from '@theme/theme';
+import { renderCategory } from '@utils/helper';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,11 +25,9 @@ type ProductInfoProps = {
 };
 
 export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
-
     const dispatch = useAppDispatch()
     const cartState = useAppSelector(selectCart)
     const { data: session } = useSession()
-    console.log(cartState.list)
     const [cartItem, setCartItem] = useState<ICartItem>({
         product_id: product._id,
         quantity: 1,
@@ -38,14 +37,22 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
     })
     const toast = CustomToast()
     const [openPopup, setOpenPopup] = useState(false)
-
     const handleAddtoCart = async () => {
+        let temp = 0
+        product.product_type?.forEach(item => {
+            if (item.cat_group > temp) temp = item.cat_group
+        })
 
-        if (product.product_type?.category?.length === cartItem.category?.length && session ?.user) {
-            dispatch(addToCart(cartItem))
+        if (temp === cartItem.category?.length && session?.user) {
+            dispatch(addToCart({
+                ...cartItem, category: cartItem.category.map(item => {
+                    return item._id
+                })
+            }))
             toast({ title: "Add to cart success", status: "success" })
         }
     }
+    
     const handleChangeAddress = () => {
         setOpenPopup(true)
     }
@@ -57,46 +64,42 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
         setCartItem({ ...cartItem, quantity: parseInt(value) })
     }
 
-    const checkSample = () => {
+    const checkSample = (category?: ICategory) => {
+        const newCat: ICategory[] = []
+        category && newCat.push(category)
         const newArr = product.product_sample?.filter((productSampleItem) => {
-            if (
-                cartItem.category && cartItem.category?.length > 1 &&
-                productSampleItem.sample.some(sampleItem => JSON.stringify(sampleItem.category) == JSON.stringify(cartItem.category)) ||
-                cartItem.category && cartItem.category?.length < 2 &&
-                productSampleItem.sample.some(sampleItem => sampleItem.category.some(item => JSON.stringify(cartItem.category).includes(JSON.stringify(item))))
-            ) {
+            if (productSampleItem.product_type_id?.some(item =>
+                newCat.some(catItem => catItem.cat_group === 1 && catItem._id === item) ||
+                !category && cartItem.category?.some(catItem => catItem.cat_group === 1 && catItem._id === item))) {
                 return productSampleItem
             }
         })
         return newArr && newArr[0] || []
     }
 
-    const handleSelectType = (title: string, catContent: string) => {
-        if (!cartItem.category?.some(item => item.title === title) && cartItem.category?.length < 1) {
-
-            setCartItem({ ...cartItem, category: [...cartItem.category, { title: title, cat_content: catContent }] })
-
-        } else if (!cartItem.category?.some(item => item.title === title) && cartItem.category.length >= 1) {
-            const category = [...cartItem.category, { title: title, cat_content: catContent }]
-
-            setCartItem({ ...cartItem, category: category, sample_id: checkSample()?._id })
-        }
-        else {
-            const category = [...cartItem.category].map(cartItemType => {
-                if (cartItemType.title === title) {
-                    return { ...cartItemType, cat_content: catContent }
-                }
-                return cartItemType
+    const handleSelectType = (productTypeItem: IProductType) => {
+        const sample = checkSample(productTypeItem)
+        if (cartItem.category?.some(catItem => catItem.title === productTypeItem.title)) {
+            const newArr = cartItem.category?.map(catItem => {
+                if (catItem.title === productTypeItem.title) { return productTypeItem }
+                return catItem
             })
-            setCartItem({ ...cartItem, category: category, })
+            setCartItem({ ...cartItem, category: newArr })
+        } else {
+            sample && setCartItem({ ...cartItem, category: [...cartItem.category, productTypeItem], sample_id: sample?._id })
+            sample.length < 1 && setCartItem({ ...cartItem, category: [...cartItem.category, productTypeItem] })
         }
     }
 
-    const checkSelected = (title: string, catContent: string) => {
-        return cartItem.category?.some(item => item.title === title && item.cat_content === catContent)
+    const checkSelected = (productTypeItem: IProductType) => {
+        return cartItem.category?.some(item => item.title === productTypeItem.title && item.cat_content === productTypeItem.cat_content)
     }
 
     const renderImageSample = checkSample() && checkSample()?.image || null
+
+    const handleSelectImage = () => {
+        console.log('abc')
+    }
 
     return (
         <Grid templateColumns="repeat(2,1fr)" minH={500}>
@@ -107,6 +110,18 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
                     height={450}
                     width={450}
                 />
+                {/* swiper */}
+                {product.image?.map(image => (
+                    <Box key={image} className='mx-1 cursor-pointer inline' onClick={handleSelectImage}>
+                        <Image
+
+                            src={image || ImageAssets.NoImage}
+                            alt={product?.name}
+                            height={80}
+                            width={80}
+                        />
+                    </Box>
+                ))}
             </GridItem>
 
             <GridItem colSpan={1}>
@@ -121,7 +136,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
 
                 <Grid templateColumns='repeat(12,1fr)' gridGap={3}>
                     <GridItem colSpan={3}>
-                        <Translation text='shipping_method' className='capitalize text-lg' color={mainColor.gray3} />
+                        <Translation text='shipping_method' className='capitalize text-md' color={mainColor.gray3} />
                     </GridItem>
                     <GridItem colSpan={9}>
                         <Flex mb={3}>
@@ -135,7 +150,7 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
                             <ReactIcon.IconFi.FiTruck size='1.5rem' className='mr-4' />
                             <Flex className='flex-col'>
                                 <Flex>
-                                    <Translation text='Vận Chuyển Tới' />
+                                    <Translation text='Vận Chuyển Tới' className='inline' />
                                     <Flex className='items-center mx-3 cursor-pointer' onClick={handleChangeAddress} >
                                         Pson ky q tan phu
                                         <ReactIcon.IconAi.AiOutlineDown className='ml-2' />
@@ -168,21 +183,25 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
 
                 </Grid>
 
-                {product.product_type && product.product_type.category?.map((category) => (
-                    <Grid key={category.title} templateColumns='repeat(12,1fr)' gridGap={3} my={5}>
+                {renderCategory(product.product_type)?.map((type) => (
+                    <Grid templateColumns='repeat(12,1fr)' gridGap={3} my={5} key={type.cat_content}>
                         <GridItem colSpan={3}>
-                            {category.title}
+                            {type.title}
                         </GridItem>
-                        <GridItem colSpan={9} className='flex' flexWrap='wrap'>
-                            {category.cat_content && category.cat_content?.map(catContent => (
-                                <SelectItem key={catContent}
-                                    selected={checkSelected(category.title, catContent)}
-                                    mx={2} my={2}
-                                    onSelect={() => handleSelectType(category.title, catContent)}
-                                >
-                                    {catContent}
-                                </SelectItem>
-                            ))}
+                        <GridItem colSpan={9} className='flex' flexWrap='wrap' >
+                            {product.product_type && product.product_type?.map((productTypeItem) => {
+                                if (type.title === productTypeItem.title)
+                                    return (
+                                        <SelectItem
+                                            key={productTypeItem.cat_content}
+                                            selected={checkSelected(productTypeItem)}
+                                            mx={2} my={2}
+                                            onSelect={() => handleSelectType(productTypeItem)}
+                                        >
+                                            {productTypeItem.cat_content}
+                                        </SelectItem>
+                                    )
+                            })}
                         </GridItem>
                     </Grid>
                 ))}
@@ -215,8 +234,8 @@ export const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
                     <IconButtonPrimary icon={<ReactIcon.IconAi.AiOutlineShareAlt />} aria-label="wishlist" size='lg' />
                 </Flex>
 
-            </GridItem>
-        </Grid>
+            </GridItem >
+        </Grid >
     );
 };
 

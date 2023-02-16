@@ -10,7 +10,7 @@ type ChatHeaderProps = {
 
 const ChatHeader: FC<ChatHeaderProps> = ({ handleCloseChatView }) => {
     return (
-        <Flex bg={mainColor.orange} className='rounded-t-xl py-2 px-2 justify-between' color={mainColor.white}>
+        <Flex bg={mainColor.orange} className='rounded-t-xl py-2 px-2 justify-between' color={mainColor.white} maxH='8%' h='8%'>
             <Flex className='items-center'>
                 <ReactIcon.IconIo5.IoChatbubblesOutline size='1.5rem' className='mr-2' />
                 <Translation text='chat' className='capitalize' />

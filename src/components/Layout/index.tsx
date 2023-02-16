@@ -10,7 +10,9 @@ const Layout: FC<any> = ({ children }) => {
     return (
         <Box className='relative'>
             <Header />
-            {children}
+            <Box minH='100vh' minW='100vh'>
+                {children}
+            </Box>
             <Footer />
             {session?.user && <MiniChat />}
         </Box>

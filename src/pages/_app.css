@@ -34,7 +34,7 @@ body {
     scale: 1.2;
 }
 
-/* --------navbar--------- */
+/* --------hover--------- */
 .submenu:hover {
     background-color: var(--orange);
     color: var(--white);
@@ -42,6 +42,16 @@ body {
 
 .submenu:hover .image {
     filter: invert(1);
+}
+
+.hover-bg-gray:hover{
+    background-color: var(--gray);
+}
+.hover-primary{
+    transition: 0.3s all;
+}
+.hover-primary:hover{
+    color: var(--orange);
 }
 
 .link:hover {
@@ -58,6 +68,8 @@ body {
     border: 1px solid var(--orange);
 }
 
+
+/* scroll */
 .custom-scroll {
     scrollbar-width: thin;
 }
@@ -71,3 +83,4 @@ body {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 100px;
 }
+

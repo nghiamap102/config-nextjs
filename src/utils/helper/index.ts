@@ -1,22 +1,9 @@
-import { mainColor } from '@theme/theme'
+import { IProductType } from '@redux/product/productModel'
 import { Currency } from 'contants/common'
-import has from 'lodash/has'
-import get from 'lodash/get'
-import keys from 'lodash/keys'
 import { FormikValues } from 'formik'
-
-const renderColor = (tag: 'new' | 'hot' | 'sale' | undefined) => {
-    switch (tag) {
-        case 'new':
-            return mainColor.newTag
-        case 'hot':
-            return mainColor.hotTag
-        case 'sale':
-            return mainColor.saleTag
-        default:
-            return null
-    }
-}
+import get from 'lodash/get'
+import has from 'lodash/has'
+import keys from 'lodash/keys'
 
 const formatCurrency = (locale: string | undefined) => {
     switch (locale) {
@@ -44,44 +31,64 @@ const FormatTimeToHMS = (secNum: number) => {
     return { hours, minutes, seconds }
 }
 
-const checkValueError =
-    (validations: IValidations) => (values: FormikValues, props?: any) => {
-        const error: { [key: string]: any } = {}
-        let checkValidate = false
-        keys(validations).forEach((path: string) => {
-            const pathValue = get(values, path)
-            const isExistingKey = has(values, path)
-            if (!isExistingKey) {
-                // tslint:disable-next-line:no-console
-                console &&
-                    console.error(
-                        `The field ${path} does not existing on the form`,
-                    )
-            }
-            for (let i = 0; i < validations[path].length; i += 1) {
-                const pathItem = validations[path][i] ?? {}
-                checkValidate = pathItem.validator(pathValue, values, props)
-                if (!checkValidate) {
-                    // const code = pathItem.code
-                    // const codeOptions = pathItem.codeOptions ?? {}
-                    // const codeOptionLength = Object.entries(codeOptions)?.length
-                    const newMessageFormat = pathItem.code
-                    // codeOptionLength > 0
-                    //     ? new IntlMessageFormat(code, 'en').format({ ...codeOptions })
-                    //     : new IntlMessageFormat(code, 'en').format()
-                    error[path] = newMessageFormat
-                    return error
-                }
-            }
-        })
 
-        return error
-    }
+const checkTypeSelected = (cartItemType, productTypeItem: IProductType) => {
+    return cartItemType?.some(item => item === productTypeItem._id)
+}
+
+const renderCategory = (product_type: IProductType[]) => {
+    const newArr: IProductType[] = []
+    product_type?.forEach(productTypeItem => !newArr.some(item => item.title === productTypeItem.title) && newArr.push(productTypeItem))
+    newArr.sort((a, b) => { if (a.cat_group > b.cat_group) { return 1 } else { return -1 } })
+    return newArr
+}
+
+const isSameDate = (time: Date) => {
+    const currentDate = new Date()
+    const date = new Date(time)
+    return currentDate.getFullYear() === date.getFullYear() && currentDate.getMonth() === date.getMonth() && currentDate.getDay() === date.getDay()
+}
+
+const checkValueError = (validations: IValidations) => (values: FormikValues, props?: any) => {
+    const error: { [key: string]: any } = {}
+    let checkValidate = false
+    keys(validations).forEach((path: string) => {
+        const pathValue = get(values, path)
+        const isExistingKey = has(values, path)
+        if (!isExistingKey) {
+            // tslint:disable-next-line:no-console
+            console &&
+                console.error(
+                    `The field ${path} does not existing on the form`,
+                )
+        }
+        for (let i = 0; i < validations[path].length; i += 1) {
+            const pathItem = validations[path][i] ?? {}
+            checkValidate = pathItem.validator(pathValue, values, props)
+            if (!checkValidate) {
+                // const code = pathItem.code
+                // const codeOptions = pathItem.codeOptions ?? {}
+                // const codeOptionLength = Object.entries(codeOptions)?.length
+                const newMessageFormat = pathItem.code
+                // codeOptionLength > 0
+                //     ? new IntlMessageFormat(code, 'en').format({ ...codeOptions })
+                //     : new IntlMessageFormat(code, 'en').format()
+                error[path] = newMessageFormat
+                return error
+            }
+        }
+    })
+
+    return error
+}
 
 export {
     formatCurrency,
     formatValueCurrency,
     FormatTimeToHMS,
     checkValueError,
-    renderColor,
+    checkTypeSelected,
+    renderCategory,
+    isSameDate,
 }
+

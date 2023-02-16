@@ -10,20 +10,24 @@ export interface IProductItem {
     name?: string
     image?: string[]
     video?: any
-    tag?: string
-    product_type?: IProductType
+    brand?: any
     decription?: string
-    product_sample?:any[]
+    product_sample?: IProductSample[]
+    product_type?: IProductType[]
+    active?:boolean
+}
+export interface IProductSample {
+    _id?: string
+    product_type_id?: string[]
+    image?: string
+    unit_price?: number
+    count_in_stock?: number
 }
 
 export interface IProductType {
-    category?: IProductTypeItem[]
-}
-
-export interface IProductTypeItem {
+    _id?: string
+    product_id?: string
     title?: string
-    cat_content?: string[]
+    cat_content?: string
+    cat_group?: number
 }
-
-
-export type ProductTag = 'favourite' | 'mall' | 'normal'

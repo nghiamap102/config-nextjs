@@ -26,5 +26,14 @@
     "free_ship": "miễn phí vận chuyển",
     "buy_now": "mua ngay",
     "product_detail": "chi tiết sản phẩm",
-    "purchase": "mua hàng"
+    "purchase": "mua hàng",
+    "checkout_success": "thanh toán thành công",
+    "you_don_t_have_any_account": "bạn chưa có tài khoản",
+    "my_account": "tài khoản của tôi",
+    "edit_profile": "sửa hồ sơ",
+    "change_password": "đổi mật khẩu",
+    "my_profile": "hồ sơ của tôi",
+    "my_address": "địa chỉ của tôi",
+    "add_new_address": "thêm địa chỉ mới",
+    "set_as_default": "đặt làm mặc định"
 }

@@ -1,6 +1,5 @@
 import { IconAssets, ImageAssets } from '@assets/index'
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react'
-import InputSearch from '@components/InputSearch'
+import { Box, Container, Flex } from '@chakra-ui/react'
 import Navbar from '@components/Layout/Navbar'
 import { mainColor } from '@theme/common/color'
 import { EventType } from 'models/common'
@@ -9,10 +8,11 @@ import Link from 'next/link'
 import { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { setSearchKey } from 'redux/common/commonSlice'
-import GridIconHeader from './GridIcon'
+import CartHeader from './CartHeader'
+import TopHeader from './TopHeader'
+import SearchContainer from '@components/Search/SearchContainer'
 
 const Header: FC = () => {
-    // const common = useAppSelector(selectCommon)
     const dispatch = useDispatch()
 
     const handleChange = (e: EventType) => {
@@ -24,50 +24,46 @@ const Header: FC = () => {
     }
 
     return (
-        <>
-            <Box display="flex" bg={mainColor.orange}>
-                <Grid templateColumns="repeat(11, 1fr)" className="p-5 w-full">
-                    <GridItem
-                        className="flex justify-between items-center mr-10"
-                        colSpan={3}
-                    >
-                        <Link href="/" shallow>
-                            <Box className="italic heading cursor-pointer">
-                                <Image src={ImageAssets.Logo} alt="logo" />
-                            </Box>
+        <Box bg={mainColor.orange}>
+            <Container maxW='container.xl' color={mainColor.white}>
+                
+                <TopHeader/>
+
+                <Flex className='items-center justify-between' py={3}>
+
+                    <Flex className='items-center' maxW='27%' >
+                        <Link href="/" shallow >
+                            <Image src={ImageAssets.Logo} alt="logo" className='cursor-pointer' />
                         </Link>
-                        <Box className="flex flex-col" color={mainColor.white}>
-                            <Text className="text-md font-bold">
-                                Available 24/7 at
-                            </Text>
-                            <Link href={`tel:0358833453`}>
-                                <Box className="text-xl font-bold">
+                        <Flex className="flex-col text-lg text-lg font-bold ml-10" color={mainColor.white}>
+                            Available 24/7 at
+                            <Link href={`tel:0358833453`} >
+                                <Box className='cursor-pointer'>
                                     035-8833-453
                                 </Box>
                             </Link>
-                        </Box>
-                    </GridItem>
+                        </Flex>
+                    </Flex>
 
-                    <GridItem className="flex items-center" colSpan={5}>
-                        <InputSearch
-                            icon={
-                                <IconAssets.ReactIcon.IconCi.CiSearch
-                                    size="2rem"
-                                    color={mainColor.orange}
-                                />
-                            }
+                    <Box className="w-full" maxW='60%' >
+                        <SearchContainer
+                            icon={<IconAssets.ReactIcon.IconCi.CiSearch size="2rem" color={mainColor.orange} />}
                             onClickSearch={handleSearch}
                             onChange={handleChange}
                         />
-                    </GridItem>
+                    </Box>
 
-                    <GridIconHeader />
-                </Grid>
-            </Box>
+                    <Box maxW='10%'>
+                        <CartHeader />
+                    </Box>
+
+                </Flex>
+            </Container>
 
             <Navbar />
-        </>
+        </Box>
     )
 }
+
 
 export default Header

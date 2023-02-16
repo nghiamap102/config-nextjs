@@ -23,13 +23,13 @@ export const IconHeader: FC<IconHeaderProps> = ({
 
     return (
         <Box
-            className="flex flex-col justify-center items-center cursor-pointer mx-3"
+            className="flex lg:flex-col md:flex-row justify-center items-center cursor-pointer mx-3 relative"
             color={colorIcon ? colorIcon : mainColor.orange}
             onClick={onClick}
             onMouseEnter={() => setActive(true)}
             onMouseLeave={() => setActive(false)}
         >
-            <Box display="flex" className={`${active && 'icon-animate'}`}>
+            <Box className={`${active && 'icon-animate'}`}>
                 {icon}
             </Box>
             {text && (

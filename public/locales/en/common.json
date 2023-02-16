@@ -27,5 +27,14 @@
     "free_ship": "free ship",
     "buy_now": "buy now",
     "product_detail": "product detail",
-    "purchase": "purchase"
+    "purchase": "purchase",
+    "checkout_success": "checkout_success",
+    "you_don_t_have_any_account": "you don't have any account",
+    "my_account": "my account",
+    "edit_profile": "edit profile",
+    "change_password": "change password",
+    "my_profile": "my profile",
+    "my_address": "my address",
+    "add_new_address": "add new address",
+    "set_as_default": "set as default"
 }

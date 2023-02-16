@@ -63,6 +63,11 @@ export const validateMobile = (mobile: string) => {
     return true
 }
 
+export const validateMobileLength = (mobile: string) => {
+    if (mobile.length < 10) return false
+    return true
+}
+
 export const validateMonth = (month: string) => {
     if (Number(month) < 1 || Number(month) > 12) {
         return false

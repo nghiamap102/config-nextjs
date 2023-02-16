@@ -18,19 +18,18 @@ type ProductCardProps = {
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
-    const { _id, name, tag } = product
+    const { _id, name } = product
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
     const handleActiveModal = () => setActiveModal(true)
-
     return (
         <Box bg={mainColor.white} padding={7} className='border-primary'>
 
             <Tag
-                tag={tag}
+                tag={'favourite'}
                 className="capitalize px-2 py-1 absolute top-7 left-7 "
                 zIndex={999}
             >
-                {tag}
+                favourite
             </Tag>
 
             <CardHeader product={product} onClickShortCut={handleActiveModal} />
@@ -48,9 +47,9 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
 
             <Flex className='justify-between items-center'>
                 <Flex alignItems="center">
-                    <RenderPrice price={0} textDecoration="line-through" color={mainColor.gray1} />
+                    <RenderPrice price={product.product_sample[0].unit_price || 0} textDecoration="line-through" color={mainColor.gray1} />
                     <RenderPrice
-                        price={0}
+                        price={product.product_sample[0].unit_price || 0}
                         color={mainColor.red} className='font-bold text-xl ml-2' />
                 </Flex>
                 <Box>

@@ -1,49 +1,67 @@
-import { RootState } from 'redux/store'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ListResponseModel } from 'models/common'
-import { PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { ChatInitialState, FETCH_CURRENT_CHAT, ICurrentChat, IMessage } from './chatModel'
-import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from 'redux/store'
+import { ChatInitialState, FETCH_ALL_CHAT, IChat, IMessage } from './chatModel'
 import chatService from './chatService'
 
 const initialState: ChatInitialState = {
-    currentChat: {
-        channel: null,
-        messages: [],
+    list: [],
+    currenChat: {
+        _id: '',
+        messages: []
     },
+    erorr: false,
+    loading: false,
 }
 
 
-export const fetchCurrenChat = createAsyncThunk(FETCH_CURRENT_CHAT, async (data: any) => {
-    const res = await chatService.fetchCurrentChat(data)
+export const fetchAllChats = createAsyncThunk(FETCH_ALL_CHAT, async (data?: string) => {
+    const res = await chatService.fetchAllChats(data)
     return res
 })
-
 
 const chatSlice = createSlice({
     initialState,
     name: 'chat',
     reducers: {
-
+        sendMessage: (state: ChatInitialState, action: PayloadAction<IMessage>) => {
+        },
+        sendMessageSuccess: (state: ChatInitialState, action: PayloadAction<IMessage>) => {
+            state.currenChat = { ...state.currenChat, messages: [...state.currenChat?.messages, action.payload] }
+        },
+        respMessage: (state: ChatInitialState, action: PayloadAction<IMessage[]>) => {
+            state.currenChat = { ...state.currenChat, messages: action.payload }
+        },
+        fetchCurentChat: (state: ChatInitialState, action: PayloadAction<string>) => {
+            state.loading = true
+        },
+        fetchCurentChatSuccess: (state: ChatInitialState, action: PayloadAction<IChat>) => {
+            state.currenChat = action.payload
+            state.loading = false
+        }
     },
     extraReducers: builder => {
-        builder.addCase(fetchCurrenChat.fulfilled, (state: ChatInitialState, action: PayloadAction<ListResponseModel<ICurrentChat>>) => {
-            state.loading = true
-            // state.currentChat = action.payload.data
-        })
-        builder.addCase(fetchCurrenChat.pending, (state: ChatInitialState) => {
+        builder.addCase(fetchAllChats.fulfilled, (state: ChatInitialState, action: PayloadAction<ListResponseModel<IChat>>) => {
+            state.list = action.payload.data
             state.loading = true
         })
-        builder.addCase(fetchCurrenChat.rejected, (state: ChatInitialState) => {
+        builder.addCase(fetchAllChats.pending, (state: ChatInitialState) => {
+            state.loading = true
+        })
+        builder.addCase(fetchAllChats.rejected, (state: ChatInitialState) => {
             state.loading = false
-            state.currentChat = {}
         })
     }
 })
 
 export const chatReducer = chatSlice.reducer
 export const chatActions = chatSlice.actions
-// export const {
+export const {
+    sendMessage,
+    sendMessageSuccess,
+    respMessage,
+    fetchCurentChat,
+    fetchCurentChatSuccess
+} = chatSlice.actions
 
-// } = chatSlice.actions
-
-export const chatSelector = (state: RootState) => state.chat
+export const selectChat = (state: RootState) => state.chat

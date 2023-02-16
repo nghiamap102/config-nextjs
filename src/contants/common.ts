@@ -1,5 +1,6 @@
 
 export const API_URL = process.env.API_URL
+export const API_URL_BE = process.env.API_URL_BE
 export const tooltipArrayRating = [
     'Terrible',
     'Bad',
@@ -20,18 +21,20 @@ export const Currency = {
     vi: 'vnd',
 }
 export const sizes = ['xs', 'sm', 'md', 'lg', 'xl', 'full']
-export const toastId = {
-    cart: 'cart',
+export const TOASTID = {
+    CART: 'CART',
+    LOGIN: 'LOGIN',
 }
 
-export const TYPING = 'TYPING'
-export const SEND_MESSAGE = 'SEND_MESSAGE'
-export const MODE_MESSAGE = 'MODE_MESSAGE'
-export const DELETE_MESSAGE = 'DELETE_MESSAGE'
-export const DELETE_CONVERS = 'DELETE_CONVERS'
-export const STORE_CONVERS = 'STORE_CONVERS'
+export const SEX = ['male', 'female', 'other']
 
 export const paypalScriptOptions = {
-    "client-id": "ARE1pgMGOWlCw1yk-bEbGeZe-QVN-Nak4ThYLmOCYqTE2EVwCpdNoKAi7aUGTz9uxhPUHkhTHKofCDXH",
+    "client-id": process.env.PAYPAL_CLIENT_ID,
     currency: "USD"
 };
+
+export const paymentStatus = {
+    PENDING: 'PENDING',
+    COMPLETE: 'COMPLETE',
+    SHIPPING: 'SHIPPING',
+}

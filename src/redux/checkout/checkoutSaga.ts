@@ -6,9 +6,9 @@ import { checkoutActions } from './checkoutSlice';
 
 function* checkout(action: PayloadAction): Generator<CallEffect<DataResponseModel<any>> | PutEffect<AnyAction>, void, DataResponseModel<any>> {
     try {
-        const res = yield call(checkoutService.checkout, action.payload)
+        const res = yield call(checkoutService.createCheckout, action.payload)
         if(res.success){
-            yield put (checkoutActions.checkoutSuccess(res.data))
+            yield put (checkoutActions.createCheckoutSuccess(res.data))
         }       
     } catch (error: any) {
         console.log('server is error')
@@ -16,5 +16,5 @@ function* checkout(action: PayloadAction): Generator<CallEffect<DataResponseMode
 }
 
 export default function* checkoutSaga() {
-    yield takeLatest(checkoutActions.checkout.type, checkout)
+    yield takeLatest(checkoutActions.createCheckout.type, checkout)
 }

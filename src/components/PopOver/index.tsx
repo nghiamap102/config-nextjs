@@ -6,12 +6,14 @@ type PopOverProps = {
     popoverTrigger?: any
     popoverBody?: any
     popoverFooter?: any
+    containerRef?:any
 } & PopoverProps
 
 const PopOver: FC<PopOverProps> = ({
     popoverBody,
     popoverTrigger,
     popoverFooter,
+    containerRef,
     ...props
 }) => {
 
@@ -30,10 +32,10 @@ const PopOver: FC<PopOverProps> = ({
                     {popoverTrigger}
                 </Box>
             </PopoverTrigger>
-            <Portal appendToParentPortal>
+            <Portal appendToParentPortal containerRef={containerRef}>
                 <PopoverContent outline={'none'} bg={mainColor.white} boxShadow={`0 5px 10px 0 ${mainColor.lightBlack} `}>
                     <PopoverArrow />
-                    <PopoverBody  >
+                    <PopoverBody>
                         {popoverBody}
                     </PopoverBody>
                     <PopoverFooter>

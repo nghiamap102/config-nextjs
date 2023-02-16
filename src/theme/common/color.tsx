@@ -11,14 +11,16 @@ export const mainColor = {
     gray1: '#505050',
     gray2: '#bbb',
     gray3: '#757575',
+    gray4: '#eaeaea',
     hotTag: '#FFBB49',
     newTag: '#06BFE2',
     red: '#e10600',
     red2: '#ffd8d7',
-    red3: '#fc4f26',
+    red3: '#f03609',
     skin: '#fbf1f1',
     saleTag: '#EF6454',
     white: '#ffff',
+    success: 'rgba(16,210,92,1)',
     yellow: '#f7b733',
 }
 
@@ -35,6 +37,7 @@ const Color = () => (
       --gray1: ${mainColor.gray1};
       --gray2: ${mainColor.gray2};
       --gray3: ${mainColor.gray3};
+      --gray4: ${mainColor.gray4};
       --yellow: ${mainColor.yellow};
       --boxshadow: ${mainColor.boxshadow};
       --new-tag: ${mainColor.newTag};
@@ -45,6 +48,7 @@ const Color = () => (
       --red3: ${mainColor.red3};
       --blueDark: ${mainColor.blueDark};
       --skin: ${mainColor.skin};
+      --success: ${mainColor.success};
     }
       `}
     />

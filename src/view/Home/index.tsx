@@ -10,7 +10,7 @@ import Categories from '@components/Categories'
 import Layout from '@components/Layout'
 import { HeaderViewAll } from '@components/Layout/Header/HeaderViewAll'
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
-import { selectProduct } from '@redux/product/productSlice'
+import { fetchProductList, selectProduct } from '@redux/product/productSlice'
 import { mainColor } from '@theme/theme'
 import Image from 'next/image'
 import { FC, useEffect } from 'react'
@@ -21,8 +21,7 @@ const HomeView: FC = () => {
     const dispatch = useAppDispatch()
     const productState = useAppSelector(selectProduct)
     useEffect(() => {
-        // dispatch(fetchCartList())
-        // dispatch(fetchProductList())
+        dispatch(fetchProductList())
     }, [])
     return (
         <Layout>

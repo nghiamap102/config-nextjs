@@ -3,44 +3,30 @@
     min-width: 40rem;
     transition: all 2s;
 } */
+.chatbox {
+    height: 100%;
+    width: 100%;
+}
 
 .chatbox_max {
-    display: block;
-    animation: max 0.5s ease-out 0s forwards;
+    min-height: 40rem;
+    max-height: 40rem;
+    min-width: 50rem;
+    max-width: 50rem;
+    transition: 0.5s all;
 }
+
 .chatbox_min {
-    animation: min 0.5s ease-out 0s forwards;
+    min-width: 0rem;
+    min-height: 0rem;
+    transition: 0.5s all;
 }
 
-@keyframes max {
-    0% {
-        min-height: 0rem;
-        min-width: 0rem;
-        transform: scale(0);
-    }
-    80% {
-        transform: scale(1.1);
-    }
-    100% {
-        min-height: 30rem;
-        min-width: 40rem;
-        transform: scale(1.1);
-    }
-}
-
-@keyframes min {
-    0% {
-        min-height: 30rem;
-        min-width: 40rem;
-        opacity: 0.1;
-    }
-    80% {
-        transform: scale(0);
-        opacity: 0.6;
-    }
-    100% {
-        transform: scale(0);
-        min-height: 0rem;
-        min-width: 0rem;
+@keyframes {
+    0%{
+        min-height: 40rem;
+        max-height: 40rem;
+        min-width: 50rem;
+        max-width: 50rem;
     }
 }

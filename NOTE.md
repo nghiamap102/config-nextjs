@@ -1,7 +1,6 @@
 <!-- Doing -->
 update quantity when duplicate productid
-state for payment method
-[low] skeleton all page
+skeleton all page
 <!-- bug -->
 
 [nor]state init before change route
@@ -10,9 +9,9 @@ state for payment method
 export all cpn
 try catch all BE
 fix all err typescript
-format currency usd Math.round
 disable http options BE
-combine cart state and checkout state
+optimize font
+format time when change locale
 <!-- Err -->
 
 [react-hydration-error/does-not-match-UI-render] is dont add sth into <Text>
