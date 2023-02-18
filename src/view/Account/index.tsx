@@ -6,11 +6,11 @@ import OrderHistoryView from "@view/Order/OrderHistory";
 import { ACCOUNTROUTE } from "contants/route";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC, useMemo, useRef, useState } from "react";
-import AddressView from "./Address";
+import { useMemo } from "react";
 import ProfileView from "./Profile";
+import Collapse from "@components/Collapse";
+import AddressView from "./Address";
 
 type Props = {
 
@@ -56,7 +56,7 @@ const AccountView = (props: Props) => {
                     </Flex>
 
                     <Box mt={6}>
-                        <DropdownItem
+                        <Collapse
                             icon={<ReactIcon.IconFa.FaRegUser size='1.5rem' color={mainColor.newTag} />}
                             childrens={[
                                 { linkTo: '/account/profile', text: 'profile' },
@@ -66,23 +66,23 @@ const AccountView = (props: Props) => {
                             title="my_account"
                         />
 
-                        <DropdownItem
+                        <Collapse
                             icon={<ReactIcon.IconRi.RiBillLine size='1.5rem' color={mainColor.orange} />}
                             title="order"
                             parentLink={ACCOUNTROUTE.ORDER}
                         />
 
-                        <DropdownItem
+                        <Collapse
                             icon={<ReactIcon.IconHi.HiOutlineTicket size='1.5rem' color={mainColor.orange} />}
                             title="voucher"
                             parentLink={ACCOUNTROUTE.VOUCHER}
                         />
-                        <DropdownItem
+                        <Collapse
                             icon={<ReactIcon.IconIo.IoMdNotificationsOutline size='1.5rem' color={mainColor.red3} />}
                             title="notification"
                             parentLink={ACCOUNTROUTE.NOTIFICATION}
                         />
-                        <DropdownItem
+                        <Collapse
                             icon={<ReactIcon.IconBi.BiCoinStack size='1.5rem' color={mainColor.yellow} />}
                             title="coin"
                             parentLink={ACCOUNTROUTE.COIN}
@@ -102,63 +102,6 @@ const AccountView = (props: Props) => {
     );
 };
 
-type DropdownItemProps = {
-    childrens?: {
-        linkTo: string
-        text: string
-    }[]
-    parentLink?: string
-    title?: string
-    icon?: any
-}
-
-const DropdownItem: FC<DropdownItemProps> = ({
-    childrens,
-    icon,
-    title,
-    parentLink,
-}) => {
-
-    const router = useRouter()
-    const ref = useRef<any>()
-    const [active, setActive] = useState(false)
-
-    const handleToggle = () => {
-        childrens && childrens?.some(item => router.asPath === item.linkTo) && setActive(!active)
-        childrens && !childrens?.some(item => router.asPath === item.linkTo) && router.push(childrens[0].linkTo, undefined, { shallow: true })
-        !childrens && parentLink && router.push(parentLink, undefined, { shallow: true })
-    }
-
-    const checkHeighCollapse = () => {
-        if (active) {
-            return ref.current.scrollHeight
-        }
-        else if (childrens?.some(item => router.asPath === item.linkTo)) {
-            return 'auto'
-        }
-        return 0
-    }
-
-
-    return (
-        <Box >
-            <Flex onClick={handleToggle} className="items-center px-2 cursor-pointer" my={1.5} _hover={{ color: mainColor.orange, transition: '0.3s all' }}>
-                {icon}
-                <Translation text={title} firstCapital ml={4} color={router.asPath === parentLink && mainColor.orange} />
-            </Flex>
-
-            <Box ref={ref} pl={12} h={checkHeighCollapse()} transition={'0.3s all'} overflow='hidden'>
-                {childrens?.map(item => (
-                    <Link key={item.text} href={item.linkTo} shallow>
-                        <Translation text={item.text} firstCapital my={1.5} color={router.asPath === item.linkTo && mainColor.orange} className="hover-primary cursor-pointer" />
-                    </Link>
-                ))}
-            </Box>
-        </Box>
-
-
-    )
-}
 
 
 export default AccountView

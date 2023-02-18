@@ -35,5 +35,8 @@
     "my_profile": "hồ sơ của tôi",
     "my_address": "địa chỉ của tôi",
     "add_new_address": "thêm địa chỉ mới",
-    "set_as_default": "đặt làm mặc định"
+    "set_as_default": "đặt làm mặc định",
+    "address_name": "tên địa chỉ",
+    "set_as_default_address": "đặt làm địa chỉ mặc định",
+    "address_no": "số nhà"
 }

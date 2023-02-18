@@ -26,14 +26,16 @@ const Header: FC = () => {
     return (
         <Box bg={mainColor.orange}>
             <Container maxW='container.xl' color={mainColor.white}>
-                
-                <TopHeader/>
+
+                <TopHeader />
 
                 <Flex className='items-center justify-between' py={3}>
 
                     <Flex className='items-center' maxW='27%' >
                         <Link href="/" shallow >
-                            <Image src={ImageAssets.Logo} alt="logo" className='cursor-pointer' />
+                            <Box>
+                                <Image src={ImageAssets.Logo} alt="logo" className='cursor-pointer' />
+                            </Box>
                         </Link>
                         <Flex className="flex-col text-lg text-lg font-bold ml-10" color={mainColor.white}>
                             Available 24/7 at

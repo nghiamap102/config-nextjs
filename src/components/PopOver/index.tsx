@@ -1,21 +1,17 @@
 import { Box, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverFooter, PopoverProps, PopoverTrigger, Portal } from '@chakra-ui/react';
 import { mainColor } from '@theme/theme';
-import { FC } from 'react';
+import { FC, forwardRef } from 'react';
 
 type PopOverProps = {
     popoverTrigger?: any
     popoverBody?: any
     popoverFooter?: any
-    containerRef?:any
 } & PopoverProps
 
-const PopOver: FC<PopOverProps> = ({
-    popoverBody,
-    popoverTrigger,
-    popoverFooter,
-    containerRef,
-    ...props
-}) => {
+type Ref = HTMLButtonElement;
+
+const PopOver = forwardRef<Ref, PopOverProps>((props, ref) => {
+    const { popoverBody, popoverFooter, popoverTrigger } = props
 
     return (
         <Popover size={'lg'} isLazy
@@ -32,7 +28,7 @@ const PopOver: FC<PopOverProps> = ({
                     {popoverTrigger}
                 </Box>
             </PopoverTrigger>
-            <Portal appendToParentPortal containerRef={containerRef}>
+            <Portal appendToParentPortal containerRef={ref}>
                 <PopoverContent outline={'none'} bg={mainColor.white} boxShadow={`0 5px 10px 0 ${mainColor.lightBlack} `}>
                     <PopoverArrow />
                     <PopoverBody>
@@ -45,6 +41,7 @@ const PopOver: FC<PopOverProps> = ({
             </Portal>
         </Popover>
     )
-};
+})
 
+PopOver.displayName = 'PopOver'
 export default PopOver

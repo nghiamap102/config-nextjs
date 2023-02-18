@@ -2,7 +2,6 @@ import { Box, Container, useDisclosure, useNumberInput } from '@chakra-ui/react'
 import Breadcrumb from '@components/Breadcrumb'
 import { ICartItem } from '@redux/cart/cartModel'
 import { mainColor } from '@theme/theme'
-import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { FC, useEffect, useState } from 'react'
 import { useAppDispatch } from 'redux/hooks'
@@ -14,7 +13,6 @@ type ProductViewProps = {
 }
 
 const ProductView: FC<ProductViewProps> = ({ product }) => {
-    const { t } = useTranslation(['product'])
     const dispatch = useAppDispatch()
 
     const [cartItem, setCartItem] = useState<ICartItem>({
@@ -25,7 +23,6 @@ const ProductView: FC<ProductViewProps> = ({ product }) => {
     })
 
     const router = useRouter()
-    const { slug } = router.query
 
     const numberInput = useNumberInput({
         step: 1,

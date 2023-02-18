@@ -34,13 +34,10 @@ export default NextAuth({
       if (token?.phone) session.user.phone = token.phone;
       if (token?.date_of_birth) session.user.date_of_birth = token.date_of_birth;
       if (token?.sex) session.user.sex = token.sex;
-      if (token?.access_token) session.user.access_token = token.access_token;
-      if (token?.refresh_token) session.user.refresh_token = token.refresh_token;
       if (token?.createdAt) session.user.createdAt = token.createdAt;
       if (token?._id) {
         const res = await authService.getUserById(token?._id)
         session.user = { ...session.user, ...res.data };
-        // token.user = { ...apiResp.data };
       }
       return session;
     },
@@ -86,7 +83,7 @@ export default NextAuth({
             _id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role,
+            role: user.role.name,
             phone: user.phone,
             sex: user.sex,
             date_of_birth: user.date_of_birth,

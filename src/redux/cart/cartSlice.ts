@@ -5,6 +5,7 @@ import { IProductItem } from 'redux/product/productModel'
 import { RootState } from '../store'
 import { CartInitState, ICartItem } from './cartModel'
 import cartService from './cartService'
+import { FETCH_LIST_CART } from './cartAction'
 
 const initialState: CartInitState = {
     list: [],
@@ -13,9 +14,9 @@ const initialState: CartInitState = {
     error: false
 }
 
-export const fetchCartList = createAsyncThunk('cart/list', async () => {
-    const res = await cartService.getCartDetails()
-    return res
+export const fetchCartList = createAsyncThunk(FETCH_LIST_CART, async (id: string) => {
+    const res = await cartService.getCart(id)
+    return res.data
 })
 
 const cartSlice = createSlice({

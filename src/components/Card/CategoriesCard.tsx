@@ -1,4 +1,7 @@
+import { NoImage } from '@assets/image'
+import { ImageAssets } from '@assets/index'
 import { Box, Flex, Text } from '@chakra-ui/react'
+import Translation from '@components/Translate'
 import { mainColor } from '@theme/theme'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,24 +10,20 @@ import { FC } from 'react'
 type CategoriesCardProps = {
     link: string
     name: string
-    src: string
+    image: string
 }
-const CategoriesCard: FC<CategoriesCardProps> = ({ link, name, src }) => {
+const CategoriesCard: FC<CategoriesCardProps> = ({ link, name, image }) => {
     return (
         <Link href={link}>
-            <Flex padding={10} direction="column" alignItems={'center'}>
+            <Flex direction="column" alignItems={'center'}>
                 <Box
                     bg={mainColor.white}
                     borderRadius="full"
-                    h="12rem"
-                    w="12rem"
                     marginBottom={5}
                 >
-                    <Image src={src} alt={name} />
+                    <Image src={image || ImageAssets.Categories1} alt={name} height={120} width={120}/>
                 </Box>
-                <Text fontSize="xl" textTransform="capitalize">
-                    {name}
-                </Text>
+                <Translation text={name} className='capitalize text-xl'/>
             </Flex>
         </Link>
     )

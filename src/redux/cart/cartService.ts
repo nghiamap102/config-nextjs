@@ -7,19 +7,16 @@ const cartService = {
         return axiosClient.post(`/carts`, data)
     },
     addToCart(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.post(`${API_ENDPOINT.cart}`, data)
+        return axiosClient.post(`${API_ENDPOINT.ORDER}`, data)
     },
-    getCart(): Promise<DataResponseModel<any>> {
-        return axiosClient.get(`/cart`)
-    },
-    getCartDetails(): Promise<DataResponseModel<any>> {
-        return axiosClient.get(API_ENDPOINT.cartDetails)
+    getCart(id: string): Promise<DataResponseModel<any>> {
+        return axiosClient.get(`${API_ENDPOINT.CART}/${id}`)
     },
     updateCart(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.patch(API_ENDPOINT.cart, data)
+        return axiosClient.patch(API_ENDPOINT.CART, data)
     },
     deleteItem(data: any): Promise<DataResponseModel<any>> {
-        return axiosClient.delete(`${API_ENDPOINT.cart}/${data._id}`)
+        return axiosClient.delete(`${API_ENDPOINT.CART}/${data._id}`)
     }
 }
 

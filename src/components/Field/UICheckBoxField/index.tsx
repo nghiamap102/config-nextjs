@@ -1,44 +1,44 @@
-import { Box, Checkbox, Flex, FlexProps } from "@chakra-ui/react";
+import { Box, BoxProps, Checkbox, Flex, FlexProps } from "@chakra-ui/react";
+import Translation from "@components/Translate";
 import { mainColor } from "@theme/theme";
-import { FC, useState } from 'react';
+import classNames from "classnames";
+import { FC, MouseEvent, useState } from 'react';
 
 type UICheckBoxFieldProps = {
     content?: string
-    onCheckBoxClick?: (selected: boolean) => void
     placement?: 'left' | 'right'
     sizeCheckbox?: 'md' | 'lg' | 'sm'
-} & FlexProps
+    disable?: boolean
+    active?: boolean
+} & BoxProps
 
 export const UICheckBoxField: FC<UICheckBoxFieldProps> = ({
     content,
-    onCheckBoxClick,
     placement = 'left',
     sizeCheckbox,
+    disable = false,
+    active,
     ...props
 }) => {
 
+    const handleClick = (e: any) => {
+        if(!disable){
+            props.onClick(e)
+        }
+    }
 
-    const [active, setActive] = useState(false)
-
-    const onClick = () => {
-        setActive(!active)
-        onCheckBoxClick && onCheckBoxClick(!active)
+    const renderText = () => {
+        return <Translation text={content} color={mainColor.gray3} firstCapital />
     }
 
     return (
-        <Flex onClick={onClick} className="items-center cursor-pointer" {...props}>
-            {placement === 'left' && (
-                <Box color={mainColor.gray3} className="mr-2" >
-                    {content}
-                </Box>
-            )}
-            <Checkbox isChecked={active} size={sizeCheckbox} />
-            {placement === 'right' && (
-                <Box color={mainColor.gray3} className="ml-2">
-                    {content}
-                </Box>
-            )}
-        </Flex>
+        <Box {...props} className={classNames(disable && 'cursor-not-allowed', 'inline cursor-pointer')} onClick={handleClick}>
+            <Box className="inline-flex items-center">
+                {placement === 'left' && renderText()}
+                <Checkbox isChecked={active} className="mx-2" cursor={disable && 'not-allowed'} size={sizeCheckbox} />
+                {placement === 'right' && renderText()}
+            </Box>
+        </Box>
     );
 };
 

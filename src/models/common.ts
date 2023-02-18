@@ -19,3 +19,5 @@ export interface ProvinceModel {
     codename?: string
     code?: number
 }
+
+export type Ref = HTMLButtonElement;

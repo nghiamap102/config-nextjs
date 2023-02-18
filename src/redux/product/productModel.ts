@@ -1,5 +1,6 @@
 export interface ProductInitState {
     list?: IProductItem[]
+    category?: IProductCategory[]
     listSearch?: IProductItem[]
     detail?: IProductItem | null
     loading?: boolean
@@ -14,7 +15,7 @@ export interface IProductItem {
     decription?: string
     product_sample?: IProductSample[]
     product_type?: IProductType[]
-    active?:boolean
+    active?: boolean
 }
 export interface IProductSample {
     _id?: string
@@ -30,4 +31,11 @@ export interface IProductType {
     title?: string
     cat_content?: string
     cat_group?: number
+}
+
+export interface IProductCategory {
+    _id?: string
+    name?: string
+    image?: string
+    category_parent_id?: string
 }

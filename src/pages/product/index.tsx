@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import { wrapper } from 'redux/store'
 
-const ProductDetail: NextPage = props => {
+const Product: NextPage = props => {
 
     const router = useRouter()
     const { slug } = router.query
@@ -13,7 +13,6 @@ const ProductDetail: NextPage = props => {
 
     return (
         <>
-            <Header />
             <ProductView product={product}/>
         </>
     )
@@ -40,4 +39,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
         },
 )
 
-export default ProductDetail
+export default Product

@@ -1,15 +1,19 @@
 export const API_ENDPOINT = {
-    cart: '/cart',
-    cartDetails: '/cart/items',
-    product: '/product',
+    CART: '/cart',
+    PRODUCT: {
+        CATEGORY: '/product/category',
+        INDEX: '/product'
+    },
+    CATEGORY: '/category',
     CHECKOUT: '/checkout',
-    AUTH:{
-        LOGIN : '/login',
-        REGISTER : '/register',
-        LOGOUT : '/logout',
-        VERIFY : '/verify',
-        USER:'/user',
-        ADDRESS:'/address',
+    AUTH: {
+        LOGIN: '/login',
+        REGISTER: '/register',
+        LOGOUT: '/logout',
+        VERIFY: '/verify',
+        USER: '/user',
+        ADDRESS: '/address',
+        ADDRESS_DEFAULT: '/address/default',
     },
     ORDER: '/order',
     CHAT: {
@@ -22,5 +26,5 @@ export const API_ENDPOINT = {
     PROVINCE: 'https://provinces.open-api.vn/api/p/',
     DISTRICTS: 'https://provinces.open-api.vn/api/d/',
     WARD: 'https://provinces.open-api.vn/api/w/'
-}   
+}
 

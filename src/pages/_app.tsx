@@ -5,7 +5,7 @@ import '@styles/globals.scss'
 import Global from '@theme/global'
 import theme, { mainColor } from '@theme/theme'
 import { API_URL_BE, paypalScriptOptions } from 'contants/common'
-import { SessionProvider, useSession } from 'next-auth/react'
+import { SessionProvider } from 'next-auth/react'
 import { appWithTranslation } from 'next-i18next'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -15,6 +15,7 @@ import { wrapper } from 'redux/store'
 import { io } from 'socket.io-client'
 import '../../public/other/nprogress.css'
 import './_app.css'
+import AxiosErrorHandler from '@common/axiosClient'
 export const SocketContext = createContext<any>(null);
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             router.events.off('routeChangeError', handleStop)
         }
     }, [router])
+
     return (
         <SessionProvider session={pageProps.session}>
             <PayPalScriptProvider options={paypalScriptOptions}>
@@ -46,31 +48,15 @@ function MyApp({ Component, pageProps }: AppProps) {
                         <Global />
                         <Box bg={mainColor.gray} color="#000" minHeight="100vh">
                             <ProgressBar />
-                            <Component {...pageProps} />
+                            <AxiosErrorHandler>
+                                <Component {...pageProps} />
+                            </AxiosErrorHandler>
                         </Box>
                     </ChakraProvider>
                 </SocketContext.Provider>
             </PayPalScriptProvider>
         </SessionProvider>
     )
-}
-
-export const Auth = ({ children, adminOnly }) => {
-    const router = useRouter();
-    const { status, data: session } = useSession({
-        required: true,
-        onUnauthenticated() {
-            router.push('/unauthorized?message=login required');
-        },
-    });
-    if (status === 'loading') {
-        return <div>Loading...</div>;
-    }
-    if (adminOnly && !session.user.role === 'admin') {
-        router.push('/unauthorized?message=admin login required');
-    }
-
-    return children;
 }
 
 export default wrapper.withRedux(appWithTranslation(MyApp))

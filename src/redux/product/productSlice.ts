@@ -1,19 +1,26 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ListResponseModel } from 'models/common'
 import { RootState } from 'redux/store'
-import { IProductItem, ProductInitState } from './productModel'
+import { IProductCategory, IProductItem, ProductInitState } from './productModel'
 import ProductService from './productService'
+import { FETCH_PRODUCT_CATEGORY, FETCH_PRODUCT_LIST } from './productAction'
 
 const initialState: ProductInitState = {
     detail: null,
     list: [],
+    category:[],
     listSearch: [],
     loading: false,
 }
 
-export const fetchProductList = createAsyncThunk('product/list', async () => {
-    const res = await ProductService.getProducts()
-    return res
+export const fetchProductList = createAsyncThunk(FETCH_PRODUCT_LIST, async () => {
+    const res = await ProductService.getProduct()
+    return res.data
+})
+
+export const fetchProductCategory = createAsyncThunk(FETCH_PRODUCT_CATEGORY, async () => {
+    const res = await ProductService.getProductCategory()
+    return res.data
 })
 
 const productSlice = createSlice({
@@ -23,14 +30,6 @@ const productSlice = createSlice({
         fetchProductListSuccess: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload.data
         },
-        // getProductDetail: (state: ProductInitState, action: PayloadAction<string>) => {
-        //     const newArr = state.list?.filter(product => {
-        //         if (product.id === action.payload) {
-        //             return product
-        //         }
-        //     })
-        //     newArr ? state.detail = newArr[0] : state.detail = null
-        // },
         fetchProductListSearch: (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload.data
         },
@@ -39,8 +38,11 @@ const productSlice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(fetchProductList.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>,) => {
+        builder.addCase(fetchProductList.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductItem>>) => {
             state.list = action.payload.data
+        })
+        builder.addCase(fetchProductCategory.fulfilled, (state: ProductInitState, action: PayloadAction<ListResponseModel<IProductCategory>>) => {
+            state.category = action.payload.data
         })
         builder.addCase(fetchProductList.pending, (state: ProductInitState) => {
             state.loading = true

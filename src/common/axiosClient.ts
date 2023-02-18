@@ -1,11 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-
-const axiosClient = axios.create({
-    baseURL: process.env.API_URL_BE,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-})
+import { useEffect } from "react";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import CustomToast from "@components/Toast";
 
 export const getAccessToken = () => {
     let accessToken: string | null = ''
@@ -19,55 +14,59 @@ export const getAccessToken = () => {
 }
 
 
-
-export const getCustomerId = () => {
-    const userId = localStorage?.getItem('userId')
-    //   return `Bearer accessToken`;
-    return userId
-}
-
-// Interceptors
-axiosClient.interceptors.request.use(
-    function (config: AxiosRequestConfig) {
-        const token = getAccessToken()
-        // if (token) {
-        //     config.headers.Authorization = `Bearer ${token}`
-        // } else {
-
-        // }
-        return config
+export const axiosClient = axios.create({
+    baseURL: process.env.API_URL_BE,
+    headers: {
+        'Content-Type': 'application/json',
     },
-    function (error) {
-        return Promise.reject(error)
-    },
-)
+})
 
-// Add a response interceptor
-axiosClient.interceptors.response.use(
-    function (response: AxiosResponse) {
-        if (response && response.data) {
-            return response.data
-        }
-        return response
-    },
-    async (error) => {
-        if (error.response?.status === 401) {
-            // //   localStorage.clear();
-            // const response = { code: 'success', data: [{ value: '', data: { use_id: '' } }] }
-            // if (response.code === 'success') {
-            //   const { data } = response
-            //   if (data && data[0]) {
-            //     localStorage.setItem('accessToken', data[0].value)
-            //     localStorage.setItem('userId', data[0]?.data?.use_id)
-            //   }
-            // }
-        }
-        if (error.response?.status === 403) {
-            // const sessionToken: any = await getSessionToken()
-            // sessionStorage.setItem('sessionToken', sessionToken)
-        }
-        throw error
-    },
-)
+const AxiosErrorHandler = ({ children }) => {
+    const toast = CustomToast()
+    useEffect(() => {
+        // Request interceptor
+        const requestInterceptor = axiosClient.interceptors.request.use((config: AxiosRequestConfig) => {
+            return config
+        }, (error) => {
+            return Promise.reject(error)
+        })
 
-export { axiosClient }
+        // Response interceptor
+        const responseInterceptor = axiosClient.interceptors.response.use((response) => {
+            // Handle errors here
+            if (response.data) {
+                return response.data;
+            } else {
+                return response
+            }
+        }, (error) => {
+            // Handle errors here
+            if (error.response?.status) {
+                switch (error.response.status) {
+                    case 401:
+                        console.log(error)
+                        toast({ title: error.response?.status })
+                        // Handle Unauthenticated here
+                        break;
+                    case 403:
+                        // Handle Unauthorized here
+                        break;
+                    // ... And so on
+                }
+            }
+
+            return error;
+        });
+
+        return () => {
+            // Remove handlers here
+            axiosClient.interceptors.request.eject(requestInterceptor);
+            axiosClient.interceptors.response.eject(responseInterceptor);
+        };
+    }, []);
+
+    return children
+};
+
+
+export default AxiosErrorHandler;

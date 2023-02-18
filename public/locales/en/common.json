@@ -36,5 +36,9 @@
     "my_profile": "my profile",
     "my_address": "my address",
     "add_new_address": "add new address",
-    "set_as_default": "set as default"
+    "set_as_default": "set as default",
+    "address_name": "address name",
+    "set_as_default_address": "set as default address",
+    "address_no": "address no"
+    
 }

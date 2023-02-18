@@ -6,7 +6,7 @@ type TagProps = {
     tag?: string
 } & BoxProps
 
-const Tag: FC<TagProps> = ({ tag, children, ...props }) => {
+const Tag: FC<TagProps> = ({ tag, children, mx = 2, ...props }) => {
 
 
     const renderColor = () => {
@@ -21,7 +21,7 @@ const Tag: FC<TagProps> = ({ tag, children, ...props }) => {
     }
 
     return (
-        <Box bg={renderColor()} {...props} color={mainColor.white} textTransform='capitalize'>
+        <Box bg={renderColor()} {...props} mx={mx} color={props.color || mainColor.white} textTransform='capitalize'>
             <Flex>
                 {children}
             </Flex>

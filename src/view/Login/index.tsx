@@ -107,7 +107,6 @@ export const FormLoginWrapper = withFormik<MyFormProps, LoginValue>({
             email: values.emailOrUsername,
             password: values.password,
         });
-
         !result?.error && (router?.events.on('routeChangeStart', () => setSubmitting(true)), router?.push('/'))
     },
 })(Login)

@@ -1,15 +1,18 @@
 import { ReactIcon } from "@assets/icon";
 import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { API_ENDPOINT } from "@common/apiEndpoint";
-import Overlay from "@components/Overlay";
 import Translation from "@components/Translate";
 import { mainColor } from "@theme/theme";
 import axios from "axios";
 import { ProvinceModel } from "models/common";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 type AutoCompleteProps = {
-
+    address?: any
+    handleSelectCity?: (city: ProvinceModel) => void
+    handleSelectDistrict?: (district: ProvinceModel) => void
+    handleSelectWard?: (ward: ProvinceModel) => void
+    handleRemoveLocation?: () => void
 };
 type AddressData = {
     city?: ProvinceModel[]
@@ -17,70 +20,58 @@ type AddressData = {
     ward?: ProvinceModel[]
 }
 
-type AddressState = {
-    city?: ProvinceModel
-    district?: ProvinceModel
-    ward?: ProvinceModel
-}
-
-const AutoComplete: FC<AutoCompleteProps> = ({ }) => {
+const AutoComplete: FC<AutoCompleteProps> = ({
+    address,
+    handleRemoveLocation,
+    handleSelectCity,
+    handleSelectDistrict,
+    handleSelectWard,
+}) => {
 
     const [focus, setFocus] = useState(false)
-    const [address, setAddress] = useState<AddressState>({})
-    const ref = useRef<any>()
+    const inputRef = useRef<any>()
 
-    const handleClick = () => {
-        setFocus(true)
-        // ref.current.focus()
+    const handleClick = (e) => {
     }
 
-    const handleSelectCity = (city: ProvinceModel) => {
-        setAddress({ ...address, city })
-    }
-    const handleSelectDistrict = (district: ProvinceModel) => {
-        setAddress({ ...address, district })
-    }
-    const handleSelectWard = (ward: ProvinceModel) => {
-        setAddress({ ...address, ward })
-    }
-    const handleRemoveAddress = () => setAddress({})
 
     const renderAddress = () => {
-        return `${address.city?.name} ${address.district?.name && address.district?.name} ${address.ward?.name && address.ward?.name}`
+        if (address.city?.name && !address.district?.name) return address.city?.name
+        if (address.city?.name && address.district?.name && !address.ward?.name) return `${address.city?.name}, ${address.district?.name}`
+        if (address.city?.name && address.district?.name && address.ward?.name) return `${address.city?.name}, ${address.district?.name}, ${address.ward?.name}`
+        return ''
     }
-
     const handleChangeInput = () => {
     }
 
-    const a = useMemo(() => {
-        return <Suggesstion
-            address={address}
-            handleSelectCity={handleSelectCity}
-            handleSelectDistrict={handleSelectDistrict}
-            handleSelectWard={handleSelectWard}
-        />
-    }, [])
-
     return (
-        <Flex my={5} px={3} py={2} className="justify-between relative" border={`1px solid ${focus ? mainColor.black : mainColor.gray2}`}
+        <Flex my={5} px={3} py={2} className="autocomplete justify-between relative" border={`1px solid ${focus ? mainColor.black : mainColor.gray2}`}
             borderRadius='lg'
-            onClick={handleClick} transition={'0.3s border-color'}
+            onAuxClick={() => console.log('ac')}
+            onClick={handleClick}
+            transition={'0.3s border-color'}
         >
             <input
                 type="text" placeholder="City, District, Ward" style={{ width: '100%', outline: 'none', border: 'none' }}
-                ref={ref} value={renderAddress()}
+                ref={inputRef} value={renderAddress()}
                 className="pr-2"
+                onFocus={() => setFocus(true)}
                 onChange={handleChangeInput}
             />
             <Flex className="items-center ">
                 {focus && !address.city && <ReactIcon.IconAi.AiOutlineSearch size='1.5rem' className="mr-2" />}
-                {focus && address.city && <ReactIcon.IconGr.GrFormClose size='1.5rem' className="mr-2" onClick={handleRemoveAddress} />}
+                {focus && address.city && <ReactIcon.IconGr.GrFormClose size='1.5rem' className="mr-2" onClick={handleRemoveLocation} />}
                 <ReactIcon.IconGo.GoTriangleDown color={mainColor.gray2} />
             </Flex>
-            {focus && a}
+            {focus && !address.ward && <Suggesstion
+                address={address}
+                handleSelectCity={handleSelectCity}
+                handleSelectDistrict={handleSelectDistrict}
+                handleSelectWard={handleSelectWard}
+            />}
         </Flex>
     );
-};
+}
 
 type SuggesstionProps = {
     handleSelectCity: any
@@ -139,32 +130,30 @@ const Suggesstion: FC<SuggesstionProps> = ({
         }
     }
 
-    console.log(address)
-
     return (
-        <Overlay  >
-            <Flex w='100%' className="flex-col" top='115%'
-                border={`1px solid ${mainColor.gray2}`}
-            >
-                <Flex >
-                    <Box flex={1} py={3} className="text-center">
-                        <Translation text="city" firstCapital />
-                    </Box>
+        <Flex w='100%' className="flex-col absolute left-0" top='115%'
+            zIndex={2}
+            bg={mainColor.white}
+            border={`1px solid ${mainColor.gray2}`}
+        >
+            <Flex >
+                <Box flex={1} py={3} className="text-center">
+                    <Translation text="city" firstCapital />
+                </Box>
 
-                    <Box flex={1} py={3} className="text-center">
-                        <Translation text="district" firstCapital />
-                    </Box>
+                <Box flex={1} py={3} className="text-center">
+                    <Translation text="district" firstCapital />
+                </Box>
 
-                    <Box flex={1} py={3} className="text-center">
-                        <Translation text="ward" firstCapital />
-                    </Box>
-                </Flex>
-                <Flex className="flex-col custom-scroll" overflow='scroll' maxH='15rem' overflowX='hidden' >
-                    {renderLoading()}
-                    {renderArrayProvince()}
-                </Flex>
+                <Box flex={1} py={3} className="text-center">
+                    <Translation text="ward" firstCapital />
+                </Box>
             </Flex>
-        </Overlay>
+            <Flex className="flex-col custom-scroll" overflow='scroll' maxH='15rem' overflowX='hidden' >
+                {renderLoading()}
+                {renderArrayProvince()}
+            </Flex>
+        </Flex>
     )
 }
 

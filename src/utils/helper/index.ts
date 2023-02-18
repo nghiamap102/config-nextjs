@@ -81,7 +81,17 @@ const checkValueError = (validations: IValidations) => (values: FormikValues, pr
 
     return error
 }
-
+const sortAddress = (address) => {
+    if (address?.length > 0) {
+        return address?.reduce((init, item) => {
+            if (item.default) {
+                return [item, ...init];
+            }
+            return [...init, item];
+        }, []);
+    }
+    return []
+}
 export {
     formatCurrency,
     formatValueCurrency,
@@ -90,5 +100,6 @@ export {
     checkTypeSelected,
     renderCategory,
     isSameDate,
+    sortAddress
 }
 

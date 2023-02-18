@@ -5,6 +5,7 @@ import { H6 } from "@components/Text/H6";
 import CustomToast from "@components/Toast";
 import Translation from "@components/Translate";
 import { UPDATE_USER } from "@redux/auth/authAction";
+import { IUser } from "@redux/auth/authModel";
 import { selectAuth } from "@redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
@@ -21,8 +22,8 @@ const ProfileView: FC<ProfileViewProps> = ({ user }) => {
     const dispatch = useAppDispatch()
     const authState = useAppSelector(selectAuth)
     const toast = CustomToast()
-    const [userData, setUserData] = useState<any>(user)
-    const date_of_birth = new Date(userData?.date_of_birth)
+    const [userData, setUserData] = useState<IUser>(user)
+    const date_of_birth = new Date(userData.date_of_birth.toString())
     const date = new Date()
 
     const handleChangeSex = (sex: string) => {
@@ -36,6 +37,10 @@ const ProfileView: FC<ProfileViewProps> = ({ user }) => {
     const handleChangeMonth = (e: ChangeEvent<HTMLSelectElement>) => setUserData({ ...userData, date_of_birth: date_of_birth.setMonth(parseInt(e.target.value) - 1) })
     const handleChangeYear = (e: ChangeEvent<HTMLSelectElement>) => setUserData({ ...userData, date_of_birth: date_of_birth.setFullYear(parseInt(e.target.value)) })
 
+    const handleChangeName = (e) => {
+        const { value: name } = e.target
+        setUserData({ ...userData, name })
+    }
 
     useEffect(() => {
         authState.updateSuccess && toast({ title: 'Update success' })
@@ -63,7 +68,7 @@ const ProfileView: FC<ProfileViewProps> = ({ user }) => {
                             <Text color={mainColor.gray2}>Name</Text>
                         </Flex>
                         <Flex w='60%' ml={8}>
-                            <Input value={userData?.name} />
+                            <Input value={userData?.name} onChange={handleChangeName} />
                         </Flex>
                     </Flex>
 

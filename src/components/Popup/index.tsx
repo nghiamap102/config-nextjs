@@ -1,23 +1,23 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, ModalProps } from "@chakra-ui/react";
 import { ButtonPrimary } from "@components/Button";
-import { mainColor } from "@theme/theme";
-import { FC } from 'react';
+import { Ref } from "models/common";
+import { forwardRef } from 'react';
 
 type PopupProps = {
     title?: string
     cancel?: boolean
     onApply?: () => void
-    ref?: any
 } & ModalProps;
 
-const Popup: FC<PopupProps> = ({ title, children, cancel, onApply, ...props }) => {
+const Popup = forwardRef<Ref, PopupProps>((props, ref) => {
+    const { title, children, cancel, onApply } = props
     return (
         <Modal {...props}>
-            <ModalOverlay />
+            <ModalOverlay ref={ref} />
             <ModalContent>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody ref={props.ref}>
+                <ModalBody >
                     {children}
                 </ModalBody>
 
@@ -30,6 +30,8 @@ const Popup: FC<PopupProps> = ({ title, children, cancel, onApply, ...props }) =
             </ModalContent>
         </Modal>
     );
-};
+})
+
+Popup.displayName = 'Popup'
 
 export default Popup

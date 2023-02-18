@@ -13,11 +13,10 @@ const initialState: AuthInitState = {
     updateSuccess: false,
 }
 
-const fetchAddress = createAsyncThunk(FETCH_ADDRESS, async (data) => {
+export const fetchAddress = createAsyncThunk(FETCH_ADDRESS, async (data: string) => {
     const res = await authService.fetchAddress(data)
     return res
 })
-
 
 const authSlice = createSlice({
     name: 'auth',
@@ -32,6 +31,27 @@ const authSlice = createSlice({
         },
         updateUserSuccess: (state: AuthInitState) => {
             state.updateSuccess = true
+        },
+        createAddressSuccess: (state: AuthInitState, action: PayloadAction<IAddress>) => {
+            state.address = [...state.address, action.payload]
+        },
+        updateAddressSuccess: (state: AuthInitState, action: PayloadAction<IAddress>) => {
+            const newArr = state.address?.map(address => {
+                if (address._id === action.payload?._id) {
+                    address = action.payload
+                }
+                return address
+            })
+            state.address = newArr
+        },
+        changeAddressDefaultSuccess: (state: AuthInitState, action: PayloadAction<IAddress>) => {
+            const newArr = state.address?.map(address => {
+                if (address._id === action.payload?._id) {
+                    return { ...address, default: true }
+                }
+                return { ...address, default: false }
+            })
+            state.address = newArr
         },
     },
     extraReducers: builder => {
@@ -48,7 +68,10 @@ export const authActions = authSlice.actions
 export const {
     login,
     loginSuccess,
-    updateUserSuccess
+    updateUserSuccess,
+    createAddressSuccess,
+    updateAddressSuccess,
+    changeAddressDefaultSuccess,
 } = authSlice.actions
 
 export const selectAuth = (state: RootState) => state.auth

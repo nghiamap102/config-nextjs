@@ -5,6 +5,7 @@ import { fetchCartList, selectCart } from "@redux/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
 import CartDrawer from "@view/Cart/CartDrawer";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 
@@ -12,9 +13,10 @@ const CartHeader = () => {
     const [drawerType, setDrawerType] = useState('')
     const cartState = useAppSelector(selectCart)
     const dispatch = useAppDispatch()
-    
+    const {data} = useSession()
+
     useEffect(() => {
-        dispatch(fetchCartList())
+        data && data.user && dispatch(fetchCartList(data.user._id))
     }, [])
 
     return (
