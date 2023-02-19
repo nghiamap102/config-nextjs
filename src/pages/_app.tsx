@@ -5,9 +5,15 @@ import { wrapper } from 'redux/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <>
-            <Component {...pageProps} />
-        </>
+        <ChakraProvider theme={theme}>
+            <Global />
+            <Box bg={mainColor.gray} color="#000" minHeight="100vh">
+                <ProgressBar />
+                <AxiosErrorHandler>
+                    <Component {...pageProps} />
+                </AxiosErrorHandler>
+            </Box>
+        </ChakraProvider>
     )
 }
 
