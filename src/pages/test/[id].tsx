@@ -1,20 +1,14 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-type Props = {
-
-};
+type Props = {}
 const Test = ({ props }) => {
     const router = useRouter()
     if (router.isFallback) {
         return <div>Loading...</div>
     }
-    console.log(router);
-    return (
-        <div>
-            abc
-        </div>
-    );
-};
+    console.log(router)
+    return <div>abc</div>
+}
 
 export async function getStaticPaths() {
     return {
@@ -29,8 +23,8 @@ export async function getStaticPaths() {
 // This also gets called at build time
 export async function getStaticProps({ params }) {
     return {
-        props: { params }
+        props: { params },
     }
 }
 
-export default Test;
+export default Test

@@ -1,29 +1,18 @@
 import {
     Action,
     AnyAction,
-    combineReducers,
-    configureStore,
     Store,
     ThunkAction,
+    combineReducers,
+    configureStore,
 } from '@reduxjs/toolkit'
-import {
-    createRouterMiddleware,
-    routerReducer,
-    RouterState,
-} from 'connected-next-router'
-import { createWrapper, HYDRATE } from 'next-redux-wrapper'
+import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import createSagaMiddleware, { Task } from 'redux-saga'
-import { caroReducer } from './caro/caroSlice'
 import rootSaga from './rootSaga'
 
-export interface State {
-    router: RouterState
-}
+export interface State {}
 
-const rootReducer = combineReducers({
-    caro: caroReducer,
-    router: routerReducer,
-})
+const rootReducer = combineReducers({})
 
 const reducer = (state: any, action: AnyAction) => {
     if (action.type === HYDRATE) {
@@ -34,10 +23,7 @@ const reducer = (state: any, action: AnyAction) => {
 
         if (typeof window !== 'undefined' && state?.router) {
             nextState.router = state.router
-            nextState = {
-                ...nextState,
-                ...JSON.parse(localStorage.getItem('cart') || '{}'),
-            }
+            nextState = { ...nextState }
         }
         return rootReducer(nextState, action)
     } else {
@@ -49,42 +35,20 @@ export interface SagaStore extends Store {
     sagaTask: Task
 }
 
-const localStorageMiddleware = ({ getState }: { getState: any }) => {
-    return (next: any) => (action: any) => {
-        const result = next(action)
-        const { cart } = getState()
-        if (typeof localStorage !== 'undefined' && cart) {
-            localStorage.setItem('cart', JSON.stringify({ cart }))
-        }
-        return result
-    }
-}
-
 const reHydrateStore = () => {
-    if (
-        typeof localStorage !== 'undefined' &&
-        localStorage.getItem('cart') !== null
-    ) {
-        return JSON.parse(localStorage.getItem('cart') || '') // re-hydrate the store
-    }
     return {}
 }
 const sagaMiddleware = createSagaMiddleware()
-const routerMiddleware = createRouterMiddleware()
 const store = configureStore({
     reducer,
     preloadedState: reHydrateStore(),
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(
-            sagaMiddleware,
-            routerMiddleware,
-            localStorageMiddleware,
-        ),
-    devTools: true,
+        getDefaultMiddleware().concat(sagaMiddleware),
+    // devTools: true,
 })
 
 export const makeStore = () => {
-    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
+    ;(store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga)
     return store
 }
 

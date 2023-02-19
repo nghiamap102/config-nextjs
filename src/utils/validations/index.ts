@@ -63,7 +63,6 @@ export const validateMobile = (mobile: string) => {
     return true
 }
 
-
 export const validateMonth = (month: string) => {
     if (Number(month) < 1 || Number(month) > 12) {
         return false

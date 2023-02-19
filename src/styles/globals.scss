@@ -1,13 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 html,
 body {
     padding: 0;
     margin: 0;
-    font-family: "Inter" !important;
+    font-family: 'Inter' !important;
 }
 
 a {
@@ -17,60 +16,4 @@ a {
 
 * {
     box-sizing: border-box;
-}
-$white: #ffffff;
-.logo_text {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 29px;
-}
-.link {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-}
-
-.title {
-    font-weight: 600;
-    font-size: 162.959px;
-    line-height: 134px;
-    color: $white;
-}
-.sub_title {
-    font-weight: 600;
-    font-size: 80.9309px;
-    line-height: 98px;
-    color: $white;
-}
-.text {
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 39px;
-}
-.text2 {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 24px;
-}
-.heading {
-    font-weight: 700;
-    font-size: 45px;
-    line-height: 54px;
-}
-.heading2 {
-    font-weight: 300;
-    font-size: 50px;
-    line-height: 61px;
-}
-.side-up {
-    animation: slideUp 0.6s forwards;
-}
-@keyframes slideUp {
-    from {
-        transform: translateY(50%);
-    }
-    to {
-        transform: translateY(0%);
-    }
 }
