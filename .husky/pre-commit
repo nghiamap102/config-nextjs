@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run format
+# npm run format
 
 # npm run check-format ||
 # (
@@ -31,4 +31,4 @@ npm run format
 # )
 
 # If everything passes... Now we can commit
-echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
+# echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
