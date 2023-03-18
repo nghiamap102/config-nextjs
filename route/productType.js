@@ -4,13 +4,13 @@ const router = express.Router()
 const ProductTypeModel = require('../model/ProductType');
 
 
-router.get('/', async (req, res) => {
-    ProductTypeModel.find()
-        .then((allCourse) => {
+router.get('/:page', async (req, res) => {
+    const { page } = req.params
+    ProductTypeModel.find().limit(5)
+        .then((data) => {
             return res.status(200).json({
                 success: true,
-                message: 'A list of all course',
-                Course: allCourse,
+                data: data,
             });
         })
         .catch((err) => {

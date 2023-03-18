@@ -5,11 +5,10 @@ const ProductDetailModel = require('../model/ProductDetail');
 
 router.get('/', async (req, res) => {
     ProductDetailModel.find()
-        .then((allCourse) => {
+        .then((data) => {
             return res.status(200).json({
                 success: true,
-                message: 'A list of all course',
-                Course: allCourse,
+                data: data,
             });
         })
         .catch((err) => {

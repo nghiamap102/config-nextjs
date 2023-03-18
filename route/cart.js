@@ -2,23 +2,9 @@ const express = require('express');
 
 const router = express.Router()
 const CartModel = require('../model/Cart');
+const { default: mongoose } = require('mongoose');
+const { verifyToken } = require('../middleware/auth');
 
-router.get('/', async (req, res) => {
-    CartModel.find().then((data) => {
-        return res.status(200).json({
-            success: true,
-            message: 'success',
-            data: data,
-        });
-    })
-        .catch((err) => {
-            res.status(500).json({
-                success: false,
-                message: 'Server error. Please try again.',
-                error: err.message,
-            });
-        });
-})
 
 router.post('/', async (req, res) => {
     const data = new CartModel(req.body)
@@ -32,8 +18,8 @@ router.post('/', async (req, res) => {
     }
     catch (error) {
         res.status(500).json({
-            success: true,
-            message: 'success',
+            success: false,
+            message: 'failed',
             error: error,
         });
     }
@@ -46,7 +32,6 @@ router.patch('/', async (req, res) => {
         .then(() => {
             res.status(200).json({
                 success: true,
-                message: 'cart is updated',
                 data: data,
             });
         })
@@ -58,7 +43,7 @@ router.patch('/', async (req, res) => {
         });
 })
 
-router.delete('/:itemId', async (req, res) => {
+router.delete('/:item_id', async (req, res) => {
     const id = req.params.itemId;
     const cart = await CartModel.findById(id)
     if (cart) {
@@ -79,18 +64,61 @@ router.delete('/:itemId', async (req, res) => {
 
 
 
-router.get('/items', async (req, res) => {
+router.get('/:user_id', verifyToken, async (req, res) => {
+    // router.get('/:user_id', verifyToken, async (req, res) => {
     CartModel.aggregate([
-        { $lookup: { from: "products", localField: "product_id", foreignField: "_id", as: "product" } },
-        { $lookup: { from: "product_types", localField: "product_id", foreignField: "product_id", as: "product_type" } },
-        { $lookup: { from: "product_samples", localField: "product_id", foreignField: "product_id", as: "product_sample" } },
-        { $unwind: "$product_type" },
-        { $unwind: "$product" }
+        {
+            $match: { user_id: mongoose.Types.ObjectId(req.params.user_id) }
+        },
+        {
+            $lookup: {
+                from: "products", localField: "product_id", foreignField: "_id", as: "product",
+                pipeline: [{ $project: { __v: 0 } }]
+            }
+        },
+        {
+            $lookup: {
+                from: "product_samples", localField: "sample_id", foreignField: "_id", as: "product_sample",
+                pipeline: [{ $project: { _id: 1, product_id: 0, product_type_id: 0, __v: 0 } }]
+            }
+        },
+        { $unwind: "$product_sample" },
+        { $unwind: "$product" },
+        {
+            $set: {
+                category: {
+                    $map: {
+                        input: "$category",
+                        as: "item",
+                        in: {
+                            $toObjectId: "$$item"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $lookup: {
+                from: "product_types", localField: "product_id", foreignField: "product_id", as: "product_type",
+                pipeline: [{ $project: { _id: 1, product_id: 0, __v: 0 } }]
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                active: 1,
+                product: 1,
+                product_sample: 1,
+                product_type: 1,
+                quantity: 1,
+                category: 1,
+            }
+        }
     ])
         .then((data) => {
             res.status(200).json({
                 success: true,
-                message: 'success',
+                message:'abc',
                 data: data
             })
         })
