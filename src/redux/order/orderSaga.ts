@@ -7,10 +7,7 @@ import { orderActions } from './orderSlice';
 function* createOrder(action: PayloadAction): Generator<CallEffect<DataResponseModel<any>> | PutEffect<AnyAction>, void, DataResponseModel<any>> {
     try {
         const res = yield call(orderService.createOrder, action.payload)
-        console.log(res)
-        if (res.success) {
-            yield put(orderActions.createOrderSuccess(action.payload))
-        }
+        if (res.success) yield put(orderActions.createOrderSuccess(action.payload))
     } catch (error: any) {
         console.log('server is error')
     }

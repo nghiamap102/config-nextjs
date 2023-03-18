@@ -2,7 +2,7 @@ import { ReactIcon } from '@assets/icon'
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
 import SimpleRating from '@components/Rating'
 import { mainColor } from '@theme/theme'
-import { formatCurrency, formatValueCurrency } from '@utils/helper'
+import { formatCurrency, formatValueCurrency, renderElementUpOnThousand } from '@utils/helper'
 import ProductQuickView from '@view/Product/ProductQuickView'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -15,46 +15,54 @@ import Tag from '@components/Tag'
 type ProductCardProps = {
     product: IProductItem
     isOpenQuickView?: boolean
-}
+} & BoxProps
 
-const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
-    const { _id, name } = product
+const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView, ...props }) => {
+    const { _id, name, sold, rating } = product
     const [activeModal, setActiveModal] = useState(isOpenQuickView || false)
     const handleActiveModal = () => setActiveModal(true)
+
     return (
-        <Box bg={mainColor.white} padding={7} className='border-primary'>
+        <Flex bg={mainColor.white} className='flex-col border-primary relative' {...props} >
 
             <Tag
                 tag={'favourite'}
-                className="capitalize px-2 py-1 absolute top-7 left-7 "
-                zIndex={999}
+                className="capitalize p-1 absolute top-2 left-0 text-sm"
+                mx={0}
+                zIndex={5}
             >
                 favourite
             </Tag>
 
             <CardHeader product={product} onClickShortCut={handleActiveModal} />
 
-            <Link href={`/product/${_id}`}>
-                <Text fontSize="lg" className='my-2'> {name && name?.length > 44 ? `${name?.slice(0, 45)}...` : name} </Text>
-            </Link>
+            <Flex px={3} py={3} className='flex-col' flex='1 auto' gap={3}>
+                <Link href={`/product/${_id}`}>
+                    <a href="">
+                        <Text className='mt-2'> {name && name?.length > 44 ? `${name.slice(0,50).padEnd(53,'.')}` : name} </Text>
+                    </a>
+                </Link>
 
-            <SimpleRating direction="horizon" value={3.5} avg={50} mb={2} />
+                <SimpleRating direction="horizon" value={rating?.average || 5} starSize={20} count={rating?.count || 0} />
 
-            <Tag className='inline-block px-2 py-1 rounded-lg text-sm mb-2' bg={mainColor.saleTag}>
-                <ReactIcon.IconIo5.IoTicketOutline color={mainColor.red2} className='mr-2' />
-                <Text lineHeight='normal'>30%</Text>
-            </Tag>
-
-            <Flex className='justify-between items-center'>
-                <Flex alignItems="center">
-                    <RenderPrice price={product.product_sample[0].unit_price || 0} textDecoration="line-through" color={mainColor.gray1} />
-                    <RenderPrice
-                        price={product.product_sample[0].unit_price || 0}
-                        color={mainColor.red} className='font-bold text-xl ml-2' />
+                <Flex>
+                    <Tag className='inline-block px-2 py-1 rounded-lg text-sm' mx={0} bg={mainColor.saleTag}>
+                        <ReactIcon.IconIo5.IoTicketOutline color={mainColor.red2} className='mr-2' />
+                        <Text lineHeight='normal'>30%</Text>
+                    </Tag>
                 </Flex>
-                <Box>
-                    8.3k saled
-                </Box>
+
+                <Flex className='justify-between items-center'>
+                    <Flex alignItems="center">
+                        <RenderPrice
+                            // use with rang rice 
+                            price={0}
+                            color={mainColor.red}
+                            fontWeight={600}
+                        />
+                    </Flex>
+                    <Text color={mainColor.gray1} fontSize='sm'>{renderElementUpOnThousand(sold)} sold </Text>
+                </Flex>
             </Flex>
 
             <ProductQuickView
@@ -62,7 +70,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView }) => {
                 isOpen={activeModal}
                 handleClose={() => setActiveModal(false)}
             />
-        </Box>
+        </Flex>
     )
 }
 

@@ -24,10 +24,3 @@ export interface ICartItem {
     description?: string
     checked?: boolean
 }
-
-export interface ICategory {
-    _id?: string
-    title?: string
-    cat_content?: string
-    cat_group?: number
-}

@@ -2,8 +2,7 @@ export interface ChatInitialState {
     list?: IChat[]
     currenChat?: ICurrentChat
     loading?: boolean
-    erorr?: boolean
-    success?: boolean
+    countMsgUnread?: number
 }
 export interface ICurrentChat {
     _id?: string
@@ -27,7 +26,3 @@ export interface IMessage {
     deleted_at?: string
     createdAt?: string
 }
-
-export const FETCH_ALL_CHAT = 'FETCH_ALL_CHAT'
-export const SEND_MESSAGE = 'send_message'
-export const MESSAGE_RESPONSE = 'message_response'

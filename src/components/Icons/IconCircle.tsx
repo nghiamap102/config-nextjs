@@ -1,11 +1,7 @@
-import { ReactIcon } from "@assets/icon";
 import { Flex, FlexProps } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
-import { FC } from 'react'
+import { FC } from 'react';
 
-type IconCircleProps = {
-
-};
 
 const IconCircle: FC<FlexProps> = ({
     children,

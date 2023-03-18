@@ -11,6 +11,8 @@ import { useMemo } from "react";
 import ProfileView from "./Profile";
 import Collapse from "@components/Collapse";
 import AddressView from "./Address";
+import { API_ENDPOINT } from "@common/apiEndpoint";
+import { API_URL_BE } from "contants/common";
 
 type Props = {
 
@@ -21,12 +23,8 @@ const AccountView = (props: Props) => {
     const { data } = useSession()
     const router = useRouter()
     const handleEditProfile = () => {
-
+        router.push('/account/profile', undefined, { shallow: true })
     }
-
-    const renderProfile = useMemo(() => {
-        return <ProfileView user={data?.user} />
-    }, [data?.user])
 
     return (
         <Container maxW='container.xl' py={10}>
@@ -37,8 +35,8 @@ const AccountView = (props: Props) => {
                         <Flex className="rounded-full overflow-hidden" color={mainColor.gray1}
                             border={`1px solid  ${mainColor.boxshadow}`}
                         >
-                            {data?.user?.image
-                                ? <Image src='https://res.cloudinary.com/bededuxe/image/upload/v1673522369/hoodie_zs6wgp.jpg'
+                            {data?.user?.avatar
+                                ? <Image src={`${API_URL_BE}/file/${data.user.avatar}`}
                                     alt={data?.user?.name}
                                     height={70}
                                     width={70}
@@ -92,7 +90,7 @@ const AccountView = (props: Props) => {
                 </GridItem>
 
                 <GridItem colSpan={10} ml={5} minH='80vh'>
-                    {data?.user && router.asPath === ACCOUNTROUTE.PROFILE && renderProfile}
+                    {data?.user && router.asPath === ACCOUNTROUTE.PROFILE && <ProfileView user={data?.user} />}
                     {data?.user && router.asPath === ACCOUNTROUTE.ORDER && <OrderHistoryView user={data?.user} />}
                     {data?.user && router.asPath === ACCOUNTROUTE.ADDRESS && <AddressView user={data?.user} />}
                 </GridItem>

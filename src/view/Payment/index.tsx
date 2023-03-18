@@ -12,10 +12,7 @@ import classNames from "classnames"
 import { paymentStatus } from "contants/common"
 import { FC, useState } from 'react'
 
-type PaymentView = {
-}
-
-export const PaymentView: FC<PaymentView> = ({ }) => {
+export const PaymentView: FC = () => {
 
     const dispatch = useAppDispatch()
     const checkoutState = useAppSelector(selectCheckout)
@@ -40,7 +37,7 @@ export const PaymentView: FC<PaymentView> = ({ }) => {
         return checkoutState.list && checkoutState.list?.items?.reduce((init, item) => init + item.quantity * item.product_sample?.unit_price, 0) || 0
     }
 
-    const Orders: DataOrderItem[] = checkoutState.list && checkoutState.list?.items?.map(items => {
+    const Orders: any = checkoutState.list && checkoutState.list?.items?.map(items => {
         return {
             description: items.description || '',
             quantity: items.quantity,

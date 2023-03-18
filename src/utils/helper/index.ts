@@ -92,6 +92,17 @@ const sortAddress = (address) => {
     }
     return []
 }
+
+const hashSizetoMb = (size: number) => {
+    return size / 1024 /1024
+}
+
+const renderElementUpOnThousand = (number: number) => {
+    if (number > 1000) {
+        return `${Math.round(number / 1000)}k`
+    } else return number
+}
+
 export {
     formatCurrency,
     formatValueCurrency,
@@ -100,6 +111,8 @@ export {
     checkTypeSelected,
     renderCategory,
     isSameDate,
-    sortAddress
+    sortAddress,
+    hashSizetoMb,
+    renderElementUpOnThousand
 }
 

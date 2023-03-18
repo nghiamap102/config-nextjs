@@ -1,5 +1,7 @@
-import { Box, Flex, Input, Select, Text } from "@chakra-ui/react";
+import { NoAvatar } from "@assets/image";
+import { Box, Button, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { ButtonPrimary } from "@components/Button";
+import ImageSelect from "@components/Image";
 import SelectCircle from "@components/Select/SelectCircle";
 import { H6 } from "@components/Text/H6";
 import CustomToast from "@components/Toast";
@@ -9,9 +11,11 @@ import { IUser } from "@redux/auth/authModel";
 import { selectAuth } from "@redux/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
+import { hashSizetoMb } from "@utils/helper";
 import { SEX } from "contants/common";
 import { DATE, MONTH, YEAR } from "contants/date";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import Image from "next/image";
+import { ChangeEvent, FC, useRef, useState } from "react";
 
 
 type ProfileViewProps = {
@@ -19,32 +23,40 @@ type ProfileViewProps = {
 }
 
 const ProfileView: FC<ProfileViewProps> = ({ user }) => {
-    const dispatch = useAppDispatch()
     const authState = useAppSelector(selectAuth)
+    const dispatch = useAppDispatch()
     const toast = CustomToast()
     const [userData, setUserData] = useState<IUser>(user)
     const date_of_birth = new Date(userData.date_of_birth.toString())
     const date = new Date()
+
+    const imageRef = useRef<any>(null)
 
     const handleChangeSex = (sex: string) => {
         setUserData({ ...userData, sex: sex })
     }
 
     const handleSaveIn4 = () => {
-        dispatch({ type: UPDATE_USER, payload: { ...userData, date_of_birth: new Date(userData.date_of_birth).toISOString() } })
+        dispatch({
+            type: UPDATE_USER, payload: {
+                ...userData,
+                date_of_birth: new Date(userData.date_of_birth).toISOString(),
+            }
+        })
     }
     const handleChangeDate = (e: ChangeEvent<HTMLSelectElement>) => setUserData({ ...userData, date_of_birth: date_of_birth.setDate(parseInt(e.target.value)) })
     const handleChangeMonth = (e: ChangeEvent<HTMLSelectElement>) => setUserData({ ...userData, date_of_birth: date_of_birth.setMonth(parseInt(e.target.value) - 1) })
     const handleChangeYear = (e: ChangeEvent<HTMLSelectElement>) => setUserData({ ...userData, date_of_birth: date_of_birth.setFullYear(parseInt(e.target.value)) })
 
-    const handleChangeName = (e) => {
-        const { value: name } = e.target
-        setUserData({ ...userData, name })
-    }
+    const handleChangeName = (e) => setUserData({ ...userData, name: e.target.value })
 
-    useEffect(() => {
-        authState.updateSuccess && toast({ title: 'Update success' })
-    }, [authState.updateSuccess])
+    const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files[0] && hashSizetoMb(e.target.files[0].size) > 1) {
+            toast({ title: 'maximum of image is 1MB', status: 'info' })
+        } else if (e.target.files[0]) {
+            setUserData({ ...userData, avatar: e.target.files[0] })
+        }
+    }
 
     return (
         <Box py={5} px={10} bg={mainColor.white}  >
@@ -52,100 +64,62 @@ const ProfileView: FC<ProfileViewProps> = ({ user }) => {
                 <H6 text="my_profile" fontWeight={500} className="capitalize" />
                 <Translation text="Quản lý thông tin hồ sơ để bảo mật tài khoản" fontWeight={400} />
             </Box>
-            <Box mt={5}>
-                <Box maxW='60%' >
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Username</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8}>
-                            {userData?.email?.slice(0, userData?.email?.indexOf('@'))}
-                        </Flex>
-                    </Flex>
+            <Flex mt={5}>
+                <Box w='60%' borderRight={`1px solid ${mainColor.gray4}`}>
+                    <FormItem title="Username"> {userData?.email?.slice(0, userData?.email?.indexOf('@'))} </FormItem>
 
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Name</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8}>
-                            <Input value={userData?.name} onChange={handleChangeName} />
-                        </Flex>
-                    </Flex>
+                    <FormItem title="Name"> <Input value={userData?.name} onChange={handleChangeName} /> </FormItem>
 
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Email</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8} className="items-center">
-                            <Text> {userData?.email?.replace(userData.email.slice(3, userData.email.indexOf('@')), '*'.repeat(userData.email.indexOf('@')))} </Text>
-                            <SelectChange />
-                        </Flex>
-                    </Flex>
+                    <FormItem title="Email">
+                        <Text> {userData?.email?.replace(userData.email.slice(3, userData.email.indexOf('@')), '*'.repeat(userData.email.indexOf('@')))} </Text>
+                        <SelectChange />
+                    </FormItem>
 
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Phone</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8} className="items-center">
-                            {userData?.phone}
-                            <SelectChange />
-                        </Flex>
-                    </Flex>
+                    <FormItem title="Phone">
+                        {userData?.phone}
+                        <SelectChange />
+                    </FormItem>
 
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Sex</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8} className="items-center">
-                            {SEX.map(sex => (
-                                <Flex key={sex} className="mx-2 cursor-pointer" onClick={() => handleChangeSex(sex)}>
-                                    <SelectCircle mr={2} active={userData?.sex === sex || userData?.sex == sex} />
-                                    <Text className="capitalize">{sex}</Text>
-                                </Flex>
-                            ))}
-                        </Flex>
-                    </Flex>
+                    <FormItem title="Sex">
+                        {SEX.map(sex => (
+                            <Flex key={sex} className="mr-4 cursor-pointer" onClick={() => handleChangeSex(sex)}>
+                                <SelectCircle mr={2} active={userData?.sex === sex || userData?.sex == sex} />
+                                <Text className="capitalize">{sex}</Text>
+                            </Flex>
+                        ))}
+                    </FormItem>
 
-
-                    <Flex w='100%' my={6}>
-                        <Flex w='20%' className="justify-end">
-                            <Text color={mainColor.gray2}>Date of birth</Text>
-                        </Flex>
-                        <Flex w='60%' ml={8} className="items-center">
-                            <Select size='md' mx={2} onChange={handleChangeDate}
-                                defaultValue={date_of_birth ? date_of_birth.getDate() : date.getDate()}
-                                _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
-                            >
-                                {DATE.map(item => <option value={item} key={item} >{item}</option>)}
-                            </Select>
-                            <Select size='md' mx={2} onChange={handleChangeMonth}
-                                defaultValue={date_of_birth ? date_of_birth.getMonth() + 1 : date.getMonth() + 1}
-                                _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
-                            >
-                                {MONTH.map(item => <option value={item} key={item}>{item}</option>)}
-                            </Select>
-                            <Select size='md' mx={2} onChange={handleChangeYear}
-                                defaultValue={date_of_birth ? date_of_birth.getFullYear() : date.getFullYear()}
-                                _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
-                            >
-                                {YEAR.map(item => <option value={item} key={item} >{item}</option>)}
-                            </Select>
-                        </Flex>
-                    </Flex>
+                    <FormItem title="Date of birth">
+                        <Select size='md' mx={2} onChange={handleChangeDate}
+                            defaultValue={date_of_birth ? date_of_birth.getDate() : date.getDate()}
+                            _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
+                        >
+                            {DATE.map(item => <option value={item} key={item} >{item}</option>)}
+                        </Select>
+                        <Select size='md' mx={2} onChange={handleChangeMonth}
+                            defaultValue={date_of_birth ? date_of_birth.getMonth() + 1 : date.getMonth() + 1}
+                            _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
+                        >
+                            {MONTH.map(item => <option value={item} key={item}>{item}</option>)}
+                        </Select>
+                        <Select size='md' mx={2} onChange={handleChangeYear}
+                            defaultValue={date_of_birth ? date_of_birth.getFullYear() : date.getFullYear()}
+                            _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }}
+                        >
+                            {YEAR.map(item => <option value={item} key={item} >{item}</option>)}
+                        </Select>
+                    </FormItem>
 
                     <Flex className="justify-center items-center">
-                        <ButtonPrimary onClick={handleSaveIn4}>
-                            Save
-                        </ButtonPrimary>
-
+                        <ButtonPrimary onClick={handleSaveIn4} isLoading={authState.loading}> Save </ButtonPrimary>
                     </Flex>
-
-
                 </Box>
-                <Box maxW='40%'>
-
+                <Box w='40%' className="text-center" >
+                    <ImageSelect ref={imageRef} image={userData.avatar} handleChangeImage={handleChangeImage} />
+                    <Text color={mainColor.gray3}>File size: maximum 1 MB </Text>
+                    <Text color={mainColor.gray3}>File extension: .JPEG, .PNG</Text>
                 </Box>
-            </Box>
+            </Flex>
         </Box>
     );
 };
@@ -163,12 +137,19 @@ const SelectChange: FC<{ onClick?: () => void }> = ({ onClick }) => {
     )
 }
 
-
-const SelectItem: FC<> = () => {
+type FormItemProps = {
+    title?: string
+}
+const FormItem: FC<FormItemProps> = ({ title, children }) => {
     return (
-        <Select size='md' mx={2} _focus={{ borderColor: mainColor.orange, boxShadow: `0px 0px 1px 1px ${mainColor.orange}` }} >
-            {YEAR.map(item => <option value={item} key={item} selected={date_of_birth.getFullYear() === item}>{item}</option>)}
-        </Select>
+        <Flex my={6}>
+            <Flex w='20%' className="justify-end">
+                <Text color={mainColor.gray2}>{title}</Text>
+            </Flex>
+            <Flex w='60%' ml={8}>
+                {children}
+            </Flex>
+        </Flex>
     )
 }
 

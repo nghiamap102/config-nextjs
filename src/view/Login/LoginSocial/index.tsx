@@ -4,11 +4,9 @@ import { LoginSocialButton } from '@components/Button'
 import { mainColor } from '@theme/theme'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { FC } from 'react'
 
 const LoginSocial: FC = () => {
-    const router = useRouter()
 
     const handleLoginGoogle = async (res: any) => {
         await signIn('google', {

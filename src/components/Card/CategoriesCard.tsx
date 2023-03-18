@@ -16,14 +16,19 @@ const CategoriesCard: FC<CategoriesCardProps> = ({ link, name, image }) => {
     return (
         <Link href={link}>
             <Flex direction="column" alignItems={'center'}>
-                <Box
+                <Flex
+                    className='items-center'
                     bg={mainColor.white}
                     borderRadius="full"
+                    p={5}
                     marginBottom={5}
                 >
-                    <Image src={image || ImageAssets.Categories1} alt={name} height={120} width={120}/>
-                </Box>
-                <Translation text={name} className='capitalize text-xl'/>
+                    <Image src={image || ImageAssets.Categories1} alt={name}
+                        height={80}
+                        width={80}
+                    />
+                </Flex>
+                <Translation text={name} className='capitalize text-xl' />
             </Flex>
         </Link>
     )

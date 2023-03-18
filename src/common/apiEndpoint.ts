@@ -2,7 +2,11 @@ export const API_ENDPOINT = {
     CART: '/cart',
     PRODUCT: {
         CATEGORY: '/product/category',
-        INDEX: '/product'
+        FACET: '/product/facet',
+        INDEX: '/product',
+        COMMENT: '/comment',
+        NEW: '/product/new',
+        COMMENT_PAGE: '/comment/page',
     },
     CATEGORY: '/category',
     CHECKOUT: '/checkout',
@@ -12,6 +16,7 @@ export const API_ENDPOINT = {
         LOGOUT: '/logout',
         VERIFY: '/verify',
         USER: '/user',
+        REFRESH_TOKEN: '/refresh_token',
         ADDRESS: '/address',
         ADDRESS_DEFAULT: '/address/default',
     },
@@ -22,6 +27,10 @@ export const API_ENDPOINT = {
     },
     MESSAGE: {
         CREATE: '/message/create',
+    },
+    IMAGE: {
+        UPLOAD: '/file/upload',
+        DOWNLOAD: '/file',
     },
     PROVINCE: 'https://provinces.open-api.vn/api/p/',
     DISTRICTS: 'https://provinces.open-api.vn/api/d/',

@@ -1,32 +1,17 @@
-import Header from '@components/Layout/Header'
 import ProductView from '@view/Product'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useRouter } from 'next/router'
 import { wrapper } from 'redux/store'
 
 const ProductDetail: NextPage = props => {
-
-    const router = useRouter()
-    const { slug } = router.query
-    const product = props.data.product.filter(items => items.id === slug)[0]
-
-    return (
-        <>
-            <Header />
-            <ProductView product={product}/>
-        </>
-    )
+    return <ProductView />
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
     () =>
         async ({ locale }) => {
-            const res = await fetch(`http://localhost:3030/api/home`)
-            const data = await res.json()
             const translate = await serverSideTranslations(locale as string, [
                 'common',
-                'product',
             ])
 
             // const res = await fetch('/api/product/1')
@@ -34,7 +19,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
             return {
                 props: {
                     ...translate,
-                    data
                 },
             }
         },

@@ -4,7 +4,8 @@ import checkoutSaga from './checkout/checkoutSaga';
 import orderSaga from './order/orderSaga';
 import chatSaga from './chat/chatSaga';
 import authSaga from './auth/authSaga';
+import productSaga from './product/productSaga';
 
 export default function* rootSaga() {
-    yield all([cartSaga(), checkoutSaga(), orderSaga(), chatSaga(), authSaga()]);
+    yield all([cartSaga(), checkoutSaga(), orderSaga(), chatSaga(), authSaga(), productSaga()]);
 }

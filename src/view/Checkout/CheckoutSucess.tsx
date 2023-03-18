@@ -18,7 +18,7 @@ const CheckoutSucess: FC<CheckoutSucessProps> = (props: Props) => {
     }
 
     return (
-        <Container maxW='container.xl' my={5}>
+        <Container maxW='container.xl' my={5} px={0}>
             <Flex bg={mainColor.orange} className="items-center justify-center flex-col" p={4} py={16} borderRadius='xl'>
                 <Box borderRadius='full' bg={mainColor.white}>
                     <ReactIcon.IconBs.BsCheckCircleFill size='4rem' color={mainColor.success} />

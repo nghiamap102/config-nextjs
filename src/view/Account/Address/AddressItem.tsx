@@ -41,7 +41,7 @@ const AddressItem: FC<AddressItemProps> = ({
                     </Tag>
                 </Flex>
                 <Flex color={mainColor.gray3}>{item.location?.no}</Flex>
-                <Flex color={mainColor.gray3}>{item.location?.city?.name}, {item.location?.district?.name}, {item.location?.ward?.name}</Flex>
+                <Flex color={mainColor.gray3}>{item.location?.province?.name}, {item.location?.district?.name}, {item.location?.ward?.name}</Flex>
                 {item.default && (
                     <Tag border={`1px solid ${mainColor.red}`} mx={0} className="inline-block my-2 px-2" color={mainColor.red}>
                         <Translation text="default" firstCapital />

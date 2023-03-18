@@ -1,6 +1,7 @@
 import { IconAssets, ImageAssets } from '@assets/index'
 import { Box, Container, Flex } from '@chakra-ui/react'
 import Navbar from '@components/Layout/Navbar'
+import SearchContainer from '@components/Search/SearchContainer'
 import { mainColor } from '@theme/common/color'
 import { EventType } from 'models/common'
 import Image from 'next/image'
@@ -10,7 +11,6 @@ import { useDispatch } from 'react-redux'
 import { setSearchKey } from 'redux/common/commonSlice'
 import CartHeader from './CartHeader'
 import TopHeader from './TopHeader'
-import SearchContainer from '@components/Search/SearchContainer'
 
 const Header: FC = () => {
     const dispatch = useDispatch()
@@ -33,9 +33,9 @@ const Header: FC = () => {
 
                     <Flex className='items-center' maxW='27%' >
                         <Link href="/" shallow >
-                            <Box>
+                            <a>
                                 <Image src={ImageAssets.Logo} alt="logo" className='cursor-pointer' />
-                            </Box>
+                            </a>
                         </Link>
                         <Flex className="flex-col text-lg text-lg font-bold ml-10" color={mainColor.white}>
                             Available 24/7 at
@@ -49,6 +49,7 @@ const Header: FC = () => {
 
                     <Box className="w-full" maxW='60%' >
                         <SearchContainer
+                            placeholder='Search the store'
                             icon={<IconAssets.ReactIcon.IconCi.CiSearch size="2rem" color={mainColor.orange} />}
                             onClickSearch={handleSearch}
                             onChange={handleChange}

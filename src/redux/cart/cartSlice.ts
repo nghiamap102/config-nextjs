@@ -16,7 +16,7 @@ const initialState: CartInitState = {
 
 export const fetchCartList = createAsyncThunk(FETCH_LIST_CART, async (id: string) => {
     const res = await cartService.getCart(id)
-    return res.data
+    return res
 })
 
 const cartSlice = createSlice({
@@ -95,7 +95,7 @@ const cartSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchCartList.fulfilled, (state: CartInitState, action: PayloadAction<ListResponseModel<ICartItem>>) => {
-            state.list = action.payload.data
+            if (action.payload && action.payload.data) state.list = action.payload.data
             state.loading = false
         })
         builder.addCase(fetchCartList.pending, (state: CartInitState) => {

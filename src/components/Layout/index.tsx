@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
-import MiniChat from '@components/Chat/MiniChat';
 import Footer from '@components/Layout/Footer';
 import Header from '@components/Layout/Header';
+import MiniChat from '@view/Chat/MiniChat';
 import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 

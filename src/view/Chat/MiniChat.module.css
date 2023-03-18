@@ -1,0 +1,27 @@
+.chatbox {
+    height: 100%;
+    width: 100%;
+}
+
+.chatbox_max {
+    min-height: 40rem;
+    max-height: 40rem;
+    min-width: 50rem;
+    max-width: 50rem;
+    transition: 0.5s all;
+}
+
+.chatbox_min {
+    min-width: 0rem;
+    min-height: 0rem;
+    transition: 0.5s all;
+}
+
+@keyframes {
+    0%{
+        min-height: 40rem;
+        max-height: 40rem;
+        min-width: 50rem;
+        max-width: 50rem;
+    }
+}

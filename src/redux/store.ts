@@ -66,7 +66,7 @@ const store = configureStore({
     reducer,
     preloadedState: reHydrateStore(),
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().concat(
+        getDefaultMiddleware({ serializableCheck: false }).concat(
             sagaMiddleware,
         ),
     // devTools: true,

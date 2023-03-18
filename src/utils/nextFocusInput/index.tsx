@@ -6,6 +6,7 @@ interface interFaceNextFocusInput {
 
 const nextFocusInput = (e: interFaceNextFocusInput) => {
   const { maxLength, value, name } = e
+  console.log(maxLength, value, name)
   const [fieldName, fieldIndex] = name.split('_')
   if (maxLength === value.length) {
     const nextSibling = document.querySelector(`input[name=${fieldName}_${+fieldIndex + 1}]`) as HTMLElement

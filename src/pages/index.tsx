@@ -1,3 +1,4 @@
+import { useBotChat } from '@components/BotChat'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { wrapper } from 'redux/store'

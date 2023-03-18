@@ -3,6 +3,9 @@ import { Box, Flex } from '@chakra-ui/react'
 import ListItem from '@components/Items/ListItem'
 import PopOver from '@components/PopOver'
 import Translation from '@components/Translate'
+import { LOGOUT } from '@redux/auth/authAction'
+import authService from '@redux/auth/authService'
+import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/common/color'
 import { ACCOUNTROUTE } from 'contants/route'
 import { signOut, useSession } from 'next-auth/react'
@@ -10,6 +13,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const TopHeader = () => {
+    const dispatch = useAppDispatch()
     const { data } = useSession()
     const router = useRouter()
 
@@ -17,7 +21,9 @@ const TopHeader = () => {
         router.push('/', '/', { locale: locale })
     }
 
-    const handleSignOut = () => {
+    // if have bug, auto show this bug and reload or sth
+    const handleSignOut = async () => {
+        dispatch({ type: LOGOUT, payload: { user_id: data?.user._id } })
         signOut({ callbackUrl: '/login' })
     }
 

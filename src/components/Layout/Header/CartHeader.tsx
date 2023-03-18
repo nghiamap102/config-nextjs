@@ -6,18 +6,21 @@ import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
 import CartDrawer from "@view/Cart/CartDrawer";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
+type CartHeaderProps = {
+    user?: any
+}
 
-const CartHeader = () => {
+const CartHeader: FC<CartHeaderProps> = ({ user }) => {
     const [drawerType, setDrawerType] = useState('')
     const cartState = useAppSelector(selectCart)
     const dispatch = useAppDispatch()
-    const {data} = useSession()
+    const { data } = useSession()
 
     useEffect(() => {
         data && data.user && dispatch(fetchCartList(data.user._id))
-    }, [])
+    }, [data])
 
     return (
         <Box>

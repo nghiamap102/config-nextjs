@@ -23,15 +23,12 @@ const CartDrawer: FC<CartDrawerProps> = ({ onClose }) => {
             e.keyCode === 27 && onClose
         }
         document.addEventListener('keydown', close)
-        return () => {
-            document.addEventListener('keydown', close)
-        }
+        return () => document.addEventListener('keydown', close)
     }, [])
 
     useEffect(() => {
         checkoutState.success && router.push('/checkout')
-    }, [checkoutState.success, router])
-
+    }, [checkoutState.success])
 
     const handleCheckOut = () => {
         if (cartState.list && cartState.list?.length > 0) {

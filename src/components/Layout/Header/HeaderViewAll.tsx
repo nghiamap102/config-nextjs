@@ -1,4 +1,5 @@
 import { Box, Flex, Heading } from '@chakra-ui/react'
+import Translation from '@components/Translate'
 import Link from 'next/link'
 import { FC } from 'react'
 
@@ -8,17 +9,16 @@ type HeaderViewAllProps = {
 }
 export const HeaderViewAll: FC<HeaderViewAllProps> = ({ title, LinkTo }) => {
     return (
-        <Flex marginY={10} alignItems="flex-end">
+        <Flex mb={10} alignItems="flex-end">
             <Heading className="capitalize" fontSize="1.5rem">
                 {title}
             </Heading>
             <Link href={LinkTo}>
                 <Box
-                    marginLeft={10}
+                    className='ml-10 link'
                     borderBottom="1px solid"
-                    textTransform={'capitalize'}
                 >
-                    view all
+                    <Translation text='view_all' firstCapital/>
                 </Box>
             </Link>
         </Flex>

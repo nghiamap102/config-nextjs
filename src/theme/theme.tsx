@@ -9,6 +9,7 @@ const theme = extendTheme({
                 lineHeight: 'tall',
                 background: '#FFFFFF',
                 color: '#2D2C3C',
+                fontWeight: 400,
                 fontFamily: 'var(--chakra-fonts-body)',
                 fontSize: {
                     base: '14px !important',

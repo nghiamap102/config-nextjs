@@ -1,6 +1,7 @@
 
 export const API_URL = process.env.API_URL
 export const API_URL_BE = process.env.API_URL_BE
+export const DOTS = '...'
 export const tooltipArrayRating = [
     'Terrible',
     'Bad',
@@ -38,3 +39,11 @@ export const paymentStatus = {
     COMPLETE: 'COMPLETE',
     SHIPPING: 'SHIPPING',
 }
+
+export const SORTTYPE = {
+    POP: 'pop',
+    SALE: 'sale',
+    TIME: 'time',
+}
+
+export const LIMIT_PAGE = 50

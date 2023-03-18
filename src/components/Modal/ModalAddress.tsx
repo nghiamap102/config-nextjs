@@ -35,8 +35,8 @@ const ModalAddress: FC<ModalAddressProps> = ({ ...props }) => {
     }
     const [address, setAddress] = useState<IAddress>(initAddress)
 
-    const handleSelectCity = (city: ProvinceModel) => {
-        setAddress({ ...address, location: { ...address.location, city } })
+    const handleSelectProvince = (province: ProvinceModel) => {
+        setAddress({ ...address, location: { ...address.location, province } })
     }
     const handleSelectDistrict = (district: ProvinceModel) => {
         setAddress({ ...address, location: { ...address.location, district } })
@@ -108,7 +108,7 @@ const ModalAddress: FC<ModalAddressProps> = ({ ...props }) => {
                         <AutoComplete
                             address={address.location}
                             handleRemoveLocation={handleRemoveLocation}
-                            handleSelectCity={handleSelectCity}
+                            handleSelectProvince={handleSelectProvince}
                             handleSelectDistrict={handleSelectDistrict}
                             handleSelectWard={handleSelectWard}
                         />

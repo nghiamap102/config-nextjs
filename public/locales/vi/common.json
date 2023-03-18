@@ -38,5 +38,11 @@
     "set_as_default": "đặt làm mặc định",
     "address_name": "tên địa chỉ",
     "set_as_default_address": "đặt làm địa chỉ mặc định",
-    "address_no": "số nhà"
+    "address_no": "số nhà",
+    "all_category": "tất cả phân loại",
+    "search_filter": "lọc tìm kiếm",
+    "top_sales": "bán chạy",
+    "sort_by": "sắp xếp bởi",
+    "view_all": "xem tất cả",
+    "load_more": "xem thêm"
 }

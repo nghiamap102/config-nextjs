@@ -10,7 +10,7 @@
             "@assets/*": ["assets/*"],
             "@view/*": ["view/*"],
             "@redux/*": ["redux/*"],
-            "@public/*": ["./public/*"],
+            "@page/*": ["pages/*"],
         },
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],

@@ -16,7 +16,7 @@ const CartView: FC = () => {
     const router = useRouter()
     console.log(cartSelector.list)
     useEffect(() => {
-        dispatch(fetchCartList())
+        // dispatch(fetchCartList())
     }, [])
 
     const handleSelectAllItems = (selected: boolean) => {

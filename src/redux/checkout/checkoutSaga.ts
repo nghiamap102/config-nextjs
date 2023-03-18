@@ -7,9 +7,9 @@ import { checkoutActions } from './checkoutSlice';
 function* checkout(action: PayloadAction): Generator<CallEffect<DataResponseModel<any>> | PutEffect<AnyAction>, void, DataResponseModel<any>> {
     try {
         const res = yield call(checkoutService.createCheckout, action.payload)
-        if(res.success){
-            yield put (checkoutActions.createCheckoutSuccess(res.data))
-        }       
+        if (res.success) {
+            yield put(checkoutActions.createCheckoutSuccess(res.data))
+        }
     } catch (error: any) {
         console.log('server is error')
     }

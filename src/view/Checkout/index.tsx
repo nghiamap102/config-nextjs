@@ -1,4 +1,4 @@
-import { Box, Container, Grid, GridItem } from '@chakra-ui/react'
+import { Container, Grid, GridItem } from '@chakra-ui/react'
 import CheckoutItem from '@components/Items/CheckoutItem'
 import Layout from '@components/Layout'
 import Overlay from '@components/Overlay'
@@ -29,14 +29,7 @@ const CheckoutView: FC = () => {
         }, 1000);
     }, [])
 
-    const renderTranslate = (text: string) => {
-        return (
-            <Translation
-                className="capitalize"
-                text={text}
-            />
-        )
-    }
+    const renderTranslate = (text: string) => <Translation className="capitalize" text={text} />
 
     const handleChangeDescription = (item: ICartItem, value: string) => {
         const newItem: ICartItem = { ...item, description: value }
@@ -94,7 +87,7 @@ const CheckoutView: FC = () => {
     return (
         <Layout>
             {renderUI()}
-            {checkoutState.list && checkoutState.list?.length < 1 && (
+            {checkoutState.list && Object.keys(checkoutState.list).length < 1 && (
                 <Overlay bg={mainColor.white}>
                     <HashLoader
                         speedMultiplier={2}

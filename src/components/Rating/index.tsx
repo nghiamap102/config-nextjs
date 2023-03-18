@@ -1,32 +1,34 @@
-import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
-import Translation from '@components/Translate'
-import classNames from 'classnames'
-import { fillColorArrayRating, tooltipArrayRating } from 'contants/common'
+import { ReactIcon } from '@assets/icon'
+import { BoxProps, Flex, Text } from '@chakra-ui/react'
+import { mainColor } from '@theme/theme'
+import { renderElementUpOnThousand } from '@utils/helper'
 import { FC } from 'react'
-import { Rating } from 'react-simple-star-rating'
+import Rating from 'react-rating'
 
 type SimpleRatingProps = {
     direction?: 'vertical' | 'horizon'
     value?: number
-    avg?: number
+    count?: number
+    starSize?: number
+    readonly?: boolean
 } & BoxProps
 
-const SimpleRating: FC<SimpleRatingProps> = ({ direction, value, avg , ...props }) => {
+const SimpleRating: FC<SimpleRatingProps> = ({ direction, value, count, starSize, readonly = true, ...props }) => {
+
     return (
-        <Box {...props}>
+        <Flex className='relative' {...props}>
             <Rating
-                SVGclassName={classNames(direction === 'horizon' && 'inline-block')}
-                size={25}
-                readonly
-                tooltipArray={tooltipArrayRating}
-                fillColorArray={fillColorArrayRating}
-                initialValue={value}
+                readonly={readonly}
+                initialRating={value}
+                fullSymbol={<ReactIcon.IconAi.AiTwotoneStar color={mainColor.orange} size={starSize || '1.5rem'} />}
+                emptySymbol={<ReactIcon.IconAi.AiTwotoneStar color={mainColor.gray2} size={starSize || '1.5rem'} />}
             />
-            <Box className='inline align-sub ml-2'>
-                <Text className='inline'>{avg}</Text>
-                <Translation text='rated' className='ml-2 inline' />
-            </Box>
-        </Box>
+            {count !== undefined && <Flex className='items-center ml-2' color={mainColor.gray1}>
+                <Text className='inline text-sm'>({renderElementUpOnThousand(count)})</Text>
+            </Flex>
+            }
+
+        </Flex>
     )
 }
 

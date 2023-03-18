@@ -3,14 +3,16 @@ skeleton all page
 <!-- bug -->
 
 [nor]state init before change route
-[low] popover portal config zindex
+[low] config axios init faster to fetch
+return page doesn't auto fetch
 <!-- optimize -->
 export all cpn
 fix all err typescript
 disable http options BE
-optimize font
 format time when change locale
-divide toast to another cpn
+init user and fetch when change tab
+add loading for load cmt
+format all service
 <!-- Err -->
 
 [react-hydration-error/does-not-match-UI-render] is dont add sth into <Text>
@@ -18,7 +20,7 @@ divide toast to another cpn
 
 <!-- note -->
 use Shallow to change route without refresh
-
-
+use serverside props to protect router
+sort with popular
 <!-- tool -->
 diagram.net

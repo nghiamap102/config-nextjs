@@ -5,7 +5,7 @@ import UiNumberInputControl from '@components/Field/UiNumberInputControl'
 import CustomToast from '@components/Toast'
 import Translation from '@components/Translate'
 import { ICartItem } from '@redux/cart/cartModel'
-import { removeCartItem, updateCartItem } from '@redux/cart/cartSlice'
+import { removeCartItem, updateCartItem, updateCartItemSuccess } from '@redux/cart/cartSlice'
 import { useAppDispatch } from '@redux/hooks'
 import { mainColor } from '@theme/theme'
 import { formatCurrency, formatValueCurrency } from '@utils/helper'
@@ -29,9 +29,9 @@ const CartDrawerItem: FC<CartDrawerItemProps> = ({ item }) => {
 
     const handleSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
-            dispatch(updateCartItem({ ...item, checked: true }))
+            dispatch(updateCartItemSuccess({ ...item, checked: true }))
         } else (
-            dispatch(updateCartItem({ ...item, checked: false }))
+            dispatch(updateCartItemSuccess({ ...item, checked: false }))
         )
     }
 

@@ -22,13 +22,13 @@ export const UICheckBoxField: FC<UICheckBoxFieldProps> = ({
 }) => {
 
     const handleClick = (e: any) => {
-        if(!disable){
+        if (!disable && typeof props.onClick === 'function') {
             props.onClick(e)
         }
     }
 
     const renderText = () => {
-        return <Translation text={content} color={mainColor.gray3} firstCapital />
+        return <Translation text={content} color={props.color || mainColor.gray3} firstCapital />
     }
 
     return (

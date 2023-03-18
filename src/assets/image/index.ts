@@ -19,6 +19,7 @@ import NoImage from './no-image.png'
 import ShopifyLogo from './Shopify-Logo.png'
 import BGLogin from './bg-login.jpeg'
 import Sky from './sky.svg'
+import NoAvatar from './no_avatar.jpg'
 
 export {
     Bread,
@@ -42,4 +43,5 @@ export {
     ShopifyLogo,
     BGLogin,
     Sky,
+    NoAvatar,
 }

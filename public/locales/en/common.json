@@ -28,7 +28,7 @@
     "buy_now": "buy now",
     "product_detail": "product detail",
     "purchase": "purchase",
-    "checkout_success": "checkout_success",
+    "checkout_success": "checkout success",
     "you_don_t_have_any_account": "you don't have any account",
     "my_account": "my account",
     "edit_profile": "edit profile",
@@ -39,6 +39,11 @@
     "set_as_default": "set as default",
     "address_name": "address name",
     "set_as_default_address": "set as default address",
-    "address_no": "address no"
-    
+    "address_no": "address no",
+    "all_category": "all category",
+    "search_filter": "search filter",
+    "top_sales": "top sales",
+    "sort_by": "sort by",
+    "view_all": "view all",
+    "load_more": "load more"
 }

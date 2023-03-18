@@ -8,6 +8,7 @@ export interface DataResponseModel<T> {
     message?: string
     success?: number
     data?: T
+    length?: number
 }
 
 export type EventType = React.ChangeEvent<HTMLInputElement>

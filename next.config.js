@@ -5,7 +5,7 @@ const path = require('path')
 const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     i18n,
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
@@ -16,6 +16,8 @@ const nextConfig = {
             'via.placeholder.com',
             'res.cloudinary.com',
             'https://nghia-hoang.imgbb.com/',
+            'localhost',
+            'http://localhost:3031/'
         ],
     },
     async headers() {

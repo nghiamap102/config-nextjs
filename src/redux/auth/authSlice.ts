@@ -4,33 +4,28 @@ import { AuthInitState, IAddress, IUser } from './authModel'
 import { FETCH_ADDRESS } from './authAction'
 import authService from './authService'
 import { ListResponseModel } from 'models/common'
+import Cookies from 'js-cookie'
 
 const initialState: AuthInitState = {
-    user: {},
     address: [],
     loading: false,
     error: false,
-    updateSuccess: false,
 }
 
 export const fetchAddress = createAsyncThunk(FETCH_ADDRESS, async (data: string) => {
     const res = await authService.fetchAddress(data)
-    return res
+    return res.data
 })
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        login: (state: AuthInitState, action: PayloadAction<any[]>) => {
+        dispatchloading: (state: AuthInitState, action: PayloadAction<any[]>) => {
             state.loading = true
         },
-        loginSuccess: (state: AuthInitState, action: PayloadAction<IUser>) => {
+        dispatchSuccess: (state: AuthInitState, action: PayloadAction<IUser>) => {
             state.loading = false
-            state.user = action.payload
-        },
-        updateUserSuccess: (state: AuthInitState) => {
-            state.updateSuccess = true
         },
         createAddressSuccess: (state: AuthInitState, action: PayloadAction<IAddress>) => {
             state.address = [...state.address, action.payload]
@@ -53,6 +48,14 @@ const authSlice = createSlice({
             })
             state.address = newArr
         },
+        logout: () => {
+            console.log('abc')
+            Cookies.remove('access_token')
+            Cookies.remove('refresh_token')
+        },
+        haveError: (state: AuthInitState, action: PayloadAction<boolean>) => {
+            state.error = true
+        }
     },
     extraReducers: builder => {
         builder.addCase(fetchAddress.fulfilled, (state: AuthInitState, action: PayloadAction<ListResponseModel<IAddress>>) => {
@@ -66,12 +69,13 @@ export const authReducer = authSlice.reducer
 export const authActions = authSlice.actions
 
 export const {
-    login,
-    loginSuccess,
-    updateUserSuccess,
+    dispatchSuccess,
+    dispatchloading,
     createAddressSuccess,
     updateAddressSuccess,
     changeAddressDefaultSuccess,
+    logout,
+    haveError,
 } = authSlice.actions
 
 export const selectAuth = (state: RootState) => state.auth

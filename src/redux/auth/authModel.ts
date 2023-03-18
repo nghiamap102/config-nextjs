@@ -1,11 +1,9 @@
 import { ProvinceModel } from "models/common"
 
 export interface AuthInitState {
-    user?: IUser
     address?: IAddress[]
-    error?: boolean
     loading?: boolean
-    updateSuccess?: boolean
+    error?: boolean
 }
 
 export interface IUser {
@@ -16,6 +14,7 @@ export interface IUser {
     role?: IRole
     sex?: string
     date_of_birth?: Date
+    avatar?: any
 }
 
 export interface IAddress {
@@ -28,7 +27,7 @@ export interface IAddress {
     default?: boolean
 }
 export interface ILocation {
-    city?: ProvinceModel
+    province?: ProvinceModel
     district?: ProvinceModel
     ward?: ProvinceModel
     no?: string

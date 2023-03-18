@@ -1,21 +1,27 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ListResponseModel } from 'models/common'
 import { RootState } from 'redux/store'
-import { ChatInitialState, FETCH_ALL_CHAT, IChat, IMessage } from './chatModel'
+import { ChatInitialState, IChat, IMessage } from './chatModel'
 import chatService from './chatService'
+import { FETCH_ALL_CHAT } from './chatActions'
 
 const initialState: ChatInitialState = {
     list: [],
+    countMsgUnread: 0,
     currenChat: {
         _id: '',
         messages: []
     },
-    erorr: false,
     loading: false,
 }
 
-
 export const fetchAllChats = createAsyncThunk(FETCH_ALL_CHAT, async (data?: string) => {
+    const res = await chatService.fetchAllChats(data)
+    return res
+})
+
+
+export const getCountMsgUnread = createAsyncThunk(FETCH_ALL_CHAT, async (data?: string) => {
     const res = await chatService.fetchAllChats(data)
     return res
 })
@@ -25,6 +31,7 @@ const chatSlice = createSlice({
     name: 'chat',
     reducers: {
         sendMessage: (state: ChatInitialState, action: PayloadAction<IMessage>) => {
+            state.currenChat = { ...state.currenChat, messages: [...state.currenChat?.messages, action.payload] }
         },
         sendMessageSuccess: (state: ChatInitialState, action: PayloadAction<IMessage>) => {
             state.currenChat = { ...state.currenChat, messages: [...state.currenChat?.messages, action.payload] }
@@ -38,7 +45,7 @@ const chatSlice = createSlice({
         fetchCurentChatSuccess: (state: ChatInitialState, action: PayloadAction<IChat>) => {
             state.currenChat = action.payload
             state.loading = false
-        }
+        },
     },
     extraReducers: builder => {
         builder.addCase(fetchAllChats.fulfilled, (state: ChatInitialState, action: PayloadAction<ListResponseModel<IChat>>) => {

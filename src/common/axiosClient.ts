@@ -1,6 +1,9 @@
-import { useEffect } from "react";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import CustomToast from "@components/Toast";
+import { createStandaloneToast } from "@chakra-ui/react";
+import authService from "@redux/auth/authService";
+import axios, { AxiosRequestConfig } from "axios";
+import Cookies from "js-cookie";
+import { getSession } from "next-auth/react";
+const { toast } = createStandaloneToast()
 
 export const getAccessToken = () => {
     let accessToken: string | null = ''
@@ -13,7 +16,6 @@ export const getAccessToken = () => {
     return { refreshToken, accessToken }
 }
 
-
 export const axiosClient = axios.create({
     baseURL: process.env.API_URL_BE,
     headers: {
@@ -21,52 +23,43 @@ export const axiosClient = axios.create({
     },
 })
 
-const AxiosErrorHandler = ({ children }) => {
-    const toast = CustomToast()
-    useEffect(() => {
-        // Request interceptor
-        const requestInterceptor = axiosClient.interceptors.request.use((config: AxiosRequestConfig) => {
-            return config
-        }, (error) => {
-            return Promise.reject(error)
-        })
+axiosClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
+    const session = await getSession();
+    if (session?.user) config.headers.Authorization = `Bearer ${Cookies.get('access_token') || session?.user.access_token}`
+    return config
+}, (error) => {
+    return Promise.reject(error)
+})
 
-        // Response interceptor
-        const responseInterceptor = axiosClient.interceptors.response.use((response) => {
-            // Handle errors here
-            if (response.data) {
-                return response.data;
-            } else {
-                return response
+axiosClient.interceptors.response.use(async (response) => {
+    if (response.data.message) {
+        toast({ title: response.data.message, id: response.data.message })
+    }
+    return response;
+}, async (error) => {
+    // Handle errors here
+    if (error.response?.status) {
+        const session = await getSession();
+        if (error.response.status === 401) {
+            const res = await authService.refreshToken({ refresh_token: Cookies.get('refresh_token') || session?.user.refresh_token })
+            if (res.data) {
+                Cookies.set('access_token', res.data.access_token)
+                Cookies.set('refresh_token', res.data.refresh_token)
             }
-        }, (error) => {
-            // Handle errors here
-            if (error.response?.status) {
-                switch (error.response.status) {
-                    case 401:
-                        console.log(error)
-                        toast({ title: error.response?.status })
-                        // Handle Unauthenticated here
-                        break;
-                    case 403:
-                        // Handle Unauthorized here
-                        break;
-                    // ... And so on
-                }
-            }
+        }
 
-            return error;
-        });
-
-        return () => {
-            // Remove handlers here
-            axiosClient.interceptors.request.eject(requestInterceptor);
-            axiosClient.interceptors.response.eject(responseInterceptor);
-        };
-    }, []);
-
-    return children
-};
-
-
-export default AxiosErrorHandler;
+        switch (error.response.status) {
+            case 401:
+                console.log(error)
+                toast({ title: error.response?.status })
+                // Handle Unauthenticated here
+                break;
+            case 403:
+                // Handle Unauthorized here
+                toast({ title: error.response?.status })
+                break;
+            // ... And so on
+        }
+    }
+    return error;
+});

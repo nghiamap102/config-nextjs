@@ -9,13 +9,13 @@ import { FC, useEffect, useRef, useState } from "react";
 
 type AutoCompleteProps = {
     address?: any
-    handleSelectCity?: (city: ProvinceModel) => void
+    handleSelectProvince?: (province: ProvinceModel) => void
     handleSelectDistrict?: (district: ProvinceModel) => void
     handleSelectWard?: (ward: ProvinceModel) => void
     handleRemoveLocation?: () => void
 };
 type AddressData = {
-    city?: ProvinceModel[]
+    province?: ProvinceModel[]
     district?: ProvinceModel[]
     ward?: ProvinceModel[]
 }
@@ -23,7 +23,7 @@ type AddressData = {
 const AutoComplete: FC<AutoCompleteProps> = ({
     address,
     handleRemoveLocation,
-    handleSelectCity,
+    handleSelectProvince,
     handleSelectDistrict,
     handleSelectWard,
 }) => {
@@ -36,9 +36,9 @@ const AutoComplete: FC<AutoCompleteProps> = ({
 
 
     const renderAddress = () => {
-        if (address.city?.name && !address.district?.name) return address.city?.name
-        if (address.city?.name && address.district?.name && !address.ward?.name) return `${address.city?.name}, ${address.district?.name}`
-        if (address.city?.name && address.district?.name && address.ward?.name) return `${address.city?.name}, ${address.district?.name}, ${address.ward?.name}`
+        if (address.province?.name && !address.district?.name) return address.province?.name
+        if (address.province?.name && address.district?.name && !address.ward?.name) return `${address.province?.name}, ${address.district?.name}`
+        if (address.province?.name && address.district?.name && address.ward?.name) return `${address.province?.name}, ${address.district?.name}, ${address.ward?.name}`
         return ''
     }
     const handleChangeInput = () => {
@@ -52,20 +52,20 @@ const AutoComplete: FC<AutoCompleteProps> = ({
             transition={'0.3s border-color'}
         >
             <input
-                type="text" placeholder="City, District, Ward" style={{ width: '100%', outline: 'none', border: 'none' }}
+                type="text" placeholder="Province, District, Ward" style={{ width: '100%', outline: 'none', border: 'none' }}
                 ref={inputRef} value={renderAddress()}
                 className="pr-2"
                 onFocus={() => setFocus(true)}
                 onChange={handleChangeInput}
             />
             <Flex className="items-center ">
-                {focus && !address.city && <ReactIcon.IconAi.AiOutlineSearch size='1.5rem' className="mr-2" />}
-                {focus && address.city && <ReactIcon.IconGr.GrFormClose size='1.5rem' className="mr-2" onClick={handleRemoveLocation} />}
+                {focus && !address.province && <ReactIcon.IconAi.AiOutlineSearch size='1.5rem' className="mr-2" />}
+                {focus && address.province && <ReactIcon.IconGr.GrFormClose size='1.5rem' className="mr-2" onClick={handleRemoveLocation} />}
                 <ReactIcon.IconGo.GoTriangleDown color={mainColor.gray2} />
             </Flex>
             {focus && !address.ward && <Suggesstion
                 address={address}
-                handleSelectCity={handleSelectCity}
+                handleSelectProvince={handleSelectProvince}
                 handleSelectDistrict={handleSelectDistrict}
                 handleSelectWard={handleSelectWard}
             />}
@@ -74,19 +74,19 @@ const AutoComplete: FC<AutoCompleteProps> = ({
 }
 
 type SuggesstionProps = {
-    handleSelectCity: any
+    handleSelectProvince: any
     handleSelectDistrict: any
     handleSelectWard: any
     address: any
 }
 const Suggesstion: FC<SuggesstionProps> = ({
-    handleSelectCity,
+    handleSelectProvince,
     handleSelectDistrict,
     handleSelectWard,
     address,
 }) => {
     const [dataAddress, setDataAddress] = useState<AddressData>({
-        city: [],
+        province: [],
         district: [],
         ward: []
     })
@@ -96,14 +96,14 @@ const Suggesstion: FC<SuggesstionProps> = ({
     }, [])
 
     const fetchProvince = async () => {
-        const city = await (await axios.get(API_ENDPOINT.PROVINCE)).data
+        const province = await (await axios.get(API_ENDPOINT.PROVINCE)).data
         const district = await (await axios.get(API_ENDPOINT.DISTRICTS)).data
         const ward = await (await axios.get(API_ENDPOINT.WARD)).data
-        setDataAddress({ city, district, ward })
+        setDataAddress({ province, district, ward })
     }
 
     const renderLoading = () => {
-        if (dataAddress.city?.length < 1 && dataAddress.district.length < 1 && dataAddress.ward?.length < 1) {
+        if (dataAddress.province?.length < 1 && dataAddress.district.length < 1 && dataAddress.ward?.length < 1) {
             return (
                 <Flex className="items-center justify-center my-10">
                     <Spinner size='xl' />
@@ -113,17 +113,17 @@ const Suggesstion: FC<SuggesstionProps> = ({
     }
 
     const renderArrayProvince = () => {
-        if (!address.city) {
-            return dataAddress.city?.map((item) => (
-                <Item key={item.codename} item={item} onClick={() => handleSelectCity(item)} />
+        if (!address.province) {
+            return dataAddress.province?.map((item) => (
+                <Item key={item.codename} item={item} onClick={() => handleSelectProvince(item)} />
             ))
-        } else if (!address.district && address.city) {
+        } else if (!address.district && address.province) {
             return dataAddress.district?.map((item, index) => (
                 <Item key={index} item={item} onClick={() => handleSelectDistrict(item)} />
             ))
         }
         // use infinite prevent loading so much element
-        else if (!address.ward && address.district && address.city) {
+        else if (!address.ward && address.district && address.province) {
             return dataAddress.ward?.map((item, index) => (
                 <Item key={index} item={item} onClick={() => handleSelectWard(item)} />
             ))
@@ -138,7 +138,7 @@ const Suggesstion: FC<SuggesstionProps> = ({
         >
             <Flex >
                 <Box flex={1} py={3} className="text-center">
-                    <Translation text="city" firstCapital />
+                    <Translation text="province" firstCapital />
                 </Box>
 
                 <Box flex={1} py={3} className="text-center">

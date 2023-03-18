@@ -1,4 +1,4 @@
-import { Box, ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider, createStandaloneToast } from '@chakra-ui/react'
 import ProgressBar from '@components/ProgressBar'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import '@styles/globals.scss'
@@ -15,18 +15,18 @@ import { wrapper } from 'redux/store'
 import { io } from 'socket.io-client'
 import '../../public/other/nprogress.css'
 import './_app.css'
-import AxiosErrorHandler from '@common/axiosClient'
-export const SocketContext = createContext<any>(null);
+export const SocketContext = createContext<any>(null)
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const { ToastContainer } = createStandaloneToast()
     const router = useRouter()
     useEffect(() => {
         NProgress.configure({ showSpinner: false })
 
         const handleStart = () => {
             NProgress.start()
-            NProgress.inc(0.4);
-            NProgress.configure({ easing: 'ease', speed: 500 });
+            NProgress.inc(0.4)
+            NProgress.configure({ easing: 'ease', speed: 500 })
         }
         const handleStop = () => NProgress.done()
 
@@ -45,12 +45,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             <PayPalScriptProvider options={paypalScriptOptions}>
                 <SocketContext.Provider value={io(API_URL_BE)}>
                     <ChakraProvider theme={theme}>
+                        <ToastContainer />
                         <Global />
                         <Box bg={mainColor.gray} color="#000" minHeight="100vh">
                             <ProgressBar />
-                            <AxiosErrorHandler>
-                                <Component {...pageProps} />
-                            </AxiosErrorHandler>
+                            <Component {...pageProps} />
                         </Box>
                     </ChakraProvider>
                 </SocketContext.Provider>

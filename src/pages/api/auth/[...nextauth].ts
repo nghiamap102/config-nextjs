@@ -1,6 +1,5 @@
 import authService from '@redux/auth/authService';
 import bcryptjs from 'bcryptjs';
-import Cookies from 'js-cookie';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import FacebookProvider from "next-auth/providers/facebook";
@@ -10,7 +9,7 @@ import GoogleProvider from "next-auth/providers/google";
 export default NextAuth({
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60
+    maxAge: 60 * 60 * 60
   },
   pages: {
     error: '/login'
@@ -34,11 +33,13 @@ export default NextAuth({
       if (token?.phone) session.user.phone = token.phone;
       if (token?.date_of_birth) session.user.date_of_birth = token.date_of_birth;
       if (token?.sex) session.user.sex = token.sex;
+      if (token?.access_token) session.user.access_token = token.access_token;
+      if (token?.refresh_token) session.user.refresh_token = token.refresh_token;
       if (token?.createdAt) session.user.createdAt = token.createdAt;
-      if (token?._id) {
-        const res = await authService.getUserById(token?._id)
-        session.user = { ...session.user, ...res.data };
-      }
+      // if (token?._id) {
+      //   const res = await authService.getUserById(token?._id)
+      //   session.user = { ...session.user, ...res.data.data };
+      // }
       return session;
     },
     async signIn({ account, profile }: any) {
@@ -78,7 +79,7 @@ export default NextAuth({
           password: credentials.password
         })
         const user = res.data.user
-        if (res && bcryptjs.compareSync(credentials.password, res.data.user.password)) {
+        if (res && bcryptjs.compareSync(credentials.password, user.password)) {
           return {
             _id: user._id,
             name: user.name,
