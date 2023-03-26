@@ -1,0 +1,13 @@
+.input:focus::placeholder {
+    color: transparent;
+    transition: 0.4s all;
+}
+.input:focus {
+    border: none;
+    outline: none;
+}
+.input-wrapper {
+    box-shadow: 0 2px 5px #0003;
+    border-radius: 2rem;
+    overflow: hidden;
+}

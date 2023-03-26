@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Banner /> snapshots render Banner Fold default 1`] = `
+<div>
+  <div>
+    abc
+  </div>
+</div>
+`;
+
+exports[`will check the matchers and pass 1`] = `
+Object {
+  "createdAt": Any<Date>,
+  "id": Any<Number>,
+  "name": "LeBron James",
+}
+`;
+
+exports[`will check the values and pass 1`] = `undefined`;

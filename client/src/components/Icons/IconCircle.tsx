@@ -1,0 +1,18 @@
+import { Flex, FlexProps } from "@chakra-ui/react";
+import { mainColor } from "@theme/theme";
+import { FC } from 'react';
+
+
+const IconCircle: FC<FlexProps> = ({
+    children,
+    bg = mainColor.white,
+    ...props
+}) => {
+    return (
+        <Flex {...props} bg={bg} className='items-center rounded-full' px={2}>
+            {children}
+        </Flex>
+    );
+};
+
+export default IconCircle
