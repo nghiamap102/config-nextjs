@@ -31,7 +31,8 @@ const AutoComplete: FC<AutoCompleteProps> = ({
     const [focus, setFocus] = useState(false)
     const inputRef = useRef<any>()
 
-    const handleClick = (e) => {
+    const handleClick = () => {
+        console.log('abc')
     }
 
 
@@ -42,6 +43,7 @@ const AutoComplete: FC<AutoCompleteProps> = ({
         return ''
     }
     const handleChangeInput = () => {
+        console.log('abc')
     }
 
     return (
@@ -103,7 +105,10 @@ const Suggesstion: FC<SuggesstionProps> = ({
     }
 
     const renderLoading = () => {
-        if (dataAddress.province?.length < 1 && dataAddress.district.length < 1 && dataAddress.ward?.length < 1) {
+        if (dataAddress.province && dataAddress.province?.length < 1 &&
+            dataAddress.district && dataAddress.district.length < 1 &&
+            dataAddress.ward && dataAddress.ward?.length < 1
+        ) {
             return (
                 <Flex className="items-center justify-center my-10">
                     <Spinner size='xl' />

@@ -10,6 +10,7 @@ import { ICarousel } from './Carousel'
 
 const Carousel: FC<ICarousel> = ({ children, ...rest }) => {
 
+    const { slidesPerView } = rest
     const getWindowDimensions = () => {
         if (typeof window !== "undefined") {
             const { innerWidth: width, innerHeight: height } = window;
@@ -22,10 +23,11 @@ const Carousel: FC<ICarousel> = ({ children, ...rest }) => {
     }
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
     const renderSlider = () => {
-        if (windowDimensions && windowDimensions.width < 1200 && windowDimensions.width > 1000) return rest.slidesPerView - 2
-        if (windowDimensions && windowDimensions.width < 1000 && windowDimensions.width > 800) return rest.slidesPerView - 3
-        if (windowDimensions && windowDimensions.width < 800 && windowDimensions.width > 600) return rest.slidesPerView - 4
-        return rest.slidesPerView
+        if (windowDimensions && windowDimensions.width < 1200 && windowDimensions.width > 1000) return slidesPerView && slidesPerView - 2
+        if (windowDimensions && windowDimensions.width < 1000 && windowDimensions.width > 800)
+            return slidesPerView && slidesPerView - 3
+        if (windowDimensions && windowDimensions.width < 800 && windowDimensions.width > 600)
+            return slidesPerView && slidesPerView - 4
     }
 
     useEffect(() => {

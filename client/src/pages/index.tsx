@@ -1,10 +1,9 @@
-import { useBotChat } from '@components/BotChat'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { wrapper } from 'redux/store'
 import HomeView from 'view/Home'
 
-const Home: NextPage = props => {
+const Home: NextPage = () => {
 
     return <HomeView />
 }

@@ -1,7 +1,6 @@
 import { ReactIcon } from '@assets/icon'
 import { Box, Container, Flex } from '@chakra-ui/react'
 import { mainColor } from '@theme/theme'
-type Props = {}
 const PaymentProgress = () => {
     return (
         <Container maxW="6xl" className="flex">

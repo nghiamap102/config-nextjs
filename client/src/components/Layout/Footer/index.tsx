@@ -1,6 +1,6 @@
 import { ReactIcon } from '@assets/icon'
 import { IconAssets } from '@assets/index'
-import { Box, Link as ChakraLink, Container, Flex, List, ListItem, Text, Tooltip } from '@chakra-ui/react'
+import { Box, Container, Flex, Link as ChakraLink, List, ListItem, Text } from '@chakra-ui/react'
 import { ButtonPrimary } from '@components/Button'
 import SearchContainer from '@components/Search/SearchContainer'
 import Translation from '@components/Translate'
@@ -88,7 +88,7 @@ const Footer: FC = () => {
                                 </Text>
                             </Flex>
                             <Flex>
-                                {arrSocial.map((item,index) => (
+                                {arrSocial.map((item, index) => (
                                     <ChakraLink key={index} href={item.linkTo} target='_blank' >
                                         <Box className='relative' mx={1.5}>
                                             <Box className='rounded-full p-3 icon-social'

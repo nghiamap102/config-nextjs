@@ -44,13 +44,9 @@ const CartItems: FC<CartItemsProps> = ({
     const handleSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             dispatch(updateCartItem({ ...item, checked: true }))
-        }else(
+        } else (
             dispatch(updateCartItem({ ...item, checked: false }))
         )
-    }
-
-    const renderSample = () => {
-        return null
     }
 
     return (

@@ -1,17 +1,17 @@
 import { ReactIcon } from "@assets/icon";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { ButtonBorderPrimary, ButtonPrimary } from "@components/Button";
+import { ButtonPrimary } from "@components/Button";
 import Tag from "@components/Tag";
 import Translation from "@components/Translate";
 import { mainColor } from "@theme/theme";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
-
 type OrderHistoryItemProps = {
-
+    abc?: any
 };
-const OrderHistoryItem: FC<OrderHistoryItemProps> = (props: Props) => {
+const OrderHistoryItem: FC<OrderHistoryItemProps> = ({ abc }) => {
+    console.log(abc)
     return (
         <Box px={5} py={7} my={2} bg={mainColor.white}>
             <Flex className="justify-between pb-5" borderBottom={`1px solid ${mainColor.gray4}`}>

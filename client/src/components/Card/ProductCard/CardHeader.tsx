@@ -17,7 +17,7 @@ export const CardHeader: FC<CardHeaderProps> = ({ product, onClickShortCut, }) =
     const [activeQuickView, setActiveQuickView] = useState(false)
     const handleMouseQuickViewActive = () => setActiveQuickView(true)
     const handleMouseQuickViewInActive = () => setActiveQuickView(false)
-    
+
     return (
         <Flex
             position={'relative'}
@@ -26,7 +26,7 @@ export const CardHeader: FC<CardHeaderProps> = ({ product, onClickShortCut, }) =
             onClick={onClickShortCut}
         >
             <Image
-                src={product.image[0] || ImageAssets.NoImage}
+                src={product.image && product.image[0] || ImageAssets.NoImage}
                 alt={product.name}
                 height={250}
                 width={250}

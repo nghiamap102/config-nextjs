@@ -1,13 +1,8 @@
 import { Box } from '@chakra-ui/react';
-import { CSSProperties, FC } from 'react';
-
-type DotLoadingProps = {
-    children?: any;
-    style?: CSSProperties;
-};
+import { FC } from 'react';
 
 
-export const DotLoading: FC<DotLoadingProps> = ({ children, style }) => {
+export const DotLoading: FC = () => {
 
     return (
         <Box className="bouncing-loader">

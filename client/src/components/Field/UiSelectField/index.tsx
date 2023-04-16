@@ -1,6 +1,6 @@
 import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react'
 import { isEmpty } from 'lodash'
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import Select from 'react-select'
 
 interface UiVerifyFieldProps {
@@ -35,27 +35,30 @@ const UISelectField: FC<UiVerifyFieldProps> = ({
 
     const handleChange = (selected: any) => {
         const selectedValue = selected ? selected.value : selected
-        const changeEvent = {
-            target: {
-                name,
-                value: selectedValue
-            }
-        }
-        field.onChange(changeEvent)
-        _onChange && _onChange(changeEvent)
+        // const changeEvent = {
+        //     target: {
+        //         name,
+        //         value: selectedValue
+        //     }
+        // }
+        // field.onChange(changeEvent)
+        field.onChange()
+        // _onChange && _onChange(changeEvent)
+        _onChange && _onChange()
     }
 
     useEffect(() => {
         if (!isEmpty(selectedOption)) {
-            const changeEvent = {
-                target: {
-                    name,
-                    value: selectedOption.value
-                }
-            }
-            _onChange && _onChange(changeEvent)
+            // const changeEvent = {
+            //     target: {
+            //         name,
+            //         value: selectedOption.value
+            //     }
+            // }
+            // _onChange && _onChange(changeEvent)
+            _onChange && _onChange()
         }
-    }, [selectedOption])
+    }, [selectedOption, _onChange, name])
 
     return (
         <FormControl isInvalid={showError}>

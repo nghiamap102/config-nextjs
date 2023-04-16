@@ -8,11 +8,8 @@ import CartDrawer from "@view/Cart/CartDrawer";
 import { useSession } from "next-auth/react";
 import { FC, useEffect, useState } from "react";
 
-type CartHeaderProps = {
-    user?: any
-}
 
-const CartHeader: FC<CartHeaderProps> = ({ user }) => {
+const CartHeader: FC = () => {
     const [drawerType, setDrawerType] = useState('')
     const cartState = useAppSelector(selectCart)
     const dispatch = useAppDispatch()
@@ -20,7 +17,7 @@ const CartHeader: FC<CartHeaderProps> = ({ user }) => {
 
     useEffect(() => {
         data && data.user && dispatch(fetchCartList(data.user._id))
-    }, [data])
+    }, [data, dispatch])
 
     return (
         <Box>

@@ -1,17 +1,14 @@
-import { fetchCartList } from '@redux/cart/cartSlice'
-import { useAppDispatch } from '@redux/hooks'
 import CartView from '@view/Cart'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useEffect } from 'react'
 import { wrapper } from 'redux/store'
 
 const Cart: NextPage = () => {
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(fetchCartList())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(fetchCartList())
+    // }, [])
 
     return <CartView />
 }

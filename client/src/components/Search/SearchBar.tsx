@@ -1,5 +1,5 @@
 import { ReactIcon } from "@assets/icon";
-import { Box, BoxProps, Flex, FlexProps } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import { FC, useState } from "react";
 

@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { wrapper } from 'redux/store'
 
-const ProductDetail: NextPage = props => {
+const ProductDetail: NextPage = () => {
     return <ProductView />
 }
 

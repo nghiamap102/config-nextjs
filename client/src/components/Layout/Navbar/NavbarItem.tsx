@@ -1,5 +1,5 @@
 import { ImageAssets } from '@assets/index'
-import { Box, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import SubMenu from '@components/SubMenu'
 import { mainColor } from '@theme/theme'
 import classNames from 'classnames'
@@ -67,7 +67,7 @@ const NavbarItem: FC<NavbarItemProps> = ({ text, type, tag }) => {
             </Box>
 
             <Box
-                className={classNames( active ? 'fade-up' : 'hidden', type === 'dropdown' ? 'py-2' : 'py-1', )}
+                className={classNames(active ? 'fade-up' : 'hidden', type === 'dropdown' ? 'py-2' : 'py-1',)}
                 position={'absolute'}
                 left={renderEle()?.left}
                 top="100%"

@@ -9,9 +9,10 @@ import Image from 'next/image';
 import { FC } from 'react'
 
 type OrderItemProps = {
-
+    abc?: any
 };
-export const OrderItem: FC<OrderItemProps> = (props: Props) => {
+export const OrderItem: FC<OrderItemProps> = ({ abc }) => {
+    console.log(abc)
     return (
         <Box>
             <Flex className='items-center justify-between'>
@@ -21,7 +22,7 @@ export const OrderItem: FC<OrderItemProps> = (props: Props) => {
                     </Tag>
                     <Text fontSize='md' lineHeight='normal' className='mx-2'>RATEL STORE</Text>
 
-                    <Button size='xs' bg={mainColor.red3} borderRadius='none' className='' color={mainColor.white} _hover={{ opacity: 0.7}}>
+                    <Button size='xs' bg={mainColor.red3} borderRadius='none' className='' color={mainColor.white} _hover={{ opacity: 0.7 }}>
                         <Translation text='chat' />
                         <ReactIcon.IconBi.BiChat />
                     </Button>

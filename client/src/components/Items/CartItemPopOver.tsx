@@ -29,10 +29,6 @@ const CartItemPopOver: FC<{ item: ICartItem, handleClosePopOver: (item: ICartIte
         setCartItem({ ...cartItem, category: cartItemType })
         handleClosePopOver({ ...cartItem, category: cartItemType })
     }
-    
-    const checkDisable = (title: string, catContent: string, index: number) => {
-        return false
-    }
 
     return (
         <PopOver

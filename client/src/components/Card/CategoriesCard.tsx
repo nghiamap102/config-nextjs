@@ -1,6 +1,5 @@
-import { NoImage } from '@assets/image'
 import { ImageAssets } from '@assets/index'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Translation from '@components/Translate'
 import { mainColor } from '@theme/theme'
 import Image from 'next/image'

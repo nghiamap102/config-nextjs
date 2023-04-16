@@ -39,7 +39,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView, ...props 
             <Flex px={3} py={3} className='flex-col' flex='1 auto' gap={3}>
                 <Link href={`/product/${_id}`}>
                     <a href="">
-                        <Text className='mt-2'> {name && name?.length > 44 ? `${name.slice(0,50).padEnd(53,'.')}` : name} </Text>
+                        <Text className='mt-2'> {name && name?.length > 44 ? `${name.slice(0, 50).padEnd(53, '.')}` : name} </Text>
                     </a>
                 </Link>
 
@@ -61,7 +61,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isOpenQuickView, ...props 
                             fontWeight={600}
                         />
                     </Flex>
-                    <Text color={mainColor.gray1} fontSize='sm'>{renderElementUpOnThousand(sold)} sold </Text>
+                    <Text color={mainColor.gray1} fontSize='sm'>{renderElementUpOnThousand(sold || 0)} sold </Text>
                 </Flex>
             </Flex>
 
@@ -86,7 +86,7 @@ export const RenderPrice: FC<RenderPriceProp> = ({ price, ...props }) => {
     return (
         <Box {...props}>
             {t('price', {
-                value: formatValueCurrency(router.locale, price),
+                value: formatValueCurrency(router.locale, price || 0),
                 formatParams: {
                     value: {
                         currency: formatCurrency(router.locale),

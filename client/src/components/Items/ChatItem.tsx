@@ -1,6 +1,5 @@
-import { NoImage } from '@assets/image';
-import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
-import { IChat, IMessage } from '@redux/chat/chatModel';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { IChat } from '@redux/chat/chatModel';
 import { fetchCurentChat } from '@redux/chat/chatSlice';
 import { useAppDispatch } from '@redux/hooks';
 import { mainColor } from '@theme/theme';
@@ -8,7 +7,7 @@ import { isSameDate } from '@utils/helper';
 import moment from 'moment';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { FC } from 'react'
+import { FC } from 'react';
 
 type ChatItemProps = {
     chatItem?: IChat

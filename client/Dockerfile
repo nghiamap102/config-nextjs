@@ -20,7 +20,7 @@ RUN yarn build
 FROM node:16-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV development
 
 RUN addgroup --system --gid 1001 bloggroup
 RUN adduser --system --uid 1001 bloguser

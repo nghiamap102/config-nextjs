@@ -21,6 +21,7 @@ const CommentItem: FC<CommentItemProps> = ({
     handleReply,
     handleReport,
 }) => {
+    console.log(handleReply, handleReport)
     return (
         <Flex gap={5} py={5} borderBottom={`1px solid ${mainColor.gray4}`} >
             <Box>

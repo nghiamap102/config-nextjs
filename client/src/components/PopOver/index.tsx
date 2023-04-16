@@ -1,6 +1,6 @@
 import { Box, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverFooter, PopoverProps, PopoverTrigger, Portal } from '@chakra-ui/react';
 import { mainColor } from '@theme/theme';
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 type PopOverProps = {
     popoverTrigger?: any

@@ -1,5 +1,5 @@
 import { ReactIcon } from '@assets/icon'
-import { Box, BoxProps, Button, ButtonProps } from '@chakra-ui/react'
+import { Box, Button, ButtonProps } from '@chakra-ui/react'
 import { mainColor } from '@theme/theme'
 import { FC } from 'react'
 

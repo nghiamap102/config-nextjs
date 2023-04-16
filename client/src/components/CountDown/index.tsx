@@ -8,7 +8,8 @@ const CountDown = ({ setPhoneOrEmailOTP }: CountDownProps) => {
   const [countdown, setCountdown] = useState<number>(60)
   useEffect(() => {
     if (countdown === 0) {
-      setPhoneOrEmailOTP('expiredOTP')
+      // setPhoneOrEmailOTP('expiredOTP')
+      setPhoneOrEmailOTP()
       return
     }
     const timeOut = setTimeout(() => {
@@ -17,7 +18,7 @@ const CountDown = ({ setPhoneOrEmailOTP }: CountDownProps) => {
     return () => {
       clearTimeout(timeOut)
     }
-  }, [countdown])
+  }, [countdown, setPhoneOrEmailOTP])
   return <span>{countdown}</span>
 }
 

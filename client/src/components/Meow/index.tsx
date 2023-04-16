@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Cat, Browser } from "react-kawaii";
+import { Cat } from "react-kawaii";
 // import styled from "styled-components";
-import { Container, Flex } from "@chakra-ui/react";
-import { action, easing, merge, styler, tween } from "popmotion";
+import { Flex } from "@chakra-ui/react";
+import { action, merge, styler, tween } from "popmotion";
 
 // const Container = styled.div`
 //     position: absolute;
@@ -43,15 +43,15 @@ class Meow extends Component {
             )
         );
 
-        const tail = styler(this.catRef.current.querySelector("#kawaii-cat_tail"));
+        // const tail = styler(this.catRef.current.querySelector("#kawaii-cat_tail"));
 
-        const tailAnimation = tween({
-            from: { x: 29.23, y: 153.846, rotate: 0 },
-            to: { x: 29.23, y: 153.846, rotate: 20 },
-            ease: easing.backInOut,
-            duration: 1300,
-            yoyo: Infinity
-        }).start(tail.set);
+        // const tailAnimation = tween({
+        //     from: { x: 29.23, y: 153.846, rotate: 0 },
+        //     to: { x: 29.23, y: 153.846, rotate: 20 },
+        //     ease: easing.backInOut,
+        //     duration: 1300,
+        //     yoyo: Infinity
+        // }).start(tail.set);
 
         const showEye = tween({
             from: { scaleY: 0.3 },

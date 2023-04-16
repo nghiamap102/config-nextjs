@@ -25,9 +25,12 @@ const UiVerifyField: FC<UiVerifyFieldProps> = ({
   const showError = errors[name] && touched[name]
 
   const handleChange = (selected: any) => {
-    const { maxLength, value } = selected.target
-    field.onChange(selected)
-    if (typeof nextFocusInput === 'function') nextFocusInput({ maxLength, value, name })
+    console.log(selected)
+    // const { maxLength, value } = selected.target
+    field.onChange()
+    // field.onChange(selected)
+    // if (typeof nextFocusInput === 'function') nextFocusInput({ maxLength, value, name })
+    if (typeof nextFocusInput === 'function') nextFocusInput()
   }
 
   return (

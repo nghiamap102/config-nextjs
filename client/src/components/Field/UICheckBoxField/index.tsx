@@ -1,8 +1,8 @@
-import { Box, BoxProps, Checkbox, Flex, FlexProps } from "@chakra-ui/react";
+import { Box, BoxProps, Checkbox } from "@chakra-ui/react";
 import Translation from "@components/Translate";
 import { mainColor } from "@theme/theme";
 import classNames from "classnames";
-import { FC, MouseEvent, useState } from 'react';
+import { FC } from 'react';
 
 type UICheckBoxFieldProps = {
     content?: string
@@ -28,14 +28,14 @@ export const UICheckBoxField: FC<UICheckBoxFieldProps> = ({
     }
 
     const renderText = () => {
-        return <Translation text={content} color={props.color || mainColor.gray3} firstCapital />
+        return <Translation text={content || ''} color={props.color || mainColor.gray3} firstCapital />
     }
 
     return (
         <Box {...props} className={classNames(disable && 'cursor-not-allowed', 'inline cursor-pointer')} onClick={handleClick}>
             <Box className="inline-flex items-center">
                 {placement === 'left' && renderText()}
-                <Checkbox isChecked={active} className="mx-2" cursor={disable && 'not-allowed'} size={sizeCheckbox} />
+                <Checkbox isChecked={active} className="mx-2" cursor={disable && 'not-allowed' || 'none'} size={sizeCheckbox} />
                 {placement === 'right' && renderText()}
             </Box>
         </Box>

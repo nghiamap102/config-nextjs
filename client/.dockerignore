@@ -4,8 +4,7 @@ node_modules
 *.DS_Store
 .gitignore
 README.md
-.dockerignore
-LICENSE
+NOTE.md
 .docker
 .gitlab
 .git

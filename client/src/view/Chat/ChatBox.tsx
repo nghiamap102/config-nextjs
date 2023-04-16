@@ -5,9 +5,9 @@ import chatService from "@redux/chat/chatService";
 import { respMessage, selectChat } from "@redux/chat/chatSlice";
 import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { mainColor } from "@theme/theme";
+import useInfiniteScrollHook from "hooks/useInfiniteScrollHook";
 import { useSession } from "next-auth/react";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import useInfiniteScroll from "react-infinite-scroll-hook";
 import ChatBoxFooter from "./ChatBoxFooter";
 import ChatMessage from "./ChatMessage";
 let page = 1
@@ -168,7 +168,7 @@ const ChatBox: FC<ChatBoxProps> = ({
         res.data.messages.length < 1 && setHasNextPage(false)
     }
 
-    const [infiniteRef, { rootRef }] = useInfiniteScroll({
+    const [infiniteRef, { rootRef }] = useInfiniteScrollHook({
         loading,
         hasNextPage: true,
         onLoadMore: onLoadMore,

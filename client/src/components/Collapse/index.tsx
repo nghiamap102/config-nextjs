@@ -24,21 +24,20 @@ const Collapse: FC<CollapseProps> = ({
 
     const router = useRouter()
     const [active, setActive] = useState(false)
-    const ref = useRef(null)
+    const ref = useRef<any>(null)
     const handleToggle = () => {
         childrens && childrens?.some(item => router.asPath === item.linkTo) && setActive(!active)
         childrens && !childrens?.some(item => router.asPath === item.linkTo) && router.push(childrens[0].linkTo, undefined, { shallow: true })
         !childrens && parentLink && router.push(parentLink, undefined, { shallow: true })
     }
 
-
     return (
         <Box >
             <Flex onClick={handleToggle} className="items-center px-2 cursor-pointer" my={1.5} _hover={{ color: mainColor.orange, transition: '0.3s all' }}>
                 {icon}
-                <Translation text={title} firstCapital ml={4} color={router.asPath === parentLink && mainColor.orange} />
+                <Translation text={title || ''} firstCapital ml={4} color={router.asPath === parentLink && mainColor.orange || 'currentcolor'} />
             </Flex>
-            <CollapseItem ref={ref} childrens={childrens} active={active} />
+            <CollapseItem ref={ref} height={ref.current.scrollHeight} childrens={childrens} active={active} />
         </Box>
 
 

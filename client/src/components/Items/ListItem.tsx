@@ -1,10 +1,10 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 import { FC } from "react";
 
-type ListItemProps = {
-
-} & BoxProps
-const ListItem: FC<ListItemProps> = ({
+// type ListItemProps = {
+// a
+// } & BoxProps
+const ListItem: FC<BoxProps> = ({
     children,
     ...props
 }) => {

@@ -1,7 +1,5 @@
 import Overlay from '@components/Overlay'
-import { useAppDispatch } from '@redux/hooks'
 import productService from '@redux/product/productService'
-import { setProductList } from '@redux/product/productSlice'
 import { mainColor } from '@theme/theme'
 import SearchView from '@view/Search'
 import type { NextPage } from 'next'
@@ -11,12 +9,13 @@ import { useEffect } from 'react'
 import { HashLoader } from 'react-spinners'
 import { wrapper } from 'redux/store'
 
-const Search: NextPage = (props) => {
+const Search: NextPage = (props: any) => {
 
     const router = useRouter()
+    const { data } = props
     useEffect(() => {
-        props.data && props.data.length < 1 && router.push('/')
-    }, [])
+        data && data.length < 1 && router.push('/')
+    }, [data, router])
 
     if (props.data && props.data.length < 1) {
         return (

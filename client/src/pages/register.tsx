@@ -1,28 +1,26 @@
 import { Box, Container, Flex, Grid, GridItem, useToast } from '@chakra-ui/react'
 import BoxIntro from '@components/BoxIntro'
 import { mainColor } from '@theme/theme'
-import FormLoginWrapper from '@view/Login'
+import FormRegisterWrapper from '@view/Register'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
-import { wrapper } from 'redux/store'
 import { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
-import FormRegisterWrapper from '@view/Register'
+import { wrapper } from 'redux/store'
 
 const Register: NextPage = () => {
     const router = useRouter()
 
     const toast = useToast()
     const { error } = router.query
-    const { data: session, status } = useSession()
+
     useEffect(() => {
         error && toast({
             title: 'server is currently down',
             status: 'error',
             isClosable: true,
         })
-    }, [])
+    }, [error, toast])
 
     return (
         <Container maxW="100%" p={0} h="100vh">

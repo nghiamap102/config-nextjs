@@ -3,7 +3,7 @@ import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import { mainColor } from "@theme/theme";
 import { DOTS } from "contants/common";
 import usePagination from "hooks/usePagination";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 type PaginationProps = {
     totalPage?: number

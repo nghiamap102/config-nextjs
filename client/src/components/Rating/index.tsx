@@ -13,7 +13,7 @@ type SimpleRatingProps = {
     readonly?: boolean
 } & BoxProps
 
-const SimpleRating: FC<SimpleRatingProps> = ({ direction, value, count, starSize, readonly = true, ...props }) => {
+const SimpleRating: FC<SimpleRatingProps> = ({ value, count, starSize, readonly = true, ...props }) => {
 
     return (
         <Flex className='relative' {...props}>

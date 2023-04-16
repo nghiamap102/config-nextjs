@@ -16,9 +16,8 @@ import { debounce } from "lodash";
 import { selectAuth } from "@redux/auth/authSlice";
 
 type ModalAddressProps = {
-
+    abc: any
 } & ModalProps
-
 
 const ModalAddress: FC<ModalAddressProps> = ({ ...props }) => {
 
